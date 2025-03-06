@@ -1,0 +1,152 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    padding: 20px;
+    background-color: #000;
+    border-right: 1px solid #333;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.nav li {
+    margin-bottom: 20px;
+}
+
+.nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.nav a:hover {
+    color: #0095f6;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.post {
+    background-color: #111;
+    border: 1px solid #333;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.profile-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-image {
+    position: relative;
+    width: 100%;
+}
+
+.post-image img {
+    width: 100%;
+    height: auto;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+}
+
+.overlay-text h1 {
+    font-size: 48px;
+    margin: 0;
+}
+
+.overlay-text h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.post-actions {
+    padding: 10px;
+}
+
+.post-actions button {
+    background: none;
+    border: none;
+    color: #fff;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.post-actions button:hover {
+    color: #0095f6;
+}
+
+.comments {
+    padding: 10px;
+}
+
+.comment {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comment-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.stories {
+    width: 250px;
+    padding: 20px;
+    background-color: #000;
+    border-left: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.story {
+    background-color: #333;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
