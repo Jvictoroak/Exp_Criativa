@@ -2,7 +2,7 @@
 /*estilo header*/
 header{}
 .conteudo-top{position: sticky; width: 100vw; background: var(--preto); box-shadow: 0 0 var(--verde-1);}
-.conteudo-top .imagem-container{height: 40px; width: 200px; background: var(--verde-1); margin: 0 auto; }
+.conteudo-top .imagem-container{height: 40px; width: 200px; ; margin: 0 auto; }
 
 /*estilio main*/
 main{display: grid; grid-template-columns: 1fr 1000px 1fr; grid-template-rows: auto; background: var(--preto);}

@@ -11,6 +11,8 @@
     --verde-3: #61bf36;    
     --verde-4: #0df205;    
 }
+
+/*reset.css*/
 html, body {height: 100%;font-size: 16px;font-family: Arial, sans-serif;line-height: 1.5;background-color: #fff;color: #333; width: 100vw; overflow-x: hidden;}
 a {text-decoration: none;color: inherit;}
 ul, ol {list-style: none;}
