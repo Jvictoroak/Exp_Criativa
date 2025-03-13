@@ -1,0 +1,21 @@
+
+.conteudo{max-width: 90vw; margin: 0 auto;}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --preto: #0d0d0d;    
+    --preto-2: #131313;    
+    --verde-1: #a0d925;    
+    --verde-2: #6fa656;    
+    --verde-3: #61bf36;    
+    --verde-4: #0df205;    
+}
+html, body {height: 100%;font-size: 16px;font-family: Arial, sans-serif;line-height: 1.5;background-color: #fff;color: #333; width: 100vw; overflow-x: hidden;}
+a {text-decoration: none;color: inherit;}
+ul, ol {list-style: none;}
+button {border: none;background: none;cursor: pointer;font-family: inherit;}
+img {max-width: 100%;height: auto;display: block;}
+h1, h2, h3, h4, h5, h6 {font-weight: normal;}
+input, textarea, select, button {outline: none;border-radius: 0;}
+
