@@ -13,17 +13,19 @@
 </head>
 <body>
     <div class="conteudo-principal">
-        <h1 class="titulo">Login</h1>
-        <div class="info-login">
-            <p class="sub-titulo">Username</p>
-            <div class="input-group flex-nowrap">
-                <input id="usuario" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+        <form>
+            <h1 class="titulo">Login</h1>
+            <div class="info-login">
+                <p class="sub-titulo">Username</p>
+                <div class="input-group flex-nowrap">
+                    <input id="usuario" pattern="[A-Za-záàâãéèêíóôõúç\s]{8,50}" title="Usuário com 8 a 50 letras" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                </div>
+                <p class="sub-titulo">Password</p>
+                <div class="input-group flex-nowrap">
+                    <input id="senha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&*]).{6,10}" title="Deve conter pelo menos um número e uma letra maiúscula e minúscula e pelo menos 6 ou mais caracteres." type="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping">
+                </div>
             </div>
-            <p class="sub-titulo">Password</p>
-            <div class="input-group flex-nowrap">
-                <input id="senha" type="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping">
-            </div>
-        </div>
+        </form>
         <div class="conta">
             <button id="button-login">Login</button>
             <a href="register.html">Não possui conta?</a>
