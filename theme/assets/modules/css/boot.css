@@ -2,12 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 .conteudo{max-width: 90%; margin: 0 auto;}
-.conteudo-cen{border-left: 2px solid #93c37c4b;}
-.conteudo-cen{border-right: 2px solid #93c37c4b;}
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.conteudo-cen{border-left: 2px solid var(--branco);}
+.conteudo-cen{border-right: 2px solid var(--branco);}
+:root {
     --preto: #0d0d0d;    
     --preto-2: #131313; 
     --branco: #fff;   
@@ -15,9 +12,12 @@
     --verde-2: #6fa656;    
     --verde-3: #61bf36;    
     --verde-4: #0df205;    
+
+    --bold: 
 }
 
 /*reset.css*/
+*{margin: 0;padding: 0;box-sizing: border-box;}
 html, body {height: 100%;font-size: 16px;font-family: Arial, sans-serif;line-height: 1.5;background-color: #fff;color: #333; width: 100vw; overflow-x: hidden;}
 a {text-decoration: none;color: inherit;}
 ul, ol {list-style: none;}
@@ -25,4 +25,8 @@ button {border: none;background: none;cursor: pointer;font-family: inherit;}
 img {max-width: 100%;height: auto;display: block;}
 h1, h2, h3, h4, h5, h6 {font-weight: normal;}
 input, textarea, select, button {outline: none;border-radius: 0;}
-.texto{font-family: 'montserrat', sans-serif;}
+
+.texto{font-family: 'montserrat', sans-serif; color: var(--branco);}
+.texto.t1{font: medium 16px / 1em 'montserrat', sans-serif}
+.sub-titulo.t1{font: medium 20px / 1em 'montserrat', sans-serif}
+.titulo.t1{font: medium 28px / 1em 'montserrat', sans-serif}
