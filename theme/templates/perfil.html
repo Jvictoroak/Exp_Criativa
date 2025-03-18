@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Clone</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <!-- Arquivo CSS externo -->
+    <link rel="stylesheet" href="../assets/pages/css/perfil.css">
+</head>
+<body>
+    <!-- Barra lateral de navegação -->
+    <div class="sidebar">
+        <div class="logo">Postly</div>
+        <a href="#" class="menu-item">
+            <i class="bi bi-house"></i>
+            <span>Navegação 1</span>
+        </a>
+        <a href="#" class="menu-item">
+            <i class="bi bi-search"></i>
+            <span>Navegação 2</span>
+        </a>
+        <a href="#" class="menu-item">
+            <i class="bi bi-compass"></i>
+            <span>Navegação 3</span>
+        </a>
+        <a href="#" class="menu-item">
+            <i class="bi bi-film"></i>
+            <span>Navegação 4</span>
+        </a>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="content">
+        <!-- Cabeçalho do perfil -->
+        <div class="profile-header">
+            <div class="profile-header">
+                <div class="profile-pic">
+                    <img id="profileImage" src="../assets/img/user.png" alt="Foto de perfil">
+                </div>
+                <input type="file" id="profileInput" accept="image/*">
+            </div>            
+            <div class="profile-info">
+                <div class="d-flex align-items-center mb-3">
+                    <h2 id="username" class="me-3 mb-0" contenteditable="true">_ale_tucci_</h2>
+                    <div class="profile-actions">
+                        <button id="saveChanges" class="btn btn-outline-light">Salvar</button>
+                        <button class="btn btn-outline-light">Excluir usuário</button>
+                        <button class="btn btn-outline-light rounded-circle"><i class="bi bi-gear"></i></button>
+                    </div>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat"><strong>E-mail: </strong><span id="email" contenteditable="true">alexandreatucci@gmail.com</span></div>
+                    <div class="stat"><strong>Senha: </strong><span id="password" contenteditable="true">123Ale</span></div>
+                    <div class="stat"><strong>Data de Nascimento: </strong><span id="birthdate" contenteditable="true">06/05/2006</span></div>
+                </div>
+            </div>                        
+        </div>
+
+        <!-- Grade de posts -->
+        <div class="posts-grid">
+            <div class="post add-post">
+                <input type="file" id="fileInput" accept="image/*" hidden>
+                <label for="fileInput" class="add-photo">
+                    <i class="bi bi-plus-lg"></i>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script src="perfil.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
