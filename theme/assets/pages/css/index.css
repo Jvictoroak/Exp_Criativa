@@ -1,6 +1,5 @@
 
 main{background: var(--preto); height: 100vh;}
-
 .conteudo-cen{width: 100vw;}
 .conteudo-cen > .conteudo{width: 1000px; margin: 0 auto;}
 .conteudo-cen .posts{} 
