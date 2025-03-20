@@ -1,27 +1,17 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/modules/css/boot.css">
     <link rel="stylesheet" href="../assets/pages/css/index.css">
-    <title>Postly</title>
-</head>
+    <link rel="stylesheet" href="../assets/modules/css/boot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
-<body> 
-     <!-- <header>
-        <section class="conteudo-top">
-            <div class="conteudo">
-                <div class="imagem-container logo"><img src="../assets/img/logo.png" alt="" class="imagem"></div>
-            </div>
-        </section>
-    </header>  -->
-    <main>
-        <section class="menu conteudo-esq">
-            <div class="conteudo">
-                
-            </div>
-        </section>
+    <title>Document</title>
+</head>
+<body>
+<main> 
+        <section id="navbar"></section>
         <section class="scroll conteudo-cen">
             <div class="conteudo">
                 <ul class="posts">
@@ -39,37 +29,39 @@
                             <img src="" alt="" class="imagem">
                         </div>
                         <div class="interacao">
-                            <div class="imagem-container"><img src="" alt="" class="imagem"></div>
-                            <div class="imagem-container"><img src="" alt="" class="imagem"></div>
-                            <div class="imagem-container"><img src="" alt="" class="imagem"></div>
-                        </div>
-                    </li>
-                    <li class="post">
-                        <div class="perfil">
-                            <div class="imagem-container">
-                                <img src="" alt="" class="imagem">
-                            </div>
-                            <div class="texto "><p>User_Name</p></div>
-                        </div>
-                        <div class="imagem-container">
-                            <img src="" alt="" class="imagem">
-                        </div>
-                        <div class="interacao"> 
-                            <div class="imagem-container"><img src="" alt="" class="imagem"></div>
-                            <div class="imagem-container"><img src="" alt="" class="imagem"></div>
-                            <div class="imagem-container"><img src="" alt="" class="imagem"></div>
+                            <div class="imagem-container"><i class="bi bi-heart imagem"></i></div> <!-- Ícone de curtida -->
+                            <div class="imagem-container"><i class="bi bi-chat imagem"></i></div> <!-- Ícone de comentário -->
+                            <div class="imagem-container"><i class="bi bi-plus-circle imagem"></i></div> <!-- Ícone de adição (+) -->
                         </div>
                     </li>
                 </ul>
             </div>
         </section>
-            <section class="tags conteudo-dir">
+            <section class="conteudo-dir">
                 <div class="conteudo">
-        
+                    <div class="tags-foto">
+                        <div class="texto"><p>Tags da Foto</p></div>
+                        <div class="tags">
+                            <div class="texto"><p>Lorem Ipsus</p></div>
+                            <div class="texto"><p>Lorem Ipsus</p></div>
+                            <div class="texto"><p>Lorem Ipsus</p></div>
+                        </div>
+                    </div>
+                    <div class="tags-foto">
+                        <div class="texto"><p>Todas as Tags</p></div>
+                        <div class="tags">
+                            <div class="texto"><p>Lorem Ipsus</p></div>
+                            <div class="texto"><p>Lorem Ipsus</p></div>
+                            <div class="texto"><p>Lorem Ipsus</p></div>
+                            <div class="texto"><p>Lorem Ipsus</p></div>
+                            <div class="texto"><p>Lorem Ipsus</p></div>
+                            <div class="texto"><p>Lorem Ipsus</p></div>
+                        </div>
+                    </div>
                 </div>
-            </section>
+            </section> 
         </div>
     </main>
-    
+    <script src="../component/navbar/component.js"></script>
 </body>
 </html>

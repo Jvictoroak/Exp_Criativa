@@ -2,11 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 .conteudo{max-width: 90%; margin: 0 auto;}
-.conteudo-cen{border-left: 2px solid var(--branco);}
-.conteudo-cen{border-right: 2px solid var(--branco);}
+.conteudo-cen{}
 :root {
-    --preto: #0d0d0d;    
-    --preto-2: #131313; 
+    --preto: #000;    
     --branco: #fff;   
     --verde-1: #a0d925;    
     --verde-2: #6fa656;    
@@ -26,7 +24,7 @@ img {max-width: 100%;height: auto;display: block;}
 h1, h2, h3, h4, h5, h6 {font-weight: normal;}
 input, textarea, select, button {outline: none;border-radius: 0;}
 
-.texto{font-family: 'montserrat', sans-serif; color: var(--branco);}
-.texto.t1{font: medium 16px / 1em 'montserrat', sans-serif}
-.sub-titulo.t1{font: medium 20px / 1em 'montserrat', sans-serif}
-.titulo.t1{font: medium 28px / 1em 'montserrat', sans-serif}
+.texto{color: var(--branco);}
+.texto.t1{font: medium 16px / 1em 'Billabong', cursive, sans-serif}
+.sub-titulo.t1{font: medium 20px / 1em 'Billabong', cursive, sans-serif}
+.titulo.t1{font: medium 28px / 1em 'Billabong', cursive, sans-serif}
