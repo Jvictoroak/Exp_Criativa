@@ -1,0 +1,10 @@
+
+.conteudo-dir{ position: fixed; top: 0; right: 0;background: var(--preto); height: 100vh; width: calc((100vw - 1000px) / 2);min-width: 220px; border-left: solid 2px var(--branco);} 
+.conteudo-dir .conteudo{}
+.conteudo-dir .conteudo .tags-foto{margin: 25px 0 0;}
+.conteudo-dir .conteudo .tags-foto .texto{text-align: center;}
+.conteudo-dir .conteudo .tags-foto .tags{}
+.conteudo-dir .conteudo .tags-foto .tags .texto{border-radius: 8px;    font-weight: bold;padding: 6px 16px;font-size: 14px; border: 2px solid var(--branco); width: 100%; margin: 10px  auto 0; text-align: left;}
+
+
+
