@@ -8,3 +8,20 @@ main{background: var(--preto); height: 100vh;}
 .publicacoes .posts .post .interacao {display: flex; gap: 5px; margin: 5px 0 0;}
 .publicacoes .posts .post .interacao .imagem-container .imagem{color: var(--branco);}
 
+
+
+.info-perfil {max-width: 600px; margin: 0 auto; padding: 20px;}
+.profile-header {display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;}
+.username {font-size: 18px; font-weight: bold;}
+.action-buttons {display: flex; gap: 10px;}
+.btn {background-color: #262626; color: #fff; border: none; border-radius: 8px; padding: 8px 12px; font-size: 14px; cursor: pointer;}
+.settings-btn {background-color: transparent; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;}
+.profile-content {display: flex; flex-direction: column; align-items: center;}
+.profile-picture {width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 2px solid #262626;}
+.stats {display: flex; justify-content: space-around; width: 100%; margin: 20px 0;}
+.stat-item {display: flex; flex-direction: column; align-items: center;}
+.stat-value {font-weight: bold; font-size: 16px;}
+.stat-label {font-size: 14px; color: #aaa;}
+.profile-info {width: 100%; text-align: left; margin-top: 10px;}
+.display-name {font-weight: bold; font-size: 16px;}
+.location {font-size: 14px; color: #aaa; margin-top: 5px;}
