@@ -1,13 +1,10 @@
-.conteudo-esq{position: fixed; top: 0; left: 0;background: var(--preto);  height: 100vh; width: calc((100vw - 1000px) / 2); min-width: 220px; border-right: 2px solid var(--branco); background: var(--preto);}
+.conteudo-esq{position: fixed; top: 0; left: 0;background: var(--preto);  height: 100vh; width: 220px; min-width: 220px; border-right: 2px solid var(--branco); background: var(--preto);}
 .conteudo-esq .conteudo .texto{color: var(--branco);}
-/* Barra lateral fixa à esquerda */
+.conteudo-esq .logo {display: flex; align-items: center; gap: 10px;}
+.conteudo-esq .logo .imagem-container{width: 25px;}
+.conteudo-esq .logo .texto{color: var(--verde-1);}
 .sidebar {padding: 20px 0;}   
-/* Logo estilizada */
 .logo {font-family: 'Billabong', cursive;font-size: 28px;padding: 10px 0 20px 20px;color: var(--branco);}
-
-/* Estilização dos itens do menu lateral */
 .menu-item {display: flex;align-items: center;padding: 12px 20px;color: #fff;text-decoration: none;}
-/* Efeito hover nos itens do menu */
 .menu-item:hover {background-color: #1a1a1a;color: #fff;}
-/* Ícones dentro do menu */
 .menu-item i {margin-right: 15px;font-size: 20px;}

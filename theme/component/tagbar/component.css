@@ -1,5 +1,5 @@
 
-.conteudo-dir{ position: fixed; top: 0; right: 0;background: var(--preto); height: 100vh; width: calc((100vw - 1000px) / 2);min-width: 220px; border-left: solid 2px var(--branco);} 
+.conteudo-dir{ position: fixed; top: 0; right: 0;background: var(--preto); height: 100vh; width: 220px;min-width: 220px; border-left: solid 2px var(--branco);} 
 .conteudo-dir .conteudo{}
 .conteudo-dir .conteudo .tags-foto{margin: 25px 0 0;}
 .conteudo-dir .conteudo .tags-foto .texto{text-align: center;}

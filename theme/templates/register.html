@@ -7,39 +7,44 @@
     <!-- CSS -->
     <link rel="stylesheet" href="/theme/assets/modules/css/boot.css">
     <link rel="stylesheet" href="/theme/assets/pages/css/login-register.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui/material-ui.css" rel="stylesheet">   <!-- Material-UI Theme-->
 </head>
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
     <div class="conteudo-principal">
         <img src="/theme/assets/img/logo.png" class="logo" alt="Logo POSTLY">
         <form>
             <div class="info">
                 <p class="sub-titulo">Username</p>
                 <div class="input-group flex-nowrap">
-                    <input id="usuario" pattern="[A-Za-záàâãéèêíóôõúç\s]{8,50}" title="Usuário com 8 a 50 letras" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                    <input id="usuario" pattern="[A-Za-záàâãéèêíóôõúç\s]{8,50}" title="Usuário com 8 a 50 letras" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" required>
                 </div>
                 <p class="sub-titulo">Password</p>
                 <div class="input-group flex-nowrap">
-                    <input id="senha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&*]).{6,10}" title="Deve conter pelo menos um número e uma letra maiúscula e minúscula e pelo menos 6 ou mais caracteres." type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping">
+                    <input id="senha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&*]).{6,10}" title="Deve conter pelo menos um número e uma letra maiúscula e minúscula e pelo menos 6 ou mais caracteres." type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping" required>
                 </div>
                 <p class="sub-titulo">E-mail</p>
                 <div class="input-group flex-nowrap">
-                    <input id="email" type="email" class="form-control" placeholder="e-mail@dominio.com" aria-label="E-mail" aria-describedby="addon-wrapping" title="Coloque seu E-mail">
+                    <input id="email" type="email" class="form-control" placeholder="e-mail@dominio.com" aria-label="E-mail" aria-describedby="addon-wrapping" title="Coloque seu E-mail" required>
                 </div>
                 <p class="sub-titulo">Data de nascimento</p>
                 <div class="input-group flex-nowrap">
-                    <input id="email" type="date" class="form-control" placeholder="e-mail@dominio.com" aria-label="Nascimento" aria-describedby="addon-wrapping" title="Coloque sua data de nascimento">
+                    <input id="nascimento" type="date" class="form-control" placeholder="e-mail@dominio.com" aria-label="Nascimento" aria-describedby="addon-wrapping" title="Coloque sua data de nascimento" required>
                 </div>
                 <p class="sub-titulo">Foto de usuário</p>
                 <div class="input-group flex-nowrap">
-                    <input id="email" type="file" class="form-control" placeholder="e-mail@dominio.com" aria-label="E-mail" aria-describedby="addon-wrapping" title="Insira uma foto">
+                    <input id="foto" type="file" class="form-control" placeholder="e-mail@dominio.com" aria-label="E-mail" aria-describedby="addon-wrapping" title="Insira uma foto">
                 </div> 
             </div>
             
         </form>
         <div class="conta">
-            <button id="button-login">Register</button>
+            <button id="button-login" onclick="verificarCadastro()">Cadastrar-se</button>
             <a href="login.html">Já possui conta?</a>
         </div>
     </div>
+    <script src="/theme/assets/pages/js/usuario-register.js"></script>
 </body>
 </html>
