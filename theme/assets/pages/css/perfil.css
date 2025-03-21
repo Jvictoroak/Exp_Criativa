@@ -1,27 +1,30 @@
-main{background: var(--preto); height: 100vh;}
+/* Estilos existentes mantidos */
+main { background: var(--preto); height: 100vh; }
+.conteudo-cen { width: 100vw; }
+.conteudo-cen > .conteudo-1000 { width: 1000px; margin: 0 auto; }
+.publicacoes .posts { display: flex; justify-content: space-between; width: 80%; flex-wrap: wrap; align-items: center; margin: 0 auto; gap: 10px 0; }
+.publicacoes .posts .post { width: 32%; }
+.publicacoes .posts .post > .imagem-container { width: 100%; aspect-ratio: 1/1; border: 1px solid var(--branco); }
+.publicacoes .posts .post .interacao { display: flex; gap: 5px; margin: 5px 0 0; }
+.publicacoes .posts .post .interacao .imagem-container .imagem { color: var(--branco); }
 
-.conteudo-cen{width: 100vw;}
-.conteudo-cen > .conteudo{width: 1000px; margin: 0 auto;}
-.publicacoes .posts{display: flex; justify-content: space-between; width: 80%; flex-wrap: wrap; align-items: center; margin: 0 auto; gap: 10px 0;}
-.publicacoes .posts .post {width: 32%;}
-.publicacoes .posts .post > .imagem-container{width: 100%; aspect-ratio: 1/1; border: 1px solid var(--branco);}
-.publicacoes .posts .post .interacao {display: flex; gap: 5px; margin: 5px 0 0;}
-.publicacoes .posts .post .interacao .imagem-container .imagem{color: var(--branco);}
 
 
+/* Estilos ajustados para corresponder à segunda imagem */
+/* * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+body { background-color: var(--preto); color: var(--branco); } */
 
-.info-perfil {max-width: 600px; margin: 0 auto; padding: 20px;}
-.profile-header {display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;}
-.username {font-size: 18px; font-weight: bold;}
-.action-buttons {display: flex; gap: 10px;}
-.btn {background-color: #262626; color: #fff; border: none; border-radius: 8px; padding: 8px 12px; font-size: 14px; cursor: pointer;}
-.settings-btn {background-color: transparent; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;}
-.profile-content {display: flex; flex-direction: column; align-items: center;}
-.profile-picture {width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 2px solid #262626;}
-.stats {display: flex; justify-content: space-around; width: 100%; margin: 20px 0;}
-.stat-item {display: flex; flex-direction: column; align-items: center;}
-.stat-value {font-weight: bold; font-size: 16px;}
-.stat-label {font-size: 14px; color: #aaa;}
-.profile-info {width: 100%; text-align: left; margin-top: 10px;}
-.display-name {font-weight: bold; font-size: 16px;}
-.location {font-size: 14px; color: #aaa; margin-top: 5px;}
+.info-perfil { max-width: 600px; margin: 0 auto; padding: 20px; }
+.perfil-cabecalho { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.nome-usuario { font-size: 18px; font-weight: bold; }
+.botoes-acao { display: flex; gap: 10px; }
+.btn { background-color: #262626; color: var(--branco); border: none; border-radius: 8px; padding: 8px 12px; font-size: 14px; cursor: pointer; }
+.btn-configuracoes { background-color: transparent; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; }
+.perfil-conteudo { display: flex; flex-direction: column; }
+.perfil-detalhes { display: flex; align-items: center; gap: 20px; } /* Nova classe para alinhar foto e estatísticas */
+.foto-perfil { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid #756f6f; }
+.informacoes { display: flex; gap: 20px; } /* Ajustado para alinhar horizontalmente */
+.item-informacao { display: flex; flex-direction: column; align-items: center; }
+.valor-informacao { font-weight: bold; font-size: 16px; }
+.rotulo-informacao { font-size: 14px; color: var(--branco); }
+
