@@ -2,21 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 .conteudo{max-width: 90%; margin: 0 auto;}
-.conteudo-1000{max-width: 90vw; margin: 0 auto; width: 1000px;}
+.conteudo-1000{max-width: 90%; margin: 0 auto; width: 1000px;}
 :root {
     --preto: #000;    
     --branco: #fff;   
+    --azul: #0b0b17;   
+    --azul-2: #20213d;   
     --verde-1: #a0d925;    
-    --verde-2: #6fa656;    
-    --verde-3: #61bf36;    
-    --verde-4: #0df205;    
+    --verde-2: #22d56a;    
+    --verde-3: #ACD3A8;    
 
-    --bold: 
 }
 
 /*reset.css*/
 *{margin: 0;padding: 0;box-sizing: border-box;}
-html, body {height: 100%;font-size: 16px;font-family: Arial, sans-serif;line-height: 1.5;background-color: #fff;color: #333; width: 100vw; overflow-x: hidden;}
+html, body {height: 100%;font-size: 16px;font-family: Arial, sans-serif;line-height: 1.5;background-color: #fff;color: #333; width: 100%;}
 a {text-decoration: none;color: inherit;}
 ul, ol {list-style: none;}
 button {border: none;background: none;cursor: pointer;font-family: inherit;}
@@ -24,7 +24,9 @@ img {max-width: 100%;height: auto;display: block;}
 h1, h2, h3, h4, h5, h6 {font-weight: normal;}
 input, textarea, select, button {outline: none;border-radius: 0;}
 
-.texto{color: var(--branco);}
+
+
+/* .texto{color: var(--branco);} */
 .texto.t1{font: medium 16px / 1em 'Billabong', cursive, sans-serif}
 .sub-titulo.t1{font: medium 20px / 1em 'Billabong', cursive, sans-serif}
 .titulo.t1{font: medium 28px / 1em 'Billabong', cursive, sans-serif}
