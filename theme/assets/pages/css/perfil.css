@@ -1,10 +1,10 @@
 /* Estilos existentes mantidos */
 main { background: var(--preto); height: 100vh; }
-.conteudo-cen { width: 100vw; }
-.conteudo-cen > .conteudo-1000 { width: 1000px; margin: 0 auto; }
+/* .conteudo-cen { width: 100vw; }
+.conteudo-cen > .conteudo-1000 { width: 1000px; margin: 0 auto; } */
 
-.publicacoes .posts { display: flex; justify-content: space-between; width: 80%; flex-wrap: wrap; align-items: center; margin: 0 auto; gap: 10px 0; }
-.publicacoes .posts .post { width: 32%; }
+.publicacoes .posts { display: flex; justify-content: space-between; width: 90%; flex-wrap: wrap; align-items: center; margin: 0 auto; gap: 10px 0; }
+.publicacoes .posts .post { width: 24%; }
 .publicacoes .posts .post > .imagem-container { width: 100%; aspect-ratio: 1/1; border: 1px solid var(--branco); }
 .publicacoes .posts .post .interacao { display: flex; gap: 5px; margin: 5px 0 0; }
 .publicacoes .posts .post .interacao .imagem-container .imagem { color: var(--branco); }
