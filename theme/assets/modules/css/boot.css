@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 .conteudo{max-width: 90%; margin: 0 auto;}
-.conteudo-1000{max-width: 90%; margin: 0 auto; width: 1000px;}
+.conteudo-1000{width: calc(100% - 220px);padding: 30px 0;margin: 0 0 0 auto;}
 :root {
     --preto: #000;    
     --branco: #fff;   
@@ -30,3 +30,15 @@ input, textarea, select, button {outline: none;border-radius: 0;}
 .texto.t1{font: medium 16px / 1em 'Billabong', cursive, sans-serif}
 .sub-titulo.t1{font: medium 20px / 1em 'Billabong', cursive, sans-serif}
 .titulo.t1{font: medium 28px / 1em 'Billabong', cursive, sans-serif}
+
+@media(max-width: 1100px){
+    .conteudo-1000{width: calc(100% - 220px);padding: 30px 0;margin: 0 0 0 auto;}
+}
+
+@media(max-width: 1100px){
+    .conteudo-1000{width: calc(100% - 60px);}
+}
+
+@media(max-width: 750px){
+    .conteudo-1000{width: 100%}
+}
