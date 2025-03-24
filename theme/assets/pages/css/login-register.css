@@ -1,5 +1,4 @@
 /* Fundo da página preto */
-
 .swal2-height-auto {
     background-color: black;
 }
@@ -15,17 +14,22 @@
 
 /* Conteúdo principal centralizado com fundo preto e borda verde */
 .conteudo-principal {
-    background-color: var(--preto);
+    background-color: var(--azul);
     justify-content: center;
     flex-direction: column;
     padding: 2%;
     align-items: center;
-    margin: auto;
+    margin-top: 10%;
+    margin-left: 35%;
     max-width: 500px;
     border: var(--verde-2);
     border: solid var(--verde-1) 1px;
     font-family: Arial, Helvetica, sans-serif;
     color: whitesmoke;
+}
+
+.conteudo-principal-register {
+    margin-top: 2%;
 }
 
 /* Inputs com bordas arredondadas e espaçamento */
@@ -60,4 +64,22 @@ input {
     display: flex;
     margin: auto;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (max-width: 768px) {
+    .conteudo-principal {
+        max-width: 90%;
+        padding: 5%;
+        margin-left: 5%;
+        margin-top: 20%;
+    }
+
+    .conteudo-principal-register {
+        margin-top: 5%;
+    }
+
+    #button-login {
+        padding: 10% 20%;
+        font-size: large;
+    }
 }
