@@ -41,7 +41,7 @@ main { background: var(--preto); height: 100vh; }
     font-size: 14px; 
 }
 
-@media (max-width: 768px) { 
+@media (max-width: 750px) { 
     .publicacoes .posts .post { flex: 1 1 calc(50% - 10px); } 
     .foto-perfil { width: 80px; height: 80px; } 
     .perfil-detalhes { 

@@ -1,5 +1,5 @@
 main{background: var(--azul); height: fit-content; min-height: 100vh}
-.conteudo-cen{width: calc(100% - 220px); padding: 30px 0; margin: 0 0 0 auto;}
+/* .conteudo-cen{width: calc(100% - 220px); padding: 30px 0; margin: 0 0 0 auto;} */
 .conteudo-cen .posts .texto{color: var(--branco);} 
 .conteudo-cen .post{width: 550px; margin: 0 auto 40px; max-width: 80%;}
 .conteudo-cen .post .perfil{display: flex; align-items: center; gap: 10px; padding: 10px;}
