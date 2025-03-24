@@ -1,7 +1,10 @@
 /* Fundo da página preto */
-body, .swal2-height-auto {
-    height: 100%;
-    background-color: black;
+body.swal2-height-auto {
+    height: 100% !important;
+    background-color: 'black';
+}
+body {
+    background-color: 'black';
 }
 
 /* Logo com tamanho máximo e centralizada */
