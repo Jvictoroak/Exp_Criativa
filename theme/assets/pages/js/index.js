@@ -1,10 +1,11 @@
 const vermais = document.getElementById('vermais');
-const popup_publicacao = document.getElementById('popup-publicacao'); // Substitua pelo ID do elemento desejado
+const popup_publicacao = document.getElementById('popup-publicacao');
+const popup_fechar = document.getElementById('fechar-popup');
 
 vermais.addEventListener('click', () => {
-    popup_publicacao.classList.toggle('block'); // Substitua 'nova-classe' pelo nome da classe desejada
+    popup_publicacao.classList.toggle('block');
 });
 
-popup_publicacao.addEventListener('click', () => {
-    popup_publicacao.classList.toggle('block'); // Substitua 'nova-classe' pelo nome da classe desejada
+popup_fechar.addEventListener('click', () => {
+    popup_publicacao.classList.toggle('block'); 
 })
