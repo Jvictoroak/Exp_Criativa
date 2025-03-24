@@ -5,9 +5,10 @@ main { background: var(--preto); height: 100vh; }
 
 .publicacoes .posts { display: flex; justify-content: space-between; width: 90%; flex-wrap: wrap; align-items: center; margin: 0 auto; gap: 10px 0; }
 .publicacoes .posts .post { width: 24%; }
-.publicacoes .posts .post > .imagem-container { width: 100%; aspect-ratio: 1/1; border: 1px solid var(--branco); }
 .publicacoes .posts .post .interacao { display: flex; gap: 5px; margin: 5px 0 0; }
-.publicacoes .posts .post .interacao .imagem-container .imagem { color: var(--branco); }
+.publicacoes .posts .post > .imagem-container {width: 100%; aspect-ratio: 1/1; border: 1px solid var(--branco); display: flex; justify-content: center; align-items: center; }
+.publicacoes .posts .post .interacao .imagem-container .imagem {max-width: 100%; max-height: 100%; }
+
 
 
 
