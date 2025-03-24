@@ -1,6 +1,6 @@
 /* Fundo da página preto */
 
-body, .swal2-height-auto {
+.swal2-height-auto {
     background-color: black;
 }
 
