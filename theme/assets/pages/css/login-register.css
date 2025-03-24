@@ -14,7 +14,7 @@
 
 /* Conteúdo principal centralizado com fundo preto e borda verde */
 .conteudo-principal {
-    background-color: var(--azul);
+    background-color: var(--azul-2);
     justify-content: center;
     flex-direction: column;
     padding: 2%;
