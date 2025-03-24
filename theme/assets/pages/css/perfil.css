@@ -2,6 +2,7 @@
 main { background: var(--preto); height: 100vh; }
 .conteudo-cen { width: 100vw; }
 .conteudo-cen > .conteudo-1000 { width: 1000px; margin: 0 auto; }
+
 .publicacoes .posts { display: flex; justify-content: space-between; width: 80%; flex-wrap: wrap; align-items: center; margin: 0 auto; gap: 10px 0; }
 .publicacoes .posts .post { width: 32%; }
 .publicacoes .posts .post > .imagem-container { width: 100%; aspect-ratio: 1/1; border: 1px solid var(--branco); }
@@ -10,21 +11,54 @@ main { background: var(--preto); height: 100vh; }
 
 
 
-/* Estilos ajustados para corresponder à segunda imagem */
-/* * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-body { background-color: var(--preto); color: var(--branco); } */
-
 .info-perfil { max-width: 600px; margin: 0 auto; padding: 20px; }
-.perfil-cabecalho { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-.nome-usuario { font-size: 18px; font-weight: bold; }
-.botoes-acao { display: flex; gap: 10px; }
-.btn { background-color: #262626; color: var(--branco); border: none; border-radius: 8px; padding: 8px 12px; font-size: 14px; cursor: pointer; }
-.btn-configuracoes { background-color: transparent; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; }
+.perfil-cabecalho { display: flex; flex-wrap: wrap; align-items: start; justify-content: start; text-align: start; gap: 10px; margin-bottom: 20px; }
+.nome-usuario { color: var(--branco); font-size: 18px; font-weight: bold; }
+.botoes-acao { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.btn { background-color: #262626; color: var(--branco); border: none; border-radius: 8px; padding: 8px 12px; font-size: 14px; cursor: pointer; transition: background-color 0.3s; }
+.btn:hover { background-color: #444; }
 .perfil-conteudo { display: flex; flex-direction: column; }
-.perfil-detalhes { display: flex; align-items: center; gap: 20px; } /* Nova classe para alinhar foto e estatísticas */
-.foto-perfil { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid #756f6f; }
-.informacoes { display: flex; gap: 20px; } /* Ajustado para alinhar horizontalmente */
-.item-informacao { display: flex; flex-direction: column; align-items: center; }
-.valor-informacao { font-weight: bold; font-size: 16px; }
-.rotulo-informacao { font-size: 14px; color: var(--branco); }
+.foto-perfil { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid var(--branco); }
 
+/* Novos estilos para os detalhes do perfil */
+.perfil-detalhes { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    gap: 20px; 
+    color: var(--branco); 
+}
+.detalhe-item { 
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+}
+.detalhe-label { 
+    font-weight: bold; 
+    font-size: 14px; 
+}
+.detalhe-valor { 
+    font-size: 14px; 
+}
+
+@media (max-width: 768px) { 
+    .publicacoes .posts .post { flex: 1 1 calc(50% - 10px); } 
+    .foto-perfil { width: 80px; height: 80px; } 
+    .perfil-detalhes { 
+        flex-direction: column; /* Empilha os itens em telas menores */
+        align-items: flex-start; 
+        gap: 10px; 
+    }
+}
+@media (max-width: 480px) { 
+    .publicacoes .posts .post { flex: 1 1 100%; } 
+    .btn { font-size: 12px; padding: 6px 10px; } 
+    .perfil-detalhes { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 8px; 
+    }
+    .detalhe-label, .detalhe-valor { 
+        font-size: 12px; 
+    }
+}
