@@ -20,6 +20,14 @@ main { background: var(--preto); height: 100vh; }
 .btn:hover { background-color: #444; }
 .perfil-conteudo { display: flex; flex-direction: column; }
 .foto-perfil { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid var(--branco); }
+.detalhe-input {
+    padding: 5px;
+    border: 1px solid var(--branco);
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #262626;
+    color: var(--branco);
+}
 
 /* Novos estilos para os detalhes do perfil */
 .perfil-detalhes { 

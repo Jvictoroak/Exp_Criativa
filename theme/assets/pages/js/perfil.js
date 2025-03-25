@@ -8,39 +8,73 @@ document.addEventListener('DOMContentLoaded', () => {
     const senhaInput = document.getElementById('senha-input');
     const dataNascimentoValor = document.getElementById('data-nascimento-valor');
     const dataNascimentoInput = document.getElementById('data-nascimento-input');
+    
+    let senhaReal = senhaInput.value; // Armazena a senha real
 
-    // Função para alternar para o modo de edição
+    // Criar botão de alternância para exibir a senha
+    const toggleSenhaBtn = document.createElement('button');
+    toggleSenhaBtn.textContent = '👁';
+    toggleSenhaBtn.style.marginLeft = '5px';
+    toggleSenhaBtn.style.border = 'none';
+    toggleSenhaBtn.style.background = 'transparent';
+    toggleSenhaBtn.style.cursor = 'pointer';
+    senhaInput.parentNode.appendChild(toggleSenhaBtn);
+
+    toggleSenhaBtn.addEventListener('click', () => {
+        if (senhaInput.type === 'password') {
+            senhaInput.type = 'text';
+            toggleSenhaBtn.textContent = '🙈';
+        } else {
+            senhaInput.type = 'password';
+            toggleSenhaBtn.textContent = '👁';
+        }
+    });
+
+    // Função para validar e-mail
+    const validarEmail = (email) => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
     editarBtn.addEventListener('click', () => {
-        // Esconder os spans e mostrar os inputs
         emailValor.style.display = 'none';
-        emailInput.style.display = 'inline-block';
+        emailInput.style.display = 'block';
         senhaValor.style.display = 'none';
-        senhaInput.style.display = 'inline-block';
+        senhaInput.style.display = 'block';
         dataNascimentoValor.style.display = 'none';
-        dataNascimentoInput.style.display = 'inline-block';
+        dataNascimentoInput.style.display = 'block';
 
-        // Ativar o botão "Salvar informações" e desativar o "Editar informações"
+        senhaInput.value = senhaReal; // Restaurar a senha real
+
         salvarBtn.disabled = false;
         editarBtn.disabled = true;
     });
 
-    // Função para salvar as alterações
     salvarBtn.addEventListener('click', () => {
-        // Transferir os valores dos inputs para os spans
+        if (!emailInput.value || !senhaInput.value || !dataNascimentoInput.value) {
+            errorAlert("Preencha todos os campos antes de salvar!");
+            return;
+        }
+
+        if (!validarEmail(emailInput.value)) {
+            errorAlert("Digite um e-mail válido!");
+            return;
+        }
+
         emailValor.textContent = emailInput.value;
-        senhaValor.textContent = senhaInput.value;
+        senhaReal = senhaInput.value;
+        senhaValor.textContent = '****';
         dataNascimentoValor.textContent = dataNascimentoInput.value;
 
-        // Esconder os inputs e mostrar os spans
-        emailValor.style.display = 'inline-block';
+        emailValor.style.display = 'block';
         emailInput.style.display = 'none';
-        senhaValor.style.display = 'inline-block';
+        senhaValor.style.display = 'block';
         senhaInput.style.display = 'none';
-        dataNascimentoValor.style.display = 'inline-block';
+        dataNascimentoValor.style.display = 'block';
         dataNascimentoInput.style.display = 'none';
 
-        // Desativar o botão "Salvar informações" e reativar o "Editar informações"
         salvarBtn.disabled = true;
         editarBtn.disabled = false;
+
+        successAlert();
     });
 });
