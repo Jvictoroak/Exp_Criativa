@@ -12,4 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
             document.head.appendChild(link);
         })
         .catch(error => console.error("Erro ao carregar o navbar:", error));
-});
+    });
+
+
