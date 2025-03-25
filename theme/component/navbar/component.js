@@ -10,6 +10,14 @@ document.addEventListener("DOMContentLoaded", function () {
             link.rel = "stylesheet";
             link.href = "../../theme/component/navbar/component.css"; // Caminho do CSS
             document.head.appendChild(link);
+
+            const criar = document.getElementById('menu-criar');
+            criar.addEventListener('click', () => {
+                criar.classList.toggle('block');
+            });
+
         })
         .catch(error => console.error("Erro ao carregar o navbar:", error));
-});
+    });
+
+

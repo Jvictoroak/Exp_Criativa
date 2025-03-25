@@ -1,5 +1,4 @@
-main{background: var(--azul); height: fit-content; min-height: 100vh}
-/* .conteudo-cen{width: calc(100% - 220px); padding: 30px 0; margin: 0 0 0 auto;} */
+main{background: var(--azul); }
 .conteudo-cen .posts .texto{color: var(--branco);} 
 .conteudo-cen .post{width: 550px; margin: 0 auto 40px; max-width: 80%;}
 .conteudo-cen .post .perfil{display: flex; align-items: center; gap: 10px; padding: 10px;}
@@ -25,6 +24,9 @@ main{background: var(--azul); height: fit-content; min-height: 100vh}
 .popup-publicacao.block .conteudo .comentarios .card .top {display: flex; gap: 10px;}
 .popup-publicacao.block .conteudo .comentarios .card .top .imagem-container{height: 25px; width: 25px; border-radius: 100%; background: var(--branco);}
 .popup-publicacao.block .conteudo .comentarios .card .bot {margin: 5px 0 0;}
+
+.popup-publicacao.block .conteudo .tags {display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0;}
+.popup-publicacao.block .conteudo .tags .tag{border-radius: 8px; border: 1px solid var(--branco); padding: 5px 10px;}
 
 @media(max-width: 1100px){
     .conteudo-cen{width: calc(100% - 60px);}

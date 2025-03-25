@@ -1,10 +1,17 @@
 
-.conteudo-dir{ position: fixed; top: 0; right: 0;background: var(--preto); height: 100vh; width: 220px;min-width: 220px; border-left: solid 2px var(--branco);} 
-.conteudo-dir .conteudo{}
-.conteudo-dir .conteudo .tags-foto{margin: 25px 0 0;}
-.conteudo-dir .conteudo .tags-foto .texto{text-align: center;}
-.conteudo-dir .conteudo .tags-foto .tags{}
-.conteudo-dir .conteudo .tags-foto .tags .texto{border-radius: 8px;    font-weight: bold;padding: 6px 16px;font-size: 14px; border: 2px solid var(--branco); width: 100%; margin: 10px  auto 0; text-align: left;}
+.tagbar{display: none; position: fixed; left: 220px;  top:0; background: var(--azul-2); height: 100%; min-width: 400px;min-width: 300px; border-right: solid 2px var(--branco); transition: .4s; } 
+.tagbar .conteudo{}
+.tagbar .conteudo .tags-foto{margin: 25px 0 0;}
+.tagbar .conteudo .tags-foto .texto{text-align: center;}
+.tagbar .conteudo .tags-foto .tags{}
+.tagbar .conteudo .tags-foto .tags .texto{border-radius: 8px;font-weight: bold; padding: 6px 16px; font-size: 14px; border: 2px solid var(--branco); width: 100%; margin: 10px  auto 0; text-align: left;}
+.tagbar .conteudo .tags-foto .tags .texto:hover, .tagbar .conteudo .tags-foto .tags .texto.ativo{background: var(--branco); color: var(--azul-2);}
 
 
+@media(max-width: 1100px){
+    .tagbar{left: 60px;}
+}
 
+@media(max-width: 768px) {
+    .tagbar{left: 0px;}
+}
