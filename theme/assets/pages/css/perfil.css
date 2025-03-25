@@ -10,8 +10,6 @@ main { background: var(--preto); height: 100vh; }
 .publicacoes .posts .post .interacao .imagem-container .imagem {max-width: 100%; max-height: 100%; }
 
 
-
-
 .info-perfil { max-width: 600px; margin: 0 auto; padding: 20px; }
 .perfil-cabecalho { display: flex; flex-wrap: wrap; align-items: start; justify-content: start; text-align: start; gap: 10px; margin-bottom: 20px; }
 .nome-usuario { color: var(--branco); font-size: 18px; font-weight: bold; }
@@ -20,35 +18,14 @@ main { background: var(--preto); height: 100vh; }
 .btn:hover { background-color: #444; }
 .perfil-conteudo { display: flex; flex-direction: column; }
 .foto-perfil { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid var(--branco); }
-.detalhe-input {
-    padding: 5px;
-    border: 1px solid var(--branco);
-    border-radius: 4px;
-    font-size: 14px;
-    background-color: #262626;
-    color: var(--branco);
-}
+.detalhe-input {padding: 5px;border: 1px solid var(--branco); border-radius: 4px; font-size: 14px; background-color: #262626; color: var(--branco);}
+
 
 /* Novos estilos para os detalhes do perfil */
-.perfil-detalhes { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    gap: 20px; 
-    color: var(--branco); 
-}
-.detalhe-item { 
-    display: flex; 
-    align-items: center; 
-    gap: 5px; 
-}
-.detalhe-label { 
-    font-weight: bold; 
-    font-size: 14px; 
-}
-.detalhe-valor { 
-    font-size: 14px; 
-}
+.perfil-detalhes { display: flex; justify-content: space-between; align-items: center; gap: 20px; color: var(--branco); }
+.detalhe-item { display: flex; align-items: center; gap: 5px; }
+.detalhe-label { font-weight: bold; font-size: 14px; }
+.detalhe-valor { font-size: 14px; }
 
 @media (max-width: 750px) { 
     .publicacoes .posts .post { flex: 1 1 calc(50% - 10px); } 
