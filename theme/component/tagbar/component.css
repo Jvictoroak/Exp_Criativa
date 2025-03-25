@@ -5,7 +5,7 @@
 .tagbar .conteudo .tags-foto .texto{text-align: center;}
 .tagbar .conteudo .tags-foto .tags{}
 .tagbar .conteudo .tags-foto .tags .texto{border-radius: 8px;font-weight: bold; padding: 6px 16px; font-size: 14px; border: 2px solid var(--branco); width: 100%; margin: 10px  auto 0; text-align: left;}
-.tagbar .conteudo .tags-foto .tags .texto:hover, .tagbar .conteudo .tags-foto .tags .texto.ativo{background: var(--branco); color: var(--azul);}
+.tagbar .conteudo .tags-foto .tags .texto:hover, .tagbar .conteudo .tags-foto .tags .texto.ativo{background: var(--branco); color: var(--azul-2);}
 
 
 
