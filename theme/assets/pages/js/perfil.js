@@ -1,3 +1,13 @@
+// Função para mostrar um alerta de sucesso
+const successAlert = () => {
+    Swal.fire('Mensagem', 'Mensagem de Sucesso!', 'success');
+}
+
+// Função para mostrar um alerta de erro com mensagem personalizada
+const errorAlert = (mensagem) => {
+    Swal.fire('Erro', mensagem, 'error');
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const editarBtn = document.getElementById("editar-btn");
     const salvarBtn = document.getElementById("salvar-btn");
