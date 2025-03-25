@@ -8,5 +8,10 @@
 .tagbar .conteudo .tags-foto .tags .texto:hover, .tagbar .conteudo .tags-foto .tags .texto.ativo{background: var(--branco); color: var(--azul-2);}
 
 
+@media(max-width: 1100px){
+    .tagbar{left: 60px;}
+}
 
- 
+@media(max-width: 768px) {
+    .tagbar{left: 0px;}
+}
