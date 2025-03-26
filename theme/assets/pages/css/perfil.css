@@ -4,7 +4,7 @@ main {  }
 .conteudo-cen > .conteudo-1000 { width: 1000px; margin: 0 auto; } */
 
 .publicacoes .posts { display: flex; justify-content: space-between; width: 90%; flex-wrap: wrap; align-items: center; margin: 0 auto; gap: 10px 0; }
-.publicacoes .posts .post { width: 24%; }
+.publicacoes .posts .post { width: 24%; min-width: 150px;}
 .publicacoes .posts .post .interacao { display: flex; gap: 5px; margin: 5px 0 0; }
 .publicacoes .posts .post > .imagem-container {width: 100%; aspect-ratio: 1/1; border: 1px solid var(--branco); display: flex; justify-content: center; align-items: center; overflow: hidden; }
 /* .publicacoes .posts .post .interacao .imagem-container .imagem {max-width: 100%; max-height: 100%; } */
@@ -12,7 +12,7 @@ main {  }
 
 
 .info-perfil { max-width: 600px; margin: 0 auto; padding: 20px; }
-.perfil-cabecalho { display: flex; flex-wrap: wrap; align-items: start; justify-content: start; text-align: start; gap: 10px; margin-bottom: 20px; }
+.perfil-cabecalho { display: flex; flex-wrap: wrap; align-items: center; justify-content: start; text-align: start; gap: 10px; margin-bottom: 20px; }
 .nome-usuario { color: var(--branco); font-size: 18px; font-weight: bold; }
 .botoes-acao { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
 .btn { background-color: #262626; color: var(--branco); border: none; border-radius: 8px; padding: 8px 12px; font-size: 14px; cursor: pointer; transition: background-color 0.3s; }
@@ -20,6 +20,25 @@ main {  }
 .perfil-conteudo { display: flex; flex-direction: column; }
 .foto-perfil { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid var(--branco); }
 .detalhe-input {padding: 5px;border: 1px solid var(--branco); border-radius: 4px; font-size: 14px; background-color: #262626; color: var(--branco);}
+
+.perfil-cabecalho .nome-usuario .detalhe-valor {
+    font-size: 18px; /* Mantém o tamanho original do nome */
+    font-weight: bold;
+}
+
+.perfil-cabecalho .nome-usuario .detalhe-input {
+    font-size: 18px; /* Garante que o input tenha o mesmo tamanho */
+    font-weight: bold;
+    padding: 5px;
+    border: 1px solid var(--branco);
+    border-radius: 4px;
+    background-color: #262626;
+    color: var(--branco);
+}
+
+/* Estilo para o botão Excluir */
+#excluir-btn {background-color: #630a12; color: var(--branco); border: none; border-radius: 8px; padding: 8px 12px; font-size: 14px; cursor: pointer; transition: background-color 0.3s; }
+#excluir-btn:hover {background-color: #9e1c29; }
 
 
 /* Novos estilos para os detalhes do perfil */
