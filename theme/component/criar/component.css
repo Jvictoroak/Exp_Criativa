@@ -1,5 +1,5 @@
 .criar{position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7);}
-.criar .conteudo{ position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--azul-2);width: 600px;height: 90vh;background: var(--azul-2); border: 1px solid var(--branco); border-radius: 8px; padding: 25px;}
+.criar .conteudo{ position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--azul-2);width: 600px;height: fit-content;background: var(--azul-2); border: 1px solid var(--branco); border-radius: 8px; padding: 25px;}
 .criar .conteudo .formulario{display: flex;  flex-direction: column; }
 
 .criar .formulario .criar-imagem {display: block;margin: 10px auto;padding: 10px;border: 2px dashed var(--branco);border-radius: 8px;color: var(--branco);text-align: center;cursor: pointer;}
@@ -17,4 +17,3 @@
 .tag input[type="checkbox"]:checked + p{color: var(--verde-1);}
 
 .criar .item.publicar{background: var(--verde-2);font-weight: 700;color: var(--azul); padding: 10px 0;}
-
