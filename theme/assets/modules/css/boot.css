@@ -38,6 +38,6 @@ input, textarea, select, button {outline: none;border-radius: 0;}
     .conteudo-1000{width: calc(100% - 60px);}
 }
 
-@media(max-width: 750px){
-    .conteudo-1000{width: 100%}
+@media(max-width: 768px){
+    .conteudo-1000{width: 100%;padding: 120px 0;}
 }

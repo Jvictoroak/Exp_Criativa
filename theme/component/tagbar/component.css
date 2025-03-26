@@ -13,5 +13,18 @@
 }
 
 @media(max-width: 768px) {
-    .tagbar{left: 0px;}
+    .tagbar{left: 0px; display: block; left: 0; top: 62px; height: auto; width: 100%;padding: 10px 0; overflow-x: scroll;}
+    .tagbar .conteudo .tags-foto{margin: 0;}
+    .tagbar .conteudo .tags-foto .tags .texto{width: 100%;}
+    .tagbar .conteudo .tags-foto .tags{display: flex; gap: 10px; }
+    .tagbar .conteudo .tags-foto > .texto{display: none;}
+    .tagbar .conteudo .tags-foto .tags .texto{  min-width: fit-content; margin: 0; }
+
 }
+
+
+.tagbar::-webkit-scrollbar {height: 4px; } 
+.tagbar::-webkit-scrollbar-thumb {background: var(--verde-2); border-radius: 8px;}
+.tagbar::-webkit-scrollbar-thumb:hover {background: var(--verde-1);}
+.tagbar::-webkit-scrollbar-track {background: var(--azul-2);} 
+  

@@ -36,7 +36,11 @@ main{background: var(--azul); }
 
 @media(max-width: 768px){
     .conteudo-cen .conteudo-1000{max-width: none; width: 100%;}
-    .conteudo-cen{width: 100%; padding: 60px 0 90px;}
+    .conteudo-cen{width: 100%; padding: 10px 0 90px;}
     .conteudo-cen .post{width: 100%; max-width: none; margin: 0 0 15px;}
     .conteudo-cen .post .interacao{margin: 10px 5% 0; }
+}
+
+@media(max-width: 1100px){ 
+    .popup-publicacao.block .conteudo > .imagem-container{ display: none;}
 }

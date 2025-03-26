@@ -4,10 +4,10 @@
 }
 
 /* Logo com tamanho máximo e centralizada */
-.logo {
-    width: 200px;
-    height: 150px;
-    width: auto;
+#login .logo, #register .logo {
+    width: 70px;
+    /* height: 150px; */
+    /* width: auto; */
     height: auto;
     margin: auto;
 }
@@ -19,8 +19,9 @@
     flex-direction: column;
     padding: 2%;
     align-items: center;
-    margin-top: 10%;
-    margin-left: 35%;
+    /* margin-top: 10%;
+    margin-left: 35%; */
+    margin: 10% auto;
     max-width: 500px;
     border: var(--verde-2);
     border: solid var(--verde-1) 1px;
@@ -79,7 +80,7 @@ input {
     }
 
     #button-login {
-        padding: 10% 20%;
+        /* padding: 10% 20%; */
         font-size: large;
     }
 }

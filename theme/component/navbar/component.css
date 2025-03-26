@@ -35,4 +35,6 @@
     .navbar .conteudo-esq .menu-item {padding: 0;}
     .navbar .conteudo-esq .logo {padding: 0; position: fixed; top: 0; background: var(--azul-2); width: 100vw; left: 0; padding: 10px 0;}
     .navbar .conteudo-esq .logo .texto{display: block;}
+    .navbar .menu-tag{position: absolute;}
+    .navbar .bi-tag{display: none;}
 }
