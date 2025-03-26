@@ -133,8 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // exluir post
-    const iconeExcluir = document.getElementsByClassName('bi-trash2');
-
     const iconesExcluir = document.getElementsByClassName('bi-trash2');
 
     Array.from(iconesExcluir).forEach(icone => {
