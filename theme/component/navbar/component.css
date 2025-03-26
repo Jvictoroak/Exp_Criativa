@@ -11,6 +11,8 @@
 .navbar .conteudo-esq .menu-tag #tagbar{}
 .navbar .conteudo-esq .menu-tag:hover #tagbar .tagbar{display: block; }
 
+#criar{display: none;}
+#criar.block{display: block;}
 
 @media(min-width: 1101px){
 .conteudo-esq{min-width: 220px;}

@@ -12,8 +12,9 @@ document.addEventListener("DOMContentLoaded", function () {
             document.head.appendChild(link);
 
             const criar = document.getElementById('menu-criar');
+            const component_criar = document.getElementById('criar');
             criar.addEventListener('click', () => {
-                criar.classList.toggle('block');
+                component_criar.classList.toggle('block');
             });
 
         })
