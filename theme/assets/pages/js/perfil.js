@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Validação do nome de usuário
             if (input.id === "nome-usuario-input" && !nomeUsuarioRegex.test(inputValue)) {
                 isValid = false;
-                errorMessage = "O nome de usuário deve ter entre 3 e 20 caracteres e pode conter letras, números, pontos, hífens ou sublinhados.";
+                errorMessage = "O nome de usuário deve ter entre 3 e 20 caracteres, sem conter espaços.";
                 return;
             }
         });
@@ -131,6 +131,31 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    // exluir post
+    const iconeExcluir = document.getElementsByClassName('bi-trash2');
+
+    const iconesExcluir = document.getElementsByClassName('bi-trash2');
+
+    Array.from(iconesExcluir).forEach(icone => {
+        icone.addEventListener("click", () => {
+            Swal.fire({
+                title: "Tem certeza?",
+                text: "Você está prestes a excluir esse post!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Sim, excluir",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "../templates/perfil.html"; // Ou uma lógica de exclusão real
+                    successAlert("Post excluído com sucesso!");
+                }
+            });
+        });
+    });    
+
+
 
     // Cuidado aqui ja é popup
     const vermais = document.getElementsByClassName('vermais');
