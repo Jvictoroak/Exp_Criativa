@@ -11,6 +11,7 @@ const errorAlert = (mensagem) => {
 document.addEventListener("DOMContentLoaded", () => {
     const editarBtn = document.getElementById("editar-btn");
     const salvarBtn = document.getElementById("salvar-btn");
+    const excluirBtn = document.getElementById("excluir-btn");
 
     const detalhes = document.querySelectorAll(".detalhe-item");
 
@@ -107,7 +108,24 @@ document.addEventListener("DOMContentLoaded", () => {
         salvarBtn.disabled = true;
         successAlert();
     });
+    
+    excluirBtn.addEventListener("click", () => {
+        Swal.fire({
+            title: "Tem certeza?",
+            text: "Você está prestes a excluir seu perfil!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sim, excluir",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "../templates/register.html"; // Ou uma lógica de exclusão real
+                successAlert("Perfil excluído com sucesso!");
+            }
+        });
+    });
 
+    // Cuidado aqui ja é popup
     const vermais = document.getElementsByClassName('vermais');
     const popup = document.getElementById('popup-publicacao');
     const popup_fechar = document.getElementById('fechar-popup');
