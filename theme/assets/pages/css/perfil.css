@@ -21,6 +21,21 @@ main { background: var(--preto); height: 100vh; }
 .foto-perfil { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid var(--branco); }
 .detalhe-input {padding: 5px;border: 1px solid var(--branco); border-radius: 4px; font-size: 14px; background-color: #262626; color: var(--branco);}
 
+.perfil-cabecalho .nome-usuario .detalhe-valor {
+    font-size: 18px; /* Mantém o tamanho original do nome */
+    font-weight: bold;
+}
+
+.perfil-cabecalho .nome-usuario .detalhe-input {
+    font-size: 18px; /* Garante que o input tenha o mesmo tamanho */
+    font-weight: bold;
+    padding: 5px;
+    border: 1px solid var(--branco);
+    border-radius: 4px;
+    background-color: #262626;
+    color: var(--branco);
+}
+
 /* Estilo para o botão Excluir */
 #excluir-btn {background-color: #630a12; color: var(--branco); border: none; border-radius: 8px; padding: 8px 12px; font-size: 14px; cursor: pointer; transition: background-color 0.3s; }
 #excluir-btn:hover {background-color: #9e1c29; }

@@ -13,10 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const salvarBtn = document.getElementById("salvar-btn");
     const excluirBtn = document.getElementById("excluir-btn");
 
+    // Incluímos o nome-usuario como um detalhe editável
     const detalhes = document.querySelectorAll(".detalhe-item");
 
     const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/;
     const emailRegex = /^[a-zA-Z][^<>\"!@[\]#$%¨&*()~^:;ç,\-´`=+{}º\|/\\?]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
+    // Regex simples para nome de usuário (ex.: 3-20 caracteres, letras, números e alguns símbolos)
+    const nomeUsuarioRegex = /^[a-zA-Z0-9._-]{3,20}$/;
 
     // Alterna a visibilidade da senha e o ícone do olho
     const togglePasswordVisibility = () => {
@@ -24,17 +27,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const eyeIcon = document.getElementById("toggle-eye");
 
         if (senhaInput.type === "password") {
-            senhaInput.type = "text"; // Torna a senha visível
-            eyeIcon.classList.remove("bi-eye-slash"); // Remove o ícone de olho fechado
-            eyeIcon.classList.add("bi-eye"); // Adiciona o ícone de olho aberto
+            senhaInput.type = "text";
+            eyeIcon.classList.remove("bi-eye-slash");
+            eyeIcon.classList.add("bi-eye");
         } else {
-            senhaInput.type = "password"; // Torna a senha oculta
-            eyeIcon.classList.remove("bi-eye"); // Remove o ícone de olho aberto
-            eyeIcon.classList.add("bi-eye-slash"); // Adiciona o ícone de olho fechado
+            senhaInput.type = "password";
+            eyeIcon.classList.remove("bi-eye");
+            eyeIcon.classList.add("bi-eye-slash");
         }
     };
 
-    // Ao clicar no ícone do olho, alterna entre mostrar e esconder a senha
     const eyeIcon = document.getElementById("toggle-eye");
     eyeIcon.addEventListener("click", togglePasswordVisibility);
 
@@ -45,9 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             input.value = span.textContent; // Preenche o input com o valor atual
 
-            // Verifica se é um campo de senha e altera temporariamente para texto
             if (input.type === "password") {
-                input.type = "text";
+                input.type = "text"; // Temporariamente mostra a senha
             }
 
             span.style.display = "none";
@@ -83,6 +84,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 errorMessage = "A senha deve ter entre 8 e 20 caracteres, incluir uma letra maiúscula, uma minúscula, um número e um caractere especial.";
                 return;
             }
+
+            // Validação do nome de usuário
+            if (input.id === "nome-usuario-input" && !nomeUsuarioRegex.test(inputValue)) {
+                isValid = false;
+                errorMessage = "O nome de usuário deve ter entre 3 e 20 caracteres e pode conter letras, números, pontos, hífens ou sublinhados.";
+                return;
+            }
         });
 
         if (!isValid) {
@@ -96,9 +104,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             span.textContent = input.value;
 
-            // Se for um campo de senha, esconde os caracteres novamente
-            if (input.type === "text") {
-                input.type = "password";
+            if (input.type === "text" && input.id === "senha-input") {
+                input.type = "password"; // Volta a esconder a senha
             }
 
             span.style.display = "inline-block";
@@ -108,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
         salvarBtn.disabled = true;
         successAlert();
     });
-    
+
     excluirBtn.addEventListener("click", () => {
         Swal.fire({
             title: "Tem certeza?",
@@ -132,12 +139,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     Array.from(vermais).forEach(element => {
         element.addEventListener('click', () => {
-            popup.classList.toggle('block'); 
+            popup.classList.toggle('block');
         });
     });
 
     popup_fechar.addEventListener('click', () => {
-        popup.classList.toggle('block'); 
-    })
-
+        popup.classList.toggle('block');
+    });
 });
