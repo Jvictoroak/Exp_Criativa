@@ -58,9 +58,9 @@ input {
 /* Botão de login com fundo verde, bordas arredondadas e texto grande */
 #button-login {
     background-color: var(--verde-1);
-    font-size: x-large;
+    font-size: large;
     border-radius: 20px;
-    padding: 5% 30%;
+    padding: 2% 15%;
     display: flex;
     margin: auto;
     font-family: Arial, Helvetica, sans-serif;
