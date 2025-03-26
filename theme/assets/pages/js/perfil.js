@@ -21,25 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Regex simples para nome de usuário (ex.: 3-20 caracteres, letras, números e alguns símbolos)
     const nomeUsuarioRegex = /^[a-zA-Z0-9._-]{3,20}$/;
 
-    // Alterna a visibilidade da senha e o ícone do olho
-    const togglePasswordVisibility = () => {
-        const senhaInput = document.getElementById("senha-input");
-        const eyeIcon = document.getElementById("toggle-eye");
-
-        if (senhaInput.type === "password") {
-            senhaInput.type = "text";
-            eyeIcon.classList.remove("bi-eye-slash");
-            eyeIcon.classList.add("bi-eye");
-        } else {
-            senhaInput.type = "password";
-            eyeIcon.classList.remove("bi-eye");
-            eyeIcon.classList.add("bi-eye-slash");
-        }
-    };
-
-    const eyeIcon = document.getElementById("toggle-eye");
-    eyeIcon.addEventListener("click", togglePasswordVisibility);
-
+    // botão de editar
     editarBtn.addEventListener("click", () => {
         detalhes.forEach(item => {
             const span = item.querySelector(".detalhe-valor");
@@ -58,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         salvarBtn.disabled = false;
     });
 
+    // botão de salvar
     salvarBtn.addEventListener("click", () => {
         let isValid = true;
         let errorMessage = "";
@@ -67,21 +50,24 @@ document.addEventListener("DOMContentLoaded", () => {
             const input = item.querySelector(".detalhe-input");
             const inputValue = input.value.trim();
 
+            // Validação de campos vazios
             if (!inputValue) {
                 isValid = false;
                 errorMessage = "Todos os campos devem ser preenchidos!";
                 return;
             }
 
+            // Validação de email
             if (input.type === "email" && !emailRegex.test(inputValue)) {
                 isValid = false;
                 errorMessage = "Email inválido! Insira um email válido.";
                 return;
             }
 
-            if (input.type === "password" && !senhaRegex.test(inputValue)) {
+            // Validação de senha
+            if (input.id === "senha-input" && !senhaRegex.test(inputValue)) {
                 isValid = false;
-                errorMessage = "A senha deve ter entre 8 e 20 caracteres, incluir uma letra maiúscula, uma minúscula, um número e um caractere especial.";
+                errorMessage = "A senha deve ter entre 8 e 20 caracteres, contendo pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial.";
                 return;
             }
 
@@ -116,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         successAlert();
     });
 
+    // botão de excluir
     excluirBtn.addEventListener("click", () => {
         Swal.fire({
             title: "Tem certeza?",
@@ -132,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // exluir post
+    // icone exluir post
     const iconesExcluir = document.getElementsByClassName('bi-trash2');
 
     Array.from(iconesExcluir).forEach(icone => {
