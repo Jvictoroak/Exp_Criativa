@@ -10,6 +10,13 @@ document.addEventListener("DOMContentLoaded", function () {
             link.rel = "stylesheet";
             link.href = "../../theme/component/criar/component.css"; // Caminho do CSS
             document.head.appendChild(link); 
+
+            const fechar = document.getElementById('fechar-criar');
+
+            const component_criar = document.getElementById('criar');
+            fechar.addEventListener('click', () => {
+                component_criar.classList.toggle('block');
+            });
         })
         .catch(error => console.error("Erro ao carregar o criar:", error));
     });

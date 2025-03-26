@@ -2,10 +2,10 @@
 .tagbar{display: none; position: fixed; left: 220px;  top:0; background: var(--azul-2); height: 100%; min-width: 400px;min-width: 300px; border-right: solid 2px var(--branco); transition: .4s; } 
 .tagbar .conteudo{}
 .tagbar .conteudo .tags-foto{margin: 25px 0 0;}
-.tagbar .conteudo .tags-foto .texto{text-align: center;}
+.tagbar .conteudo .tags-foto .texto{text-align: left; font-weight: bold;}
 .tagbar .conteudo .tags-foto .tags{}
 .tagbar .conteudo .tags-foto .tags .texto{border-radius: 8px;font-weight: bold; padding: 6px 16px; font-size: 14px; border: 2px solid var(--branco); width: 100%; margin: 10px  auto 0; text-align: left;}
-.tagbar .conteudo .tags-foto .tags .texto:hover, .tagbar .conteudo .tags-foto .tags .texto.ativo{background: var(--branco); color: var(--azul-2);}
+.tagbar .conteudo .tags-foto .tags .texto:hover, .tagbar .conteudo .tags-foto .tags .texto.ativo{background: var(--verde-2); color: var(--azul-2); border: 2px solid var(--verde-2);}
 
 
 @media(max-width: 1100px){
