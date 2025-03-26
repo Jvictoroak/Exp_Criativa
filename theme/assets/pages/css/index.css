@@ -3,7 +3,8 @@ main{background: var(--azul); }
 .conteudo-cen .post{width: 550px; margin: 0 auto 40px; max-width: 80%;}
 .conteudo-cen .post .perfil{display: flex; align-items: center; gap: 10px; padding: 10px;}
 .conteudo-cen .post .perfil .imagem-container{height: 40px; width: 40px; background: var(--branco); border-radius: 100%;}
-.conteudo-cen .post > .imagem-container{width: 100%; aspect-ratio: 1 / 1; border: 1px solid var(--branco);}
+.conteudo-cen .post > .imagem-container{width: 100%; aspect-ratio: 1 / 1; border: 1px solid var(--branco); overflow: hidden;}
+.conteudo-cen .post > .imagem-container .imagem{width: 100%; height: 100%; object-fit: cover; object-position: center;}
 .conteudo-cen .post .interacao{margin: 10px 0 0; display: flex; gap: 15px;}
 .conteudo-cen .post .interacao .imagem-container{width: 30px; height: 30px; }
 .conteudo-cen .post .interacao .imagem-container .imagem{width: 100%; height: 100%; color: var(--branco); font-size: 25px;}
@@ -12,7 +13,8 @@ main{background: var(--azul); }
 .popup-publicacao.block {display: flex;}
 .popup-publicacao.block .fechar{width: 30px; height: 30px; background: var(--azul); font: 700 14px / 1em montserrat; color: var(--branco); display: flex; justify-content: center; align-items: center; position: absolute; top: 10%; right: 10%; border-radius: 100%; transform: translate(50%, -50%); border: 1px solid var(--branco);}
 .popup-publicacao.block .conteudo{display: flex; width: 80%; height: 80%; background: var(--azul); border: 1px solid var(--branco); color: var(--branco);}
-.popup-publicacao.block .conteudo > .imagem-container{ height: 100%; aspect-ratio: 1/1; background: var(--branco); border: 1px solid var(--branco);}
+.popup-publicacao.block .conteudo > .imagem-container{ height: 100%; aspect-ratio: 1/1; background: var(--branco); border: 1px solid var(--branco); max-width: 50%;}
+.popup-publicacao.block .conteudo > .imagem-container .imagem{    width: 100%;height: 100%;object-fit: cover;}
 .popup-publicacao.block .conteudo .comentarios .comentar {display: flex; align-items: center; margin: 10px 0 0;}
 .popup-publicacao.block .conteudo .comentarios .comentar .input-comentario{border: none; padding: 5px; border-radius: 8px; flex: 1 1;}
 .popup-publicacao.block .conteudo .comentarios .comentar .imagem-container{display: flex; justify-content: center; align-items: center ;height: 30px; width: 30px; border-radius: 100%; border: 1px solid var(--verde-2); margin: 0 10px 0; background: var(--verde-2); font-weight: bold;}
