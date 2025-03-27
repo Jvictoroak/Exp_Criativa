@@ -13,13 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const salvarBtn = document.getElementById("salvar-btn");
     const excluirBtn = document.getElementById("excluir-btn");
 
-    // Incluímos o nome-usuario como um detalhe editável
-    const detalhes = document.querySelectorAll(".detalhe-item");
-
-    const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/;
-    const emailRegex = /^[a-zA-Z][^<>\"!@[\]#$%¨&*()~^:;ç,\-´`=+{}º\|/\\?]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
-    // Regex simples para nome de usuário (ex.: 3-20 caracteres, letras, números e alguns símbolos)
-    const nomeUsuarioRegex = /^[a-zA-Z0-9._-]{3,20}$/;
+    const detalhes = document.querySelectorAll(".detalhe-item"); // Incluímos o nome-usuario como um detalhe editável
+    const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/; // Senha: 8-20 caracteres, 1 minúscula, 1 maiúscula, 1 número, 1 caractere especial, sem espaços
+    const emailRegex = /^[a-zA-Z][^<>\"!@[\]#$%¨&*()~^:;ç,\-´`=+{}º\|/\\?]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/; // Email: começa com letra, sem caracteres especiais inválidos antes do @, domínio válido
+    const datanascimentoRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;// Data (DD/MM/AAAA): dia 01-31, mês 01-12, ano com 4 dígitos
+    const nomeUsuarioRegex = /^[a-zA-Z0-9._-]{3,20}$/; // Nome de usuário: 3-20 caracteres, letras, números, ., _ e -
 
     // botão de editar
     editarBtn.addEventListener("click", () => {
@@ -57,6 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            // Validação do nome de usuário
+            if (input.id === "nome-usuario-input" && !nomeUsuarioRegex.test(inputValue)) {
+                isValid = false;
+                errorMessage = "O nome de usuário deve ter entre 3 e 20 caracteres, sem conter espaços.";
+                return;
+            }
+
             // Validação de email
             if (input.type === "email" && !emailRegex.test(inputValue)) {
                 isValid = false;
@@ -71,10 +76,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // Validação do nome de usuário
-            if (input.id === "nome-usuario-input" && !nomeUsuarioRegex.test(inputValue)) {
+            // validação de data
+            if (input.id === "data-nascimento-input" && !datanascimentoRegex.test(inputValue)) {
                 isValid = false;
-                errorMessage = "O nome de usuário deve ter entre 3 e 20 caracteres, sem conter espaços.";
+                errorMessage = "Data de nascimento inválida! Insira uma data válida.";
                 return;
             }
         });
@@ -138,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         });
-    });    
+    });
 
 
 
