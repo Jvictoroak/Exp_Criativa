@@ -4,7 +4,7 @@
 .navbar .conteudo-esq .logo {display: flex; align-items: center; gap: 10px; font-family: 'Billabong', cursive;font-size: 28px;padding: 12px 10%;}
 .navbar .conteudo-esq .logo .imagem-container{width: 25px;}
 .navbar .conteudo-esq .logo .texto{color: var(--verde-1);}
-.navbar .conteudo-esq .menu-item {display: flex;align-items: center;padding: 12px 10%;color: #fff;text-decoration: none;}
+.navbar .conteudo-esq .menu-item {display: flex;align-items: center;padding: 12px 10%;color: #fff;text-decoration: none; cursor: pointer;}
 .navbar .conteudo-esq .menu-item:hover {background-color: var(--branco);color: var(--azul-2);}
 .navbar .conteudo-esq .menu-item:hover > .texto{color: var(--azul-2);}
 .navbar .conteudo-esq .menu-item i {font-size: 20px;}
