@@ -1,0 +1,121 @@
+.swal2-height-auto {
+    background-color: black;
+}
+
+/* Logo centralizada */
+.logo {
+    width: 70px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Container principal */
+.conteudo-principal {
+    background-color: var(--azul-2);
+    justify-content: center;
+    flex-direction: column;
+    padding: 2%;
+    align-items: center;
+    margin: 10% auto;
+    max-width: 500px;
+    border: solid var(--verde-1) 1px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: whitesmoke;
+}
+
+/* Estilo dos inputs para combinar com a página perfil */
+input {
+    border-radius: 5px; /* Ajuste o valor para combinar com o estilo da página perfil */
+    font-weight: normal; /* Ajuste o peso da fonte, se necessário */
+    padding: 8px 12px; /* Ajuste o espaçamento interno */
+    font-size: 16px; /* Ajuste o tamanho da fonte */
+    border: 1px solid var(--cinza-claro); /* Substitua por uma cor consistente com a página perfil */
+    width: 100%;
+    margin-top: 10px;
+    background-color: var(--branco); /* Certifique-se de que o fundo seja consistente */
+    color: var(--preto); /* Ajuste a cor do texto */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adicione sombra, se necessário */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+    border-color: var(--azul-1); /* Cor de borda ao focar */
+    box-shadow: 0 0 5px var(--azul-1); /* Sombra ao focar */
+    outline: none;
+}
+
+/* Estilo para o input de imagem */
+input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 16px;
+    color: var(--preto);
+    background-color: var(--branco);
+    border: 1px solid var(--cinza-claro);
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+input[type="file"]:focus {
+    border-color: var(--azul-1);
+    box-shadow: 0 0 5px var(--azul-1);
+    outline: none;
+}
+
+.input-group {
+    margin-bottom: 15px; /* Ajuste o valor conforme necessário */
+}
+
+/* Opcional: Adiciona espaçamento superior aos subtítulos */
+.sub-titulo {
+    margin-top: 10px; /* Ajuste o valor conforme necessário */
+}
+
+.input-group-text {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: black;
+    background-color: transparent;
+    border: none;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Botão com efeito hover */
+#button-registro {
+    background-color: var(--verde-1);
+    font-size: large;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+#button-registro:hover {
+    background-color: var(--verde-2);
+}
+
+
+.senha-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+
+
+@media (max-width: 768px) {
+    .conteudo-principal {
+        max-width: 90%;
+        padding: 5%;
+        margin-top: 15%;
+    }
+}
