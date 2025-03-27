@@ -82,6 +82,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 errorMessage = "Data de nascimento inválida! Insira uma data válida.";
                 return;
             }
+
+            // Converter data de DD/MM/AAAA para AAAA-MM-DD
+            const partesData = inputValue.split('/');
+            const dataFormatada = `${partesData[2]}-${partesData[1]}-${partesData[0]}`; // AAAA-MM-DD
+            const hoje = new Date();
+            const dataNascimento = new Date(dataFormatada);
+
+            // validar se a data de nascimento é anterior à data atual
+            if (hoje < dataNascimento) {
+                isValid = false;
+                errorMessage = "Data de nascimento precisa ser anterior à data atual!";
+                return;
+            }
+
         });
 
         if (!isValid) {
