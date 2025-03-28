@@ -17,39 +17,58 @@
         <img src="/theme/assets/img/logo.webp" class="logo" alt="Logo POSTLY">
         <form id="registroForm">
             <div class="info">
-                <p class="sub-titulo">Username:</p>
-                <div class="input-group flex-nowrap">
-                    <input id="usuario" type="text" class="form-control" placeholder="Username" aria-label="Username">
+                <div class="nome-campo">
+                    <p class="sub-titulo">Username</p>
+                    <p class="campo-obrigatorio">*</p>
                 </div>
-
-                <p class="sub-titulo">Password:</p>
+                <div class="input-group flex-nowrap">
+                    <input id="usuario" type="text" class="form-control" placeholder="Username" aria-label="Username" pattern="[A-Za-záàâãéèêíóôõúç\s]{8,50}" title="Usuário com 8 a 50 letras" required>
+                </div>
+                <!-- Campo de Senha -->
+                <div class="nome-campo">
+                    <p class="sub-titulo">Senha</p>
+                    <p class="campo-obrigatorio">*</p>
+                </div>
                 <div class="input-group flex-nowrap senha-container">
-                    <input id="senha" type="password" class="form-control" placeholder="Password" aria-label="Password">
-                    <!-- Ícone para visualizar/ocultar a senha -->
-                    <span id="toggleSenha" class="input-group-text cursor-pointer">
-                        <i id="senhaIcon" class="bi bi-eye"></i> <!-- Ícone de "olho" -->
+                    <input id="senha" type="password" class="senha form-control" placeholder="Password" aria-label="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&*]).{6,10}" title="Deve conter pelo menos um número, uma letra maiúscula, uma minúscula e um caractere especial, com 6 a 10 caracteres." required>
+                </div>
+                <div class="nome-campo">
+                    <p class="sub-titulo">Confirmar Senha</p>
+                    <p class="campo-obrigatorio">*</p>
+                </div>
+                <div class="input-group flex-nowrap senha-container">
+                    <input id="confirmarSenha" type="password" class="senha form-control" placeholder="Password" aria-label="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&*]).{6,10}" title="Deve conter pelo menos um número, uma letra maiúscula, uma minúscula e um caractere especial, com 6 a 10 caracteres." required>
+                </div>
+                <div class="visualizar-senha">
+                    <span>
+                        <input type="checkbox" id="toggleSenha"> Mostrar Senha
                     </span>
                 </div>
 
-                <p class="sub-titulo">E-mail:</p>
+                <div class="nome-campo">
+                    <p class="sub-titulo">E-mail</p>
+                    <p class="campo-obrigatorio">*</p>
+                </div>
                 <div class="input-group flex-nowrap">
-                    <input id="email" type="email" class="form-control" placeholder="e-mail@dominio.com" aria-label="E-mail">
+                    <input id="email" type="email" class="form-control" placeholder="e-mail@dominio.com" aria-label="E-mail" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Coloque seu endereço de E-mail" required>
+                </div>
+                <div class="nome-campo">
+                    <p class="sub-titulo">Data de nascimento</p>
+                    <p class="campo-obrigatorio">*</p>
+                </div>
+                <div class="input-group flex-nowrap">
+                    <input id="nascimento" type="date" class="form-control" aria-label="Nascimento" title="Preencha sua Data de Nascimento" required>
                 </div>
 
-                <p class="sub-titulo">Data de nascimento:</p>
+                <p class="sub-titulo">Foto de usuário</p>
                 <div class="input-group flex-nowrap">
-                    <input id="nascimento" type="date" class="form-control" aria-label="Nascimento">
-                </div>
-
-                <p class="sub-titulo">Foto de usuário:</p>
-                <div class="input-group flex-nowrap">
-                    <input id="foto" type="file" class="form-control custom-file-input" aria-label="Foto de usuário">
+                    <input id="foto" type="file" class="form-control custom-file-input" aria-label="Foto de usuário" title="Insira sua Foto">
                 </div>
             </div>
             
             <div class="conta">
                 <button id="button-registro" type="submit">Registrar-se</button>
-                <a href="login.html">Já possui conta?</a>
+                <a href="login.html" class="voltar-login">Já possui conta?</a>
             </div>
         </form>
     </div>

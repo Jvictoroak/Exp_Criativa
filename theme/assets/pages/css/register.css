@@ -24,6 +24,13 @@
     color: whitesmoke;
 }
 
+.nome-campo {
+    display: flex;
+}
+.campo-obrigatorio {
+    color: red;
+}
+
 /* Estilo dos inputs para combinar com a página perfil */
 input {
     border-radius: 5px; /* Ajuste o valor para combinar com o estilo da página perfil */
@@ -110,7 +117,23 @@ input[type="file"]:focus {
     align-items: center;
 }
 
+.visualizar-senha {
+    left: auto;
+}
 
+#toggleSenha {
+    box-shadow: none;
+}
+
+.conta {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.voltar-login {
+margin: auto
+}
 
 @media (max-width: 768px) {
     .conteudo-principal {

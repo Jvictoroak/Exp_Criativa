@@ -3,6 +3,7 @@ document.getElementById("registroForm").addEventListener("submit", function(even
     
     let usuario = document.getElementById("usuario").value.trim();
     let senha = document.getElementById("senha").value;
+    let confirmarSenha = document.getElementById("confirmarSenha").value;
     let email = document.getElementById("email").value.trim();
     let nascimento = document.getElementById("nascimento").value;
     let foto = document.getElementById("foto").files[0];
@@ -26,6 +27,11 @@ document.getElementById("registroForm").addEventListener("submit", function(even
     }
     if (!regexSenha.test(senha)) {
         Swal.fire("Erro!", "A senha deve ter entre 8 e 20 caracteres, contendo pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial.", "error");
+        return;
+    }
+
+    if (senha !== confirmarSenha) {
+        Swal.fire("Erro!", "As senhas não coincidem.", "error");
         return;
     }
 
@@ -56,18 +62,16 @@ document.getElementById("registroForm").addEventListener("submit", function(even
     Swal.fire("Sucesso!", "Registro concluído!", "success");
 });
 
-document.getElementById("toggleSenha").addEventListener("click", function () {
-    let senhaInput = document.getElementById("senha");
-    let senhaIcon = document.getElementById("senhaIcon");
-    
-    if (senhaInput.type === "password") {
-        senhaInput.type = "text";
-        senhaIcon.classList.remove("bi-eye");
-        senhaIcon.classList.add("bi-eye-slash");
+const visualizarSenha = document.getElementById("toggleSenha");
+const senhaInput = document.getElementById("senha");
+const confirmarSenhaInput = document.getElementById("confirmarSenha");
+
+visualizarSenha.addEventListener('change', function() {
+    if (visualizarSenha.checked) {
+        senhaInput.type = "text"; // Mostra a senha
+        confirmarSenhaInput.type = "text"; // Mostra a confirmação da senha
     } else {
-        senhaInput.type = "password";
-        senhaIcon.classList.remove("bi-eye-slash");
-        senhaIcon.classList.add("bi-eye");
+        senhaInput.type = "password"; // Oculta a senha
+        confirmarSenhaInput.type = "password"; // Oculta a confirmação da senha
     }
 });
-
