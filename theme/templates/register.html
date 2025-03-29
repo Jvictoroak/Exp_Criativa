@@ -13,62 +13,74 @@
 <body>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
-    <div class="conteudo-principal conteudo-principal-register" id="register">
-        <img src="/theme/assets/img/logo.webp" class="logo" alt="Logo POSTLY">
+    <div class="conteudo-principal" id="register">
+        <img src="/theme/assets/img/logo2.webp" class="logo" alt="Logo POSTLY">
         <form id="registroForm">
-            <div class="info">
-                <div class="nome-campo">
-                    <p class="sub-titulo">Username</p>
-                    <p class="campo-obrigatorio">*</p>
+            <div class="campo-container">
+                <div class="campo">
+                    <div class="campo-texto">
+                        <label for="usuario">Username</label>
+                        <p class="campo-obrigatorio">*</p>
+                    </div>
+                    
+                    <input id="usuario" type="text" placeholder="Username" pattern="[A-Za-záàâãéèêíóôõúç\s]{8,50}" title="Usuário com 8 a 50 letras" required>
                 </div>
-                <div class="input-group flex-nowrap">
-                    <input id="usuario" type="text" class="form-control" placeholder="Username" aria-label="Username" pattern="[A-Za-záàâãéèêíóôõúç\s]{8,50}" title="Usuário com 8 a 50 letras" required>
-                </div>
-                <!-- Campo de Senha -->
-                <div class="nome-campo">
-                    <p class="sub-titulo">Senha</p>
-                    <p class="campo-obrigatorio">*</p>
-                </div>
-                <div class="input-group flex-nowrap senha-container">
-                    <input id="senha" type="password" class="senha form-control" placeholder="Password" aria-label="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&*]).{6,10}" title="Deve conter pelo menos um número, uma letra maiúscula, uma minúscula e um caractere especial, com 6 a 10 caracteres." required>
-                </div>
-                <div class="nome-campo">
-                    <p class="sub-titulo">Confirmar Senha</p>
-                    <p class="campo-obrigatorio">*</p>
-                </div>
-                <div class="input-group flex-nowrap senha-container">
-                    <input id="confirmarSenha" type="password" class="senha form-control" placeholder="Password" aria-label="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&*]).{6,10}" title="Deve conter pelo menos um número, uma letra maiúscula, uma minúscula e um caractere especial, com 6 a 10 caracteres." required>
-                </div>
-                <div class="visualizar-senha">
-                    <span>
-                        <input type="checkbox" id="toggleSenha"> Mostrar Senha
-                    </span>
-                </div>
-
-                <div class="nome-campo">
-                    <p class="sub-titulo">E-mail</p>
-                    <p class="campo-obrigatorio">*</p>
-                </div>
-                <div class="input-group flex-nowrap">
-                    <input id="email" type="email" class="form-control" placeholder="e-mail@dominio.com" aria-label="E-mail" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Coloque seu endereço de E-mail" required>
-                </div>
-                <div class="nome-campo">
-                    <p class="sub-titulo">Data de nascimento</p>
-                    <p class="campo-obrigatorio">*</p>
-                </div>
-                <div class="input-group flex-nowrap">
-                    <input id="nascimento" type="date" class="form-control" aria-label="Nascimento" title="Preencha sua Data de Nascimento" required>
-                </div>
-
-                <p class="sub-titulo">Foto de usuário</p>
-                <div class="input-group flex-nowrap">
-                    <input id="foto" type="file" class="form-control custom-file-input" aria-label="Foto de usuário" title="Insira sua Foto">
+                <div class="campo">
+                    <div class="campo-texto">
+                        <label for="telefone">Telefone</label>
+                        <p class="campo-obrigatorio">*</p>
+                    </div>
+                    <input id="telefone" type="tel" placeholder="(XX) XXXXX-XXXX" pattern="\(\d{2}\) \d{5}-\d{4}" title="Digite seu número de telefone" required>
                 </div>
             </div>
+
+            <div class="campo-container">
+                <div class="campo">
+                    <div class="campo-texto">
+                        <label for="senha">Senha</label>
+                        <p class="campo-obrigatorio">*</p>
+                    </div>
+                    <input id="senha" type="password" placeholder="Senha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&*]).{6,10}" title="Deve conter pelo menos um número, uma letra maiúscula, uma minúscula e um caractere especial, com 6 a 10 caracteres." required>
+                </div>
+                <div class="campo">
+                    <div class="campo-texto">
+                        <label for="confirmarSenha">Confirmar Senha</label>
+                        <p class="campo-obrigatorio">*</p>
+                    </div>
+                    <input id="confirmarSenha" type="password" placeholder="Confirmar Senha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&*]).{6,10}" title="Digite novamente a senha" required>
+                </div>
+                <span class="visualizar-senha">
+                    <input type="checkbox" id="toggleSenha">
+                    <p>Visualizar Senha</p>
+                </span>
+            </div>
             
+
+            <div class="campo-container">
+                <div class="campo">
+                    <div class="campo-texto">
+                        <label for="email">E-mail</label>
+                        <p class="campo-obrigatorio">*</p>
+                    </div>
+                    <input id="email" type="email" placeholder="e-mail@dominio.com" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Coloque seu endereço de E-mail" required>
+                </div>
+                <div class="campo">
+                    <div class="campo-texto">
+                        <label for="nascimento">Data de Nascimento</label>
+                        <p class="campo-obrigatorio">*</p>
+                    </div>
+                    <input id="nascimento" type="date" required>
+                </div>
+            </div>
+
+            <div class="campo">
+                <label for="foto">Foto de usuário</label>
+                <input id="foto" type="file">
+            </div>
+
             <div class="conta">
                 <button id="button-registro" type="submit">Registrar-se</button>
-                <a href="login.html" class="voltar-login">Já possui conta?</a>
+                <a href="login.html">Já possui conta?</a>
             </div>
         </form>
     </div>

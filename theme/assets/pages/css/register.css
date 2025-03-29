@@ -1,101 +1,74 @@
-.swal2-height-auto {
-    background-color: black;
-}
-
-/* Logo centralizada */
-.logo {
-    width: 70px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-/* Container principal */
 .conteudo-principal {
+    display: flex;
+    border: 1px solid var(--verde-2);
+    padding: 3%;
+    margin: auto;
+    margin-top: 5%;
+    max-width: 50%;
     background-color: var(--azul-2);
-    justify-content: center;
-    flex-direction: column;
-    padding: 2%;
     align-items: center;
-    margin: 10% auto;
-    max-width: 500px;
-    border: solid var(--verde-1) 1px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: whitesmoke;
 }
 
-.nome-campo {
+.campo-texto {
     display: flex;
 }
+
 .campo-obrigatorio {
+    margin-left: 10px;
     color: red;
 }
 
-/* Estilo dos inputs para combinar com a página perfil */
-input {
-    border-radius: 5px; /* Ajuste o valor para combinar com o estilo da página perfil */
-    font-weight: normal; /* Ajuste o peso da fonte, se necessário */
-    padding: 8px 12px; /* Ajuste o espaçamento interno */
-    font-size: 16px; /* Ajuste o tamanho da fonte */
-    border: 1px solid var(--cinza-claro); /* Substitua por uma cor consistente com a página perfil */
+.logo {
+    margin: 10%;
+    max-width: 150px; /* Limitar o tamanho da logo */
+}
+
+/* Container do formulário */
+#registroForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Container das linhas de campos (2 por linha) */
+.campo-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 colunas iguais */
+    gap: 15px; /* Espaço entre os campos */
     width: 100%;
-    margin-top: 10px;
-    background-color: var(--branco); /* Certifique-se de que o fundo seja consistente */
-    color: var(--preto); /* Ajuste a cor do texto */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adicione sombra, se necessário */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
 }
 
-input:focus {
-    border-color: var(--azul-1); /* Cor de borda ao focar */
-    box-shadow: 0 0 5px var(--azul-1); /* Sombra ao focar */
-    outline: none;
+/* Estilo dos campos de input e etiquetas */
+.campo {
+    width: 100%;
 }
 
-/* Estilo para o input de imagem */
-input[type="file"] {
+.campo label {
     display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.campo input {
     width: 100%;
     padding: 8px 12px;
     font-size: 16px;
-    color: var(--preto);
-    background-color: var(--branco);
-    border: 1px solid var(--cinza-claro);
     border-radius: 5px;
+    border: 1px solid var(--cinza-claro);
+    background-color: var(--branco);
+    color: var(--preto);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
 }
 
-input[type="file"]:focus {
+.campo input:focus {
     border-color: var(--azul-1);
     box-shadow: 0 0 5px var(--azul-1);
     outline: none;
 }
 
-.input-group {
-    margin-bottom: 15px; /* Ajuste o valor conforme necessário */
-}
-
-/* Opcional: Adiciona espaçamento superior aos subtítulos */
-.sub-titulo {
-    margin-top: 10px; /* Ajuste o valor conforme necessário */
-}
-
-.input-group-text {
-    position: absolute;
-    right: 10px;
-    cursor: pointer;
-    color: black;
-    background-color: transparent;
-    border: none;
-}
-
-.cursor-pointer {
-    cursor: pointer;
-}
-
-/* Botão com efeito hover */
+/* Botão de registro com efeito hover */
 #button-registro {
     background-color: var(--verde-1);
     font-size: large;
@@ -104,41 +77,64 @@ input[type="file"]:focus {
     cursor: pointer;
     border: none;
     transition: background-color 0.3s ease;
+    width: 100%; /* Garante que o botão ocupe toda a largura disponível */
 }
 
 #button-registro:hover {
     background-color: var(--verde-2);
 }
 
-
-.senha-container {
-    position: relative;
+/* Exibição do toggle de senha */
+.visualizar-senha {
     display: flex;
     align-items: center;
 }
 
-.visualizar-senha {
-    left: auto;
-}
-
 #toggleSenha {
-    box-shadow: none;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .conta {
+    margin: 5%;
+    width: 50%;
     display: flex;
     flex-direction: column;
-    margin: auto;
+    align-items: center;
 }
 
-.voltar-login {
-margin: auto
+.conta a {
+    margin-top: 15px;
 }
 
-@media (max-width: 768px) {
+/* Media Query para telas menores */
+@media (max-width: 936px) {
     .conteudo-principal {
-        max-width: 90%;
-        padding: 5%;
-        margin-top: 15%;
+        flex-direction: column;
+        margin: 0;
+        max-width: 100%;
+        padding: auto;
+    }
+
+    .campo-container {
+        grid-template-columns: 1fr; /* Apenas uma coluna por linha em telas pequenas */
+    }
+
+    .logo {
+        max-width: 120px; /* Ajusta o tamanho da logo para telas menores */
+        margin: auto;
+    }
+
+    #button-registro {
+        padding: 12px 20px; /* Ajusta o padding do botão para telas menores */
+    }
+
+    /* Ajusta a conta e seus links para maior responsividade */
+    .conta {
+        width: 90%;
+    }
+
+    .conta a {
+        font-size: 14px;
     }
 }
