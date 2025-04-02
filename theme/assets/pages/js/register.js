@@ -80,6 +80,16 @@ botaoRegistra.addEventListener('click', function(event) {
         return;
     }
 
+    // Criar um objeto com os dados capturados Arthurrrr
+    const dadosUsuario = {
+        usuario: usuarioInput.value,
+        telefone: telefoneInput.value,
+        email: emailInput.value,
+        nascimento: nascimentoInput.value,
+        senha: senhaInput.value
+    };
+    
+
     // Se tudo estiver correto, mostra um alerta de sucesso
     Swal.fire({
         icon: 'success',
