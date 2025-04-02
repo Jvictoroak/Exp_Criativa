@@ -18,8 +18,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const emailRegex = /^[a-zA-Z][^<>\"!@[\]#$%¨&*()~^:;ç,\-´`=+{}º\|/\\?]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/; // Email: começa com letra, sem caracteres especiais inválidos antes do @, domínio válido
     const datanascimentoRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;// Data (DD/MM/AAAA): dia 01-31, mês 01-12, ano com 4 dígitos
     const nomeUsuarioRegex = /^[a-zA-Z0-9._-]{3,20}$/; // Nome de usuário: 3-20 caracteres, letras, números, ., _ e -
+    // Define a data máxima no input de nascimento
+    function definirMaxData() {
+        const dataAtual = new Date();
+        const ano = dataAtual.getFullYear();
+        const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+        const dia = String(dataAtual.getDate()).padStart(2, '0');
+        const dataFormatada = `${ano}-${mes}-${dia}`;
+        const nascimentoInput = document.getElementById("data-nascimento-input");
+        if (nascimentoInput) {
+            nascimentoInput.setAttribute('max', dataFormatada);
+        }
+    }
 
-    // botão de editar
+    definirMaxData();
+
+    // Formatação de telefone
+    telefoneInput?.addEventListener('input', function () {
+        let telefone = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+        if (telefone.length <= 2) {
+            this.value = `(${telefone}`;
+        } else if (telefone.length <= 6) {
+            this.value = `(${telefone.slice(0, 2)}) ${telefone.slice(2)}`;
+        } else {
+            this.value = `(${telefone.slice(0, 2)}) ${telefone.slice(2, 7)}-${telefone.slice(7, 11)}`;
+        }
+    });
+
+    // Botão de editar
     editarBtn.addEventListener("click", () => {
         detalhes.forEach(item => {
             const span = item.querySelector(".detalhe-valor");
@@ -38,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
         salvarBtn.disabled = false;
     });
 
-    // botão de salvar
+    // Botão de salvar
     salvarBtn.addEventListener("click", () => {
         let isValid = true;
         let errorMessage = "";
@@ -76,26 +103,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // validação de data
+            // Validação de telefone
+            if (input.id === "telefone-input" && !telefoneRegex.test(inputValue)) {
+                isValid = false;
+                errorMessage = "O telefone deve estar no formato (XX) XXXXX-XXXX.";
+                return;
+            }
+
+            // Validação de data de nascimento
             if (input.id === "data-nascimento-input" && !datanascimentoRegex.test(inputValue)) {
                 isValid = false;
                 errorMessage = "Data de nascimento inválida! Insira uma data válida.";
                 return;
             }
 
-            // Converter data de DD/MM/AAAA para AAAA-MM-DD
-            const partesData = inputValue.split('/');
-            const dataFormatada = `${partesData[2]}-${partesData[1]}-${partesData[0]}`; // AAAA-MM-DD
-            const hoje = new Date();
-            const dataNascimento = new Date(dataFormatada);
-
-            // validar se a data de nascimento é anterior à data atual
-            if (hoje < dataNascimento) {
-                isValid = false;
-                errorMessage = "Data de nascimento precisa ser anterior à data atual!";
-                return;
+            // Validar se a data de nascimento é anterior à data atual
+            if (input.id === "data-nascimento-input") {
+                const hoje = new Date();
+                const dataNascimento = new Date(inputValue);
+                if (hoje < dataNascimento) {
+                    isValid = false;
+                    errorMessage = "Data de nascimento precisa ser anterior à data atual!";
+                    return;
+                }
             }
-
         });
 
         if (!isValid) {
@@ -121,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
         successAlert();
     });
 
-    // botão de excluir
+    // Botão de excluir
     excluirBtn.addEventListener("click", () => {
         Swal.fire({
             title: "Tem certeza?",
@@ -138,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // icone exluir post
+    // Ícone de excluir post
     const iconesExcluir = document.getElementsByClassName('bi-trash2');
 
     Array.from(iconesExcluir).forEach(icone => {
