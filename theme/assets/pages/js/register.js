@@ -1,3 +1,4 @@
+// Seleção dos elementos do DOM
 const usuarioInput = document.getElementById("usuario");
 const telefoneInput = document.getElementById("telefone");
 const emailInput = document.getElementById("email");
@@ -7,12 +8,23 @@ const confirmarSenhaInput = document.getElementById("confirmarSenha");
 const visualizarSenha = document.getElementById("toggleSenha");
 const botaoRegistra = document.getElementById("button-registro");
 
-//  Formatação de telefone
-telefoneInput.addEventListener('input', function(event) {
-    // Remove qualquer caractere não numérico
-    let telefone = this.value.replace(/\D/g, '');
-    
-    // Aplica a máscara (XX) XXXXX-XXXX enquanto o usuário digita
+// Declaração dos Regex no início do script
+const telefoneRegex = /^\(\d{2}\) \d{4,5}-\d{4}$/; 
+// Valida o formato de telefone: (XX) XXXXX-XXXX ou (XX) XXXX-XXXX
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+// Valida o formato de email básico: texto antes e depois do @, seguido de um domínio válido
+
+const usuarioRegex = /^[A-Za-záàâãéèêíóôõúç\s]{3,20}$/; 
+// Valida o nome de usuário: 3 a 20 caracteres, apenas letras e espaços
+
+const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/; 
+// Valida a senha: 8 a 20 caracteres, pelo menos 1 número, 1 letra maiúscula, 1 letra minúscula, 1 caractere especial, sem espaços
+
+// Formatação de telefone
+telefoneInput.addEventListener('input', function () {
+    let telefone = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
     if (telefone.length <= 2) {
         this.value = `(${telefone}`;
     } else if (telefone.length <= 6) {
@@ -49,16 +61,37 @@ botaoRegistra.addEventListener('click', function(event) {
         });
         return;
     }
-    const usuarioPattern = /[A-Za-záàâãéèêíóôõúç\s]{8,50}/;
-    if (!usuarioPattern.test(usuarioInput.value)) {
+
+    // Verificar se o telefone é válido
+    if (!telefoneRegex.test(telefoneInput.value)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Telefone inválido!',
+            text: 'O telefone deve estar no formato (XX) XXXXX-XXXX.',
+        });
+        return;
+    }
+
+    // Verificar se o email é válido
+    if (!emailRegex.test(emailInput.value)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Email inválido!',
+            text: 'Por favor, insira um email válido.',
+        });
+        return;
+    }
+
+    // Verificar se o usuário é válido
+    if (!usuarioRegex.test(usuarioInput.value)) {
         Swal.fire({
             icon: 'error',
             title: 'Usuário inválido!',
-            text: 'O usuário deve conter 8 a 50 letras.'
-        })
-        return
+            text: 'O usuário deve conter 3 a 20 letras.',
+        });
+        return;
     }
-    
+
     // Verificar se a senha e a confirmação de senha coincidem
     if (senhaInput.value !== confirmarSenhaInput.value) {
         Swal.fire({
@@ -70,12 +103,11 @@ botaoRegistra.addEventListener('click', function(event) {
     }
 
     // Verificar se a senha atende ao padrão
-    const senhaPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&*]).{6,10}$/;
-    if (!senhaPattern.test(senhaInput.value)) {
+    if (!senhaRegex.test(senhaInput.value)) {
         Swal.fire({
             icon: 'error',
             title: 'Senha inválida!',
-            text: 'A senha deve conter pelo menos um número, uma letra maiúscula, uma minúscula e um caractere especial, com 6 a 10 caracteres.',
+            text: 'A senha deve conter entre 8 e 20 caracteres, incluindo pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial, sem espaços.',
         });
         return;
     }
@@ -86,11 +118,10 @@ botaoRegistra.addEventListener('click', function(event) {
         title: 'Cadastro realizado com sucesso!',
         text: 'Você foi registrado com sucesso. Agora você pode fazer login.',
     });
-
 });
 
 // CheckBox de Visualização de senha
-visualizarSenha.addEventListener('change', function() {
+visualizarSenha.addEventListener('change', function () {
     if (visualizarSenha.checked) {
         senhaInput.type = "text";
         confirmarSenhaInput.type = "text"; // Mostra a confirmação da senha
