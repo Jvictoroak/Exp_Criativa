@@ -5,21 +5,20 @@
 
 /* Logo centralizada */
 .logo {
-    width: 70px;
+    padding: 50px;
     height: auto;
     display: block;
-    margin: 0 auto;
 }
 
 /* Container principal */
 .conteudo-principal {
     background-color: var(--azul-2);
+    display: flex;
     justify-content: center;
-    flex-direction: column;
     padding: 2%;
     align-items: center;
     margin: 10% auto;
-    max-width: 500px;
+    max-width: 600px;
     border: solid var(--verde-1) 1px;
     font-family: Arial, Helvetica, sans-serif;
     color: whitesmoke;
@@ -52,6 +51,7 @@ input:focus {
     font-size: large;
     border-radius: 20px;
     padding: 10px 20px;
+    width: 100%;
     cursor: pointer;
     border: none;
     transition: background-color 0.3s ease;
@@ -82,11 +82,41 @@ input:focus {
     font-size: 14px; /* Ajuste o tamanho conforme necessário */
 }
 
+/* Ajuste no campo de visualização de senha */
+.visualizar-senha {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 5%;
+}
+
+.visualizar-senha label {
+    margin-left: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Melhor alinhamento do checkbox */
+#toggleSenha {
+    width: 18px;
+    height: 18px;
+}
+
+/* Ajuste do formulário */
+form {
+    width: 100%;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     .conteudo-principal {
         max-width: 90%;
         padding: 5%;
         margin-top: 15%;
+        flex-direction: column;
+    }
+    
+    .logo {
+        width: 80%;
     }
 }

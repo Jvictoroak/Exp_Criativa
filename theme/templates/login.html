@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    
     <!-- CSS -->
     <link rel="stylesheet" href="/theme/assets/modules/css/boot.css">
     <link rel="stylesheet" href="/theme/assets/pages/css/login.css">
@@ -11,38 +12,40 @@
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui/material-ui.css" rel="stylesheet">
 </head>
 <body>
+    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
     <div class="conteudo-principal" id="login">
-        <img src="/theme/assets/img/logo.webp" class="logo" alt="Logo POSTLY">
+        <img src="/theme/assets/img/logo2.webp" class="logo" alt="Logo POSTLY">
+        
         <form id="loginForm">
+            <!-- Campo Username -->
             <div class="campo-container">
                 <div class="campo">
-                    <div class="campo-texto">
-                        <label for="usuario">Username <span class="campo-obrigatorio">*</span></label>
-                    </div>
-                    <input id="usuario" type="text" placeholder="Username" required>
+                    <label for="usuario" class="campo-texto">
+                        Username <span class="campo-obrigatorio">*</span>
+                    </label>
+                    <input id="usuario" type="text" placeholder="Digite seu username" required autocomplete="off">
                 </div>
             </div>
 
+            <!-- Campo Senha -->
             <div class="campo-container">
                 <div class="campo">
-                    <div class="campo-texto">
-                        <label for="senha">Senha <span class="campo-obrigatorio">*</span></label>
-                    </div>
-                    <input id="senha" type="password" placeholder="Senha" required>
+                    <label for="senha" class="campo-texto">
+                        Senha <span class="campo-obrigatorio">*</span>
+                    </label>
+                    <input id="senha" type="password" placeholder="Digite sua senha" required autocomplete="off">
                 </div>
                 <div class="visualizar-senha">
-                    <label>
-                        <input type="checkbox" id="toggleSenha">
-                        Visualizar Senha
-                    </label>
+                    <input type="checkbox" id="toggleSenha">
+                    <label for="toggleSenha">Visualizar Senha</label>
                 </div>
             </div>
 
             <div class="conta">
-                <button id="button-login" type="submit">Login</button>
-                <a href="register.html">Não possui conta?</a>
+                <button id="button-login" type="submit">Entrar</button>
+                <a href="register.html">Não possui conta? Cadastre-se</a>
             </div>
         </form>
     </div>
