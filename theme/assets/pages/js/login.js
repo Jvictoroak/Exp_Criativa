@@ -59,9 +59,5 @@ botaoLogin.addEventListener("click", function(event) {
 
 // CheckBox de Visualização de senha
 visualizarSenha.addEventListener("change", function () {
-    if (visualizarSenha.checked) {
-        senhaInput.type = "text";
-    } else {
-        senhaInput.type = "password";
-    }
+    senhaInput.type = visualizarSenha.checked ? "text" : "password";
 });
