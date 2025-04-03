@@ -1,23 +1,26 @@
 // Função para mostrar um alerta de sucesso
-const successAlert = () => {
-    Swal.fire('Mensagem', 'Mensagem de Sucesso!', 'success');
-}
+const successAlert = (mensagem = "Operação realizada com sucesso!") => {
+    Swal.fire('Sucesso', mensagem, 'success');
+};
 
 // Função para mostrar um alerta de erro com mensagem personalizada
 const errorAlert = (mensagem) => {
     Swal.fire('Erro', mensagem, 'error');
-}
+};
 
 document.addEventListener("DOMContentLoaded", () => {
     const editarBtn = document.getElementById("editar-btn");
     const salvarBtn = document.getElementById("salvar-btn");
     const excluirBtn = document.getElementById("excluir-btn");
 
-    const detalhes = document.querySelectorAll(".detalhe-item"); // Incluímos o nome-usuario como um detalhe editável
-    const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/; // Senha: 8-20 caracteres, 1 minúscula, 1 maiúscula, 1 número, 1 caractere especial, sem espaços
-    const emailRegex = /^[a-zA-Z][^<>\"!@[\]#$%¨&*()~^:;ç,\-´`=+{}º\|/\\?]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/; // Email: começa com letra, sem caracteres especiais inválidos antes do @, domínio válido
-    const datanascimentoRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;// Data (DD/MM/AAAA): dia 01-31, mês 01-12, ano com 4 dígitos
-    const nomeUsuarioRegex = /^[a-zA-Z0-9._-]{3,20}$/; // Nome de usuário: 3-20 caracteres, letras, números, ., _ e -
+    const detalhes = document.querySelectorAll(".detalhe-item");
+    const telefoneInput = document.getElementById("telefone-input");
+    const telefoneRegex = /^\(\d{2}\) \d{4,5}-\d{4}$/; // Padrão para (XX) XXXXX-XXXX ou (XX) XXXX-XXXX
+    const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/;
+    const emailRegex = /^[a-zA-Z][^<>\"!@[\]#$%¨&*()~^:;ç,\-´`=+{}º\|/\\?]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
+    const datanascimentoRegex = /^\d{4}-\d{2}-\d{2}$/; // Data no formato AAAA-MM-DD
+    const nomeUsuarioRegex = /^[a-zA-Z0-9._-]{3,20}$/;
+
     // Define a data máxima no input de nascimento
     function definirMaxData() {
         const dataAtual = new Date();
@@ -183,16 +186,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 cancelButtonText: "Cancelar"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "../templates/perfil.html"; // Ou uma lógica de exclusão real
                     successAlert("Post excluído com sucesso!");
                 }
             });
         });
     });
 
-
-
-    // Cuidado aqui ja é popup
+    // Popup de visualização de post
     const vermais = document.getElementsByClassName('vermais');
     const popup = document.getElementById('popup-publicacao');
     const popup_fechar = document.getElementById('fechar-popup');

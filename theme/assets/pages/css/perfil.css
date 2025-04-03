@@ -14,7 +14,7 @@ main {  }
 
 
 
-.info-perfil { max-width: 600px; margin: 0 auto; padding: 20px; }
+.info-perfil { max-width: 900px; margin: 0; padding: 20px; position: relative; left: 40px; }
 .perfil-cabecalho { display: flex; flex-wrap: wrap; align-items: center; justify-content: start; text-align: start; gap: 10px; margin-bottom: 20px; }
 .nome-usuario { color: var(--branco); font-size: 18px; font-weight: bold; }
 .botoes-acao { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
@@ -35,10 +35,10 @@ main {  }
 
 
 /* Novos estilos para os detalhes do perfil */
-.perfil-detalhes { display: flex; justify-content: space-between; align-items: center; gap: 20px; color: var(--branco); }
-.detalhe-item { display: flex; align-items: center; gap: 5px; }
+.perfil-detalhes { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 20px; margin-top: 10px; color: var(--branco); }
+.detalhe-item { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; min-width: 150px; }
 .detalhe-label { font-weight: bold; font-size: 14px; }
-.detalhe-valor { font-size: 14px; }
+.detalhe-valor { font-size: 14px; color: var(--branco); word-wrap: break-word;}
 
 
 .popup-publicacao{display: none; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); position: fixed; top: 0; margin: 0 auto; justify-content: center; align-items: center;}
@@ -67,15 +67,18 @@ main {  }
     .popup-publicacao.block .conteudo > .imagem-container{ display: none;}
 }
 
-@media (max-width: 750px) { 
-    .publicacoes .posts .post { flex: 1 1 calc(50% - 10px); } 
-    .foto-perfil { width: 80px; height: 80px; } 
-    .perfil-detalhes { 
-        flex-direction: column; /* Empilha os itens em telas menores */
-        align-items: flex-start; 
-        gap: 10px; 
+@media (max-width: 750px) {
+    .perfil-detalhes {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .detalhe-item {
+        min-width: auto; /* Remove a largura mínima em telas menores */
     }
 }
+
 @media (max-width: 480px) { 
     .publicacoes .posts .post { flex: 1 1 100%; } 
     .btn { font-size: 12px; padding: 6px 10px; } 
