@@ -1,113 +1,67 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const loginForm = document.querySelector("form");
-    const usuarioInput = document.getElementById("usuario");
-    const senhaInput = document.getElementById("senha");
+// Seleção dos elementos do DOM
+const usuarioInput = document.getElementById("usuario");
+const senhaInput = document.getElementById("senha");
+const visualizarSenha = document.getElementById("toggleSenha");
+const botaoLogin = document.getElementById("button-login");
 
-    loginForm.addEventListener("submit", (event) => {
-        event.preventDefault(); // Evita o envio padrão do formulário
+// Declaração dos Regex no início do script
+const usuarioRegex = /^[A-Za-záàâãéèêíóôõúç\s]{3,20}$/; 
+// Valida o nome de usuário: 3 a 20 caracteres, apenas letras e espaços
 
-        let isValid = true;
-        let errorMessage = "";
+const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/; 
+// Valida a senha: 8 a 20 caracteres, pelo menos 1 número, 1 letra maiúscula, 1 letra minúscula, 1 caractere especial, sem espaços
 
-        // Validação do campo "Username"
-        if (!usuarioInput.value.trim()) {
-            isValid = false;
-            errorMessage = "O campo 'Username' não pode estar vazio.";
-        } else if (!usuarioInput.checkValidity()) {
-            isValid = false;
-            errorMessage = usuarioInput.title; // Exibe a mensagem do atributo title
-        }
+// Verificação dos inputs
+botaoLogin.addEventListener("click", function(event) {
+    event.preventDefault(); // Impede o envio do formulário caso haja erro
 
-        // Validação do campo "Password"
-        if (isValid && !senhaInput.value.trim()) {
-            isValid = false;
-            errorMessage = "O campo 'Password' não pode estar vazio.";
-        } else if (isValid && !senhaInput.checkValidity()) {
-            isValid = false;
-            errorMessage = senhaInput.title; // Exibe a mensagem do atributo title
-        }
+    // Verificar se os campos obrigatórios estão preenchidos
+    if (!usuarioInput.value || !senhaInput.value) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Preencha todos os campos obrigatórios!',
+            text: 'Todos os campos com * são obrigatórios.',
+        });
+        return;
+    }
 
-        // Exibe mensagem de erro ou sucesso
-        if (!isValid) {
-            Swal.fire({
-                icon: "error",
-                title: "Erro",
-                text: errorMessage,
-                confirmButtonText: "OK",
-                customClass: {
-                    confirmButton: "swal2-confirm-button",
-                },
-            });
-        } else {
-            // Simula o login bem-sucedido
-            Swal.fire({
-                icon: "success",
-                title: "Sucesso",
-                text: "Login realizado com sucesso!",
-                confirmButtonText: "OK",
-                customClass: {
-                    confirmButton: "swal2-confirm-button",
-                },
-            }).then(() => {
-                // Redireciona para outra página após o login
-                window.location.href = "dashboard.html"; // Substitua pelo destino correto
-            });
-        }
+    // Verificar se o usuário é válido
+    if (!usuarioRegex.test(usuarioInput.value)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Usuário inválido!',
+            text: 'O usuário deve conter 3 a 20 letras.',
+        });
+        return;
+    }
+
+    // Verificar se a senha atende ao padrão
+    if (!senhaRegex.test(senhaInput.value)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Senha inválida!',
+            text: 'A senha deve conter entre 8 e 20 caracteres, incluindo pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial, sem espaços.',
+        });
+        return;
+    }
+
+    // Simula o login bem-sucedido
+    Swal.fire({
+        icon: "success",
+        title: "Sucesso",
+        text: "Login realizado com sucesso!",
+        confirmButtonText: "OK",
+    }).then(() => {
+        // Redireciona para outra página após o login
+        window.location.href = "theme/templates/index.html"; // Substitua pelo destino correto
     });
-});document.addEventListener("DOMContentLoaded", () => {
-    const loginForm = document.querySelector("form");
-    const usuarioInput = document.getElementById("usuario");
-    const senhaInput = document.getElementById("senha");
+});
 
-    loginForm.addEventListener("submit", (event) => {
-        event.preventDefault(); // Evita o envio padrão do formulário
-
-        let isValid = true;
-        let errorMessage = "";
-
-        // Validação do campo "Username"
-        if (!usuarioInput.value.trim()) {
-            isValid = false;
-            errorMessage = "O campo 'Username' não pode estar vazio.";
-        } else if (!usuarioInput.checkValidity()) {
-            isValid = false;
-            errorMessage = usuarioInput.title; // Exibe a mensagem do atributo title
-        }
-
-        // Validação do campo "Password"
-        if (isValid && !senhaInput.value.trim()) {
-            isValid = false;
-            errorMessage = "O campo 'Password' não pode estar vazio.";
-        } else if (isValid && !senhaInput.checkValidity()) {
-            isValid = false;
-            errorMessage = senhaInput.title; // Exibe a mensagem do atributo title
-        }
-
-        // Exibe mensagem de erro ou sucesso
-        if (!isValid) {
-            Swal.fire({
-                icon: "error",
-                title: "Erro",
-                text: errorMessage,
-                confirmButtonText: "OK",
-                customClass: {
-                    confirmButton: "swal2-confirm-button",
-                },
-            });
-        } else {
-            // Simula o login bem-sucedido
-            Swal.fire({
-                icon: "success",
-                title: "Sucesso",
-                text: "Login realizado com sucesso!",
-                confirmButtonText: "OK",
-                customClass: {
-                    confirmButton: "swal2-confirm-button",
-                },
-            }).then(() => {
-                // Redireciona para outra página após o login
-                window.location.href = "theme\templates\index.html"; // Substitua pelo destino correto
-            });
-        }
-    });
+// CheckBox de Visualização de senha
+visualizarSenha.addEventListener("change", function () {
+    if (visualizarSenha.checked) {
+        senhaInput.type = "text";
+    } else {
+        senhaInput.type = "password";
+    }
 });

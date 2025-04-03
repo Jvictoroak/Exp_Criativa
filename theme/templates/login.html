@@ -7,30 +7,46 @@
     <!-- CSS -->
     <link rel="stylesheet" href="/theme/assets/modules/css/boot.css">
     <link rel="stylesheet" href="/theme/assets/pages/css/login.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui/material-ui.css" rel="stylesheet">
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
     <div class="conteudo-principal" id="login">
+        <img src="/theme/assets/img/logo.webp" class="logo" alt="Logo POSTLY">
         <form id="loginForm">
-            <img src="/theme/assets/img/logo.webp" class="logo" alt="Logo POSTLY">
-            <div class="info">
-                <p class="sub-titulo">Username</p>
-                <div class="input-group flex-nowrap">
-                    <input id="usuario" pattern="[A-Za-záàâãéèêíóôõúç\s]{8,50}" title="Usuário com 8 a 50 letras" type="text" placeholder="Username" aria-label="Username" required>
-                </div>
-                <p class="sub-titulo">Password</p>
-                <div class="senha-container">
-                    <input id="senha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&*]).{6,10}" title="Deve conter pelo menos um número, uma letra maiúscula, uma minúscula e um caractere especial, com 6 a 10 caracteres." type="password" placeholder="Password" aria-label="Password" required>
+            <div class="campo-container">
+                <div class="campo">
+                    <div class="campo-texto">
+                        <label for="usuario">Username <span class="campo-obrigatorio">*</span></label>
+                    </div>
+                    <input id="usuario" type="text" placeholder="Username" required>
                 </div>
             </div>
+
+            <div class="campo-container">
+                <div class="campo">
+                    <div class="campo-texto">
+                        <label for="senha">Senha <span class="campo-obrigatorio">*</span></label>
+                    </div>
+                    <input id="senha" type="password" placeholder="Senha" required>
+                </div>
+                <div class="visualizar-senha">
+                    <label>
+                        <input type="checkbox" id="toggleSenha">
+                        Visualizar Senha
+                    </label>
+                </div>
+            </div>
+
             <div class="conta">
                 <button id="button-login" type="submit">Login</button>
                 <a href="register.html">Não possui conta?</a>
             </div>
         </form>
     </div>
+
     <script src="/theme/assets/pages/js/login.js"></script>
 </body>
 </html>
