@@ -14,7 +14,7 @@ main {  }
 
 
 
-.info-perfil { max-width: 900px; margin: 0; padding: 20px; position: relative; left: 40px; }
+.info-perfil { max-width: 900px; margin: 0 0 0 40px; padding: 20px; }
 .perfil-cabecalho { display: flex; flex-wrap: wrap; align-items: center; justify-content: start; text-align: start; gap: 10px; margin-bottom: 20px; }
 .nome-usuario { color: var(--branco); font-size: 18px; font-weight: bold; }
 .botoes-acao { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }

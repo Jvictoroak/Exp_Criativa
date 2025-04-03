@@ -1,5 +1,5 @@
 
-.tagbar{display: none; position: fixed; left: 220px;  top:0; background: var(--azul-2); height: 100%; min-width: 400px;min-width: 300px; border-right: solid 2px var(--branco); transition: .4s; } 
+.tagbar{display: none; position: fixed; left: 220px;  top:0; background: var(--azul-2); height: 100%; min-width: 400px;min-width: 300px; border-right: solid 2px var(--branco); transition: .4s; z-index: 1000; } 
 .tagbar .conteudo{}
 .tagbar .conteudo .tags-foto{margin: 25px 0 0;}
 .tagbar .conteudo .tags-foto .texto{text-align: left; font-weight: bold;}
