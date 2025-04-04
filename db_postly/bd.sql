@@ -1,3 +1,7 @@
+DROP DATABASE IF EXISTS postly_db;
+CREATE DATABASE postly_db;
+USE postly_db;
+
 /* Lógico_1: */
 
 CREATE TABLE usuario (
