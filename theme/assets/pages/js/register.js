@@ -7,6 +7,7 @@ const senhaInput = document.getElementById("senha");
 const confirmarSenhaInput = document.getElementById("confirmarSenha");
 const visualizarSenha = document.getElementById("toggleSenha");
 const botaoRegistra = document.getElementById("button-registro");
+const fotoInput = document.getElementById("foto"); // Seleciona o campo de upload de foto
 
 // Declaração dos Regex no início do script
 const telefoneRegex = /^\(\d{2}\) \d{4,5}-\d{4}$/; 
@@ -38,11 +39,11 @@ telefoneInput.addEventListener('input', function () {
 function definirMaxData() {
     const dataAtual = new Date();
     const ano = dataAtual.getFullYear();
-    const mes = String(dataAtual.getMonth() + 1).padStart(2, '0'); // Mes começa de 0, então somamos 1
-    const dia = String(dataAtual.getDate()).padStart(2, '0'); // Adiciona zero à frente se o dia for menor que 10
+    const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+    const dia = String(dataAtual.getDate()).padStart(2, '0');
 
     const dataFormatada = `${ano}-${mes}-${dia}`;
-    nascimentoInput.setAttribute('max', dataFormatada); // Atribui a data máxima ao campo
+    nascimentoInput.setAttribute('max', dataFormatada);
 }
 
 // Chama a função para definir a data máxima ao carregar a página
@@ -112,21 +113,42 @@ botaoRegistra.addEventListener('click', function(event) {
         return;
     }
 
-    // Criar um objeto com os dados capturados Arthurrrr
-    const dadosUsuario = {
-        usuario: usuarioInput.value,
-        telefone: telefoneInput.value,
-        email: emailInput.value,
-        nascimento: nascimentoInput.value,
-        senha: senhaInput.value
-    };
-    
+    // Criar um objeto FormData para enviar os dados
+    const formData = new FormData();
+    formData.append("nome", usuarioInput.value);
+    formData.append("telefone", telefoneInput.value);
+    formData.append("email", emailInput.value);
+    formData.append("nascimento", nascimentoInput.value);
+    formData.append("senha", senhaInput.value);
+    if (fotoInput.files[0]) {
+        formData.append("foto", fotoInput.files[0]); // Adiciona a foto ao FormData
+    }
 
-    // Se tudo estiver correto, mostra um alerta de sucesso
-    Swal.fire({
-        icon: 'success',
-        title: 'Cadastro realizado com sucesso!',
-        text: 'Você foi registrado com sucesso. Agora você pode fazer login.',
+    // Enviar os dados para o backend
+    fetch("http://127.0.0.1:8000/register", {
+        method: "POST",
+        body: formData,
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error("Erro ao registrar o usuário.");
+        }
+    })
+    .then(data => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Cadastro realizado com sucesso!',
+            text: `Usuário registrado com ID: ${data.user_id}`,
+        });
+    })
+    .catch(error => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro no cadastro!',
+            text: error.message,
+        });
     });
 });
 
@@ -134,9 +156,9 @@ botaoRegistra.addEventListener('click', function(event) {
 visualizarSenha.addEventListener('change', function () {
     if (visualizarSenha.checked) {
         senhaInput.type = "text";
-        confirmarSenhaInput.type = "text"; // Mostra a confirmação da senha
+        confirmarSenhaInput.type = "text";
     } else {
-        senhaInput.type = "password"; // Oculta a senha
-        confirmarSenhaInput.type = "password"; // Oculta a confirmação da senha
+        senhaInput.type = "password";
+        confirmarSenhaInput.type = "password";
     }
 });
