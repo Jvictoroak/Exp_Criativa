@@ -118,7 +118,7 @@ botaoRegistra.addEventListener('click', function(event) {
     formData.append("nome", usuarioInput.value);
     formData.append("telefone", telefoneInput.value);
     formData.append("email", emailInput.value);
-    formData.append("nascimento", nascimentoInput.value);
+    formData.append("data", nascimentoInput.value);
     formData.append("senha", senhaInput.value);
     if (fotoInput.files[0]) {
         formData.append("foto", fotoInput.files[0]); // Adiciona a foto ao FormData
@@ -129,7 +129,8 @@ botaoRegistra.addEventListener('click', function(event) {
         method: "POST",
         body: formData,
     })
-    .then(response => {
+    .then(response => { 
+        console.log(response); // Log da resposta do servidor
         if (response.ok) {
             return response.json();
         } else {

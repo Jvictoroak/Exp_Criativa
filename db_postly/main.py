@@ -3,6 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from database import get_db
 from models import User
+from passlib.context import CryptContext
+
+pdwb_contaxt = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 app = FastAPI()
 
@@ -20,8 +23,9 @@ def register_user(
     nome: str = Form(...),
     email: str = Form(...),
     senha: str = Form(...),
-    telefone: str = Form(None),
+    telefone: str = Form(...),
     foto: UploadFile = File(None),
+    data: str = Form(...),
     db: Session = Depends(get_db)
 ):
     # Verificar se o e-mail já existe
@@ -34,13 +38,16 @@ def register_user(
     if foto:
         foto_blob = foto.file.read()
 
+    senha_hash = pdwb_contaxt.hash(senha)
+    
     # Criar novo usuário
     new_user = User(
         nome=nome,
         email=email,
-        senha=senha,
+        senha=senha_hash,
         telefone=telefone,
-        foto=foto_blob
+        foto=foto_blob,
+        data=data
     )
 
     db.add(new_user)

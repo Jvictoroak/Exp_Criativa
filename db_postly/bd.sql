@@ -6,7 +6,7 @@ USE postly_db;
 
 CREATE TABLE usuario (
     id int PRIMARY KEY AUTO_INCREMENT,
-    senha varchar(50),
+    senha varchar(255),
     data date,
     telefone varchar(20),
     email varchar(50),
