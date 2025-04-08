@@ -7,7 +7,7 @@ Realizado por Elvis Claudino
 
 #### 1. Iniciar o ambiente virtual
 ```bash
-  python -m venv venv
+  python.exe -m venv .venv
 ```
 ```bash
   .venv/Scripts/Activate
@@ -21,8 +21,11 @@ Realizado por Elvis Claudino
 - sqlalchemy → ORM para interagir com o MySql;
 - mysql-connector-python → Para conseguir conectar o Back ao banco;
 - Pydantic → Para validar dados.
+```bash
+  pip install passlib
+```
 
 #### 3. Rodar a API
 ```bash
   fastapi dev main.py
-```
+```x  
