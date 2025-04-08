@@ -3,6 +3,7 @@
 Realizado por Elvis Claudino
 
 ### Passo a passo para rodar o projeto:
+'''pip install passlib[bcrypt]'''
 
 #### 1. Iniciar o ambiente virtual
 ```bash

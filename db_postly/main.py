@@ -5,7 +5,7 @@ from database import get_db
 from models import User
 from passlib.context import CryptContext
 
-pdwb_contaxt = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pdwb_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 app = FastAPI()
 
@@ -38,7 +38,7 @@ def register_user(
     if foto:
         foto_blob = foto.file.read()
 
-    senha_hash = pdwb_contaxt.hash(senha)
+    senha_hash = pdwb_context.hash(senha)
     
     # Criar novo usuário
     new_user = User(
