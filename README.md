@@ -25,7 +25,12 @@ Realizado por Elvis Claudino
   pip install passlib
 ```
 
+n sei pra que serve mas funcionou
+```bash
+  pip install bcrypt
+```
+
 #### 3. Rodar a API
 ```bash
   fastapi dev main.py
-```x  
+```
