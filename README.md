@@ -2,10 +2,13 @@
 ## FastAPI + MySql
 Realizado por Elvis Claudino
 
+
+
 ### Passo a passo para rodar o projeto:
 '''pip install passlib[bcrypt]'''
 
 #### 1. Iniciar o ambiente virtual
+o comando python.exe -m venv .venv depende da máquina(escreva py e de TAB, ele deverá preencher automático)
 ```bash
   python.exe -m venv .venv
 ```
