@@ -116,8 +116,7 @@ botaoRegistra.addEventListener('click', function(event) {
     // Criar um objeto FormData para enviar os dados
     const formData = new FormData();
     formData.append("nome", usuarioInput.value);
-    // Antes de adicionar o telefone ao FormData, remover a máscara
-    const telefoneSemMascara = telefoneInput.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+    const telefoneSemMascara = telefoneInput.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos antes de adicionar o telefone ao FormData, remover a máscara
     formData.append("telefone", telefoneSemMascara);
     formData.append("email", emailInput.value);
     formData.append("data", nascimentoInput.value);
