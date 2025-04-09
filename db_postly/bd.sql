@@ -10,7 +10,7 @@ CREATE TABLE usuario (
     data date,
     telefone varchar(20),
     email varchar(50),
-    foto blob,
+    foto longblob,
     nome varchar(50)
 );
 

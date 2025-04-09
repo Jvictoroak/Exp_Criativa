@@ -16,8 +16,8 @@ const telefoneRegex = /^\(\d{2}\) \d{4,5}-\d{4}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
 // Valida o formato de email básico: texto antes e depois do @, seguido de um domínio válido
 
-const usuarioRegex = /^[A-Za-záàâãéèêíóôõúç\s]{3,20}$/; 
-// Valida o nome de usuário: 3 a 20 caracteres, apenas letras e espaços
+const usuarioRegex = /^[A-Za-záàâãéèêíóôõúç\s\d]{3,20}$/; 
+// Valida o nome de usuário: 3 a 20 caracteres, incluindo letras, números e espaços
 
 const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/; 
 // Valida a senha: 8 a 20 caracteres, pelo menos 1 número, 1 letra maiúscula, 1 letra minúscula, 1 caractere especial, sem espaços
@@ -116,7 +116,9 @@ botaoRegistra.addEventListener('click', function(event) {
     // Criar um objeto FormData para enviar os dados
     const formData = new FormData();
     formData.append("nome", usuarioInput.value);
-    formData.append("telefone", telefoneInput.value);
+    // Antes de adicionar o telefone ao FormData, remover a máscara
+    const telefoneSemMascara = telefoneInput.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+    formData.append("telefone", telefoneSemMascara);
     formData.append("email", emailInput.value);
     formData.append("data", nascimentoInput.value);
     formData.append("senha", senhaInput.value);
