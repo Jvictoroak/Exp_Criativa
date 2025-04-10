@@ -143,7 +143,11 @@ botaoRegistra.addEventListener('click', function(event) {
             icon: 'success',
             title: 'Cadastro realizado com sucesso!',
             text: `Usuário registrado com ID: ${data.user_id}`,
+        }).then(() => {
+            // Redireciona para a página de login
+            window.location.href = "/theme/templates/login.html";
         });
+        
     })
     .catch(error => {
         Swal.fire({
