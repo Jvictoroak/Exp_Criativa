@@ -5,8 +5,8 @@ const visualizarSenha = document.getElementById("toggleSenha");
 const botaoLogin = document.getElementById("button-login");
 
 // Declaração dos Regex no início do script
-const usuarioRegex = /^[A-Za-záàâãéèêíóôõúç\s]{3,20}$/; 
-// Valida o nome de usuário: 3 a 20 caracteres, apenas letras e espaços
+const usuarioRegex = /^[A-Za-záàâãéèêíóôõúç\s\d]{3,20}$/; 
+// Valida o nome de usuário: 3 a 20 caracteres, incluindo letras, números e espaços
 
 const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/; 
 // Valida a senha: 8 a 20 caracteres, pelo menos 1 número, 1 letra maiúscula, 1 letra minúscula, 1 caractere especial, sem espaços
@@ -30,7 +30,7 @@ botaoLogin.addEventListener("click", function(event) {
         Swal.fire({
             icon: 'error',
             title: 'Usuário inválido!',
-            text: 'O usuário deve conter 3 a 20 letras.',
+            text: 'O usuário deve conter 3 a 20 letras e/ou números.',
         });
         return;
     }
@@ -52,8 +52,8 @@ botaoLogin.addEventListener("click", function(event) {
         text: "Login realizado com sucesso!",
         confirmButtonText: "OK",
     }).then(() => {
-        // Redireciona para outra página após o login
-        window.location.href = "theme/templates/index.html"; // Substitua pelo destino correto
+        // Redireciona para a home (index.html) após o login
+        window.location.href = "../../theme/templates/index.html";
     });
 });
 

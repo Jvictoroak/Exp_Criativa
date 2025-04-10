@@ -4,9 +4,9 @@ Realizado por Elvis Claudino
 
 ### Entrar na pasta para instalar a maquina virtual
 ```bash
-cd 'db_postly'
+  cd 'db_postly'
 ```
-]
+
 ### Passo a passo para rodar o projeto:
 '''pip install passlib[bcrypt]'''
 

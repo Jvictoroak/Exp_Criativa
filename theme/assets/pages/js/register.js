@@ -88,7 +88,7 @@ botaoRegistra.addEventListener('click', function(event) {
         Swal.fire({
             icon: 'error',
             title: 'Usuário inválido!',
-            text: 'O usuário deve conter 3 a 20 letras.',
+            text: 'O usuário deve conter 3 a 20 letras e/ou números.',
         });
         return;
     }
@@ -145,7 +145,7 @@ botaoRegistra.addEventListener('click', function(event) {
             text: `Usuário registrado com ID: ${data.user_id}`,
         }).then(() => {
             // Redireciona para a página de login
-            window.location.href = "/theme/templates/login.html";
+            window.location.href = "../../theme/templates/login.html";
         });
         
     })
