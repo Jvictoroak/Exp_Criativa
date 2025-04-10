@@ -72,7 +72,7 @@ botaoLogin.addEventListener("click", async function(event) { // Adicione 'async'
         Swal.fire({
             icon: "success",
             title: "Sucesso",
-            text: `Bem-vindo, ${data.nome}!`,
+            text: `Bem-vindo ao POSTLY, ${data.nome}!`,
             confirmButtonText: "OK",
         }).then(() => {
             // Redireciona para a home (index.html) após o login

@@ -82,3 +82,4 @@ def login_user(
         "user_id": user.id,
         "nome": user.nome
     }
+
