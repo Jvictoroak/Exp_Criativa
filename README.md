@@ -2,10 +2,7 @@
 ## FastAPI + MySql
 Realizado por Elvis Claudino
 
-### Entrar na pasta para instalar a maquina virtual
-```bash
-  cd 'db_postly'
-```
+
 
 ### Passo a passo para rodar o projeto:
 '''pip install passlib[bcrypt]'''
@@ -17,13 +14,6 @@ o comando python.exe -m venv .venv depende da máquina(escreva py e de TAB, ele 
 ```
 ```bash
   .venv/Scripts/Activate
-```
-execute o comando abaixo caso de algum erro de segurança dentro do powershell
-```bash
-  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
-```
-```bash
-  .\.venv\Scripts\Activate.ps1
 ```
 
 #### 2. Instalar as Libs
