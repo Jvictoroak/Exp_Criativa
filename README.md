@@ -17,6 +17,7 @@ o comando python.exe -m venv .venv depende da máquina(escreva py e de TAB, ele 
 ```
 
 #### 2. Instalar as Libs
+Se não funcionar tentar sem as aspas
 ```bash
   pip install 'fastapi[standard]' uvicorn sqlalchemy mysql-connector-python pydantic
 ```
