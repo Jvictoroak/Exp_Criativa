@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from database import get_db
 from models import User
 from passlib.context import CryptContext
+from fastapi.security import OAuth2PasswordRequestForm
 
 pdwb_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -57,4 +58,27 @@ def register_user(
     return {
         "message": "Usuário registrado com sucesso!",
         "user_id": new_user.id
+    }
+
+
+@app.post("/login")
+def login_user(
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    db: Session = Depends(get_db)
+):
+    print(f"Tentativa de login: {form_data.username}")  # Log do nome do usuário
+    user = db.query(User).filter(User.nome == form_data.username).first()  # Alterado para verificar pelo nome
+    if not user:
+        print("Usuário não encontrado.")
+        raise HTTPException(status_code=401, detail="Credenciais inválidas.")
+
+    if not pdwb_context.verify(form_data.password, user.senha):
+        print("Senha incorreta.")
+        raise HTTPException(status_code=401, detail="Credenciais inválidas.")
+
+    print("Login bem-sucedido.")
+    return {
+        "message": "Login realizado com sucesso!",
+        "user_id": user.id,
+        "nome": user.nome
     }

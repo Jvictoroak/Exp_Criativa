@@ -12,7 +12,7 @@ const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8
 // Valida a senha: 8 a 20 caracteres, pelo menos 1 número, 1 letra maiúscula, 1 letra minúscula, 1 caractere especial, sem espaços
 
 // Verificação dos inputs
-botaoLogin.addEventListener("click", function(event) {
+botaoLogin.addEventListener("click", async function(event) { // Adicione 'async' aqui
     event.preventDefault(); // Impede o envio do formulário caso haja erro
 
     // Verificar se os campos obrigatórios estão preenchidos
@@ -45,16 +45,46 @@ botaoLogin.addEventListener("click", function(event) {
         return;
     }
 
-    // Simula o login bem-sucedido
-    Swal.fire({
-        icon: "success",
-        title: "Sucesso",
-        text: "Login realizado com sucesso!",
-        confirmButtonText: "OK",
-    }).then(() => {
-        // Redireciona para a home (index.html) após o login
-        window.location.href = "../../theme/templates/index.html";
-    });
+    try {
+        // Enviar as credenciais para o backend
+        const response = await fetch("http://localhost:8000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({
+                username: usuarioInput.value,
+                password: senhaInput.value,
+            }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro de Login!',
+                text: errorData.detail || 'Erro ao autenticar.',
+            });
+            return;
+        }
+
+        const data = await response.json();
+        Swal.fire({
+            icon: "success",
+            title: "Sucesso",
+            text: `Bem-vindo, ${data.nome}!`,
+            confirmButtonText: "OK",
+        }).then(() => {
+            // Redireciona para a home (index.html) após o login
+            window.location.href = "../../theme/templates/index.html";
+        });
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro de Conexão!',
+            text: 'Não foi possível conectar ao servidor.',
+        });
+    }
 });
 
 // CheckBox de Visualização de senha
