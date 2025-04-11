@@ -5,12 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/perfil.css">
     <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/css/navbar.css">
+    <link rel="stylesheet" href="../static/css/tagbar.css">
+    <link rel="stylesheet" href="../static/css/criar.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <title>Perfil</title>
 </head>
 <body>
-    <div id="navbar" class="navbar"></div>
-
+    <section id="navbar" class="navbar">
+        <section class="sidebar conteudo-esq">
+            <div class="logo">
+                <div class="imagem-container"><img src="../../../theme/assets/img/logo.webp" alt="" class="imagem"></div>
+                <div class="texto">Postly</div>
+            </div>
+            <a href="/templates/index.html" class="menu-item">
+                <i class="bi bi-house"></i>
+                <span class="texto">Home</span>
+            </a>
+            <a href="/templates/perfil.html" class="menu-item">
+                <i class="bi bi-person"></i>
+                <span class="texto">Perfil</span>
+            </a>
+            <div class="menu-item" id="menu-criar">
+                <i class="bi bi-film"></i>
+                <span class="texto">Criar</span>
+            </div>
+            <div class="menu-item menu-tag" id="menu-tag">
+                <i class="bi bi-tag"></i>
+                <span class="texto">Tags</span>
+                <section id="tagbar">
+                    <section class="tagbar" id="tagbar-conteudo">
+                        <div class="conteudo">
+                            <div class="tags-foto">
+                                <div class="texto"><p>Tags:</p></div>
+                                <div class="tags">
+                                    <div class="texto ativo"><p>Tag 1</p></div>
+                                    <div class="texto ativo"><p>Tag 2</p></div>
+                                    <div class="texto"><p>Tag 3</p></div>
+                                    <div class="texto"><p>Tag 4</p></div>
+                                    <div class="texto"><p>Tag 5</p></div>
+                                    <div class="texto"><p>Tag 6</p></div>
+                                    <div class="texto"><p>Tag 7</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </div>
+            <a href="/templates/login.html" class="menu-item">
+                <i class="bi bi-box-arrow-in-left"></i>
+                <span class="texto">Sair</span>
+            </a>
+            <section id="criar">
+                <div class="criar">
+                    <div class="conteudo">
+                      <form action="" class="formulario">
+                        <input type="file" id="criar-imagem" class="item criar-imagem" accept="image/png, image/jpeg, image/jpg, image/gif" required>
+                        
+                        <label for="texto-input">Titulo da Publicação:</label>
+                        <input type="text" id="texto-input" class="item" required> 
+                        
+                        <div class="tags">
+                          <div class="texto"><p>Tags da Publicação:</p></div>
+                          <div class="seletor">
+                            <label class="tag texto t1">
+                              <input type="checkbox" name="tags" value="lorem ipsum"> <p>Tag 1</p>
+                            </label>
+                            <label class="tag texto t1">
+                              <input type="checkbox" name="tags" value="lorem"> <p>Tag 1</p>
+                            </label>
+                            <label class="tag texto t1">
+                              <input type="checkbox" name="tags" value="lorem ipsum">  <p>Tag 3</p>
+                            </label>
+                            <label class="tag texto t1">
+                              <input type="checkbox" name="tags" value="lorem"> <p>Tag 4</p>
+                            </label>
+                            <label class="tag texto t1">
+                              <input type="checkbox" name="tags" value="lorem ipsum">  <p>Tag 5</p>
+                            </label>
+                            <label class="tag texto t1">
+                              <input type="checkbox" name="tags" value="lorem"> <p>Tag 6</p>
+                            </label>
+                            <label class="tag texto t1">
+                              <input type="checkbox" name="tags" value="lorem ipsum">  <p>Tag 7</p>
+                            </label>
+                          </div>
+                        </div>
+                        <input type="submit" value="PUBLICAR" class="item publicar">
+                      </form>
+                      <div id="fechar-criar" class="fechar">X</div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </section>
     <main>
         <section class="publicacoes conteudo-cen">
             <div class="conteudo-1000">
@@ -167,12 +255,12 @@
             </div>
         </section>
     </main>
-    <script src="../assets/pages/js/perfil.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../component/navbar/component.js"></script>
-    <script src="../component/tagbar/component.js"></script>
-    <script src="../component/criar/component.js"></script>
+    <script src="../static/js/geral/navbar.js"></script>
+    <script src="../static/js/geral/tagbar.js"></script>
+    <script src="../static/js/geral/criar.js"></script>
+    <script src="../static/js/perfil.js"></script>
 
 </body>
 </html>             
