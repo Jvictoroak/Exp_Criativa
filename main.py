@@ -71,11 +71,11 @@ async def register_user(
     try:
         # Inserir os dados no banco
         query = """
-        INSERT INTO usuario (senha, data, telefone, email, foto, nome)
+        INSERT INTO usuario (nome, email, senha, telefone, data, foto)
         VALUES (%s, %s, %s, %s, %s, %s)
         """
         foto_data = foto.file.read() if foto else None
-        cursor.execute(query, (senha_md5, nascimento, telefone, email, foto_data, usuario))
+        cursor.execute(query, (usuario, email, senha_md5, telefone, nascimento, foto_data))
         conn.commit()
 
         print("Usuário registrado com sucesso!")

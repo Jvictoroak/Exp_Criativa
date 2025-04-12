@@ -6,20 +6,20 @@ USE postly_db;
 
 CREATE TABLE usuario (
     id int PRIMARY KEY AUTO_INCREMENT,
-    senha varchar(255),
-    data date,
-    telefone varchar(20),
+    nome varchar(50),
     email varchar(50),
-    foto blob,
-    nome varchar(50)
+    senha varchar(255),
+    telefone varchar(20),
+    data date,
+    foto longblob
 );
 
 CREATE TABLE publicacao (
     id int PRIMARY KEY AUTO_INCREMENT,
+    fk_usuario_id int,
     titulo varchar(50),
-    foto blob,
     descricao varchar(300),
-    fk_usuario_id int
+    foto longblob
 );
 
 CREATE TABLE tags (
