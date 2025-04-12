@@ -16,7 +16,7 @@ const telefoneRegex = /^\(\d{2}\) \d{4,5}-\d{4}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
 // Valida o formato de email básico: texto antes e depois do @, seguido de um domínio válido
 
-const usuarioRegex = /^[A-Za-záàâãéèêíóôõúç\s]{3,20}$/; 
+const usuarioRegex = /^[A-Za-záàâãéèêíóôõúç\s\d]{3,20}$/; 
 // Valida o nome de usuário: 3 a 20 caracteres, apenas letras e espaços
 
 const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/; 
@@ -113,44 +113,44 @@ botaoRegistra.addEventListener('click', function(event) {
         return;
     }
 
-    // Criar um objeto FormData para enviar os dados
-    const formData = new FormData();
-    formData.append("nome", usuarioInput.value);
-    formData.append("telefone", telefoneInput.value);
-    formData.append("email", emailInput.value);
-    formData.append("data", nascimentoInput.value);
-    formData.append("senha", senhaInput.value);
-    if (fotoInput.files[0]) {
-        formData.append("foto", fotoInput.files[0]); // Adiciona a foto ao FormData
-    }
+    // // Criar um objeto FormData para enviar os dados
+    // const formData = new FormData();
+    // formData.append("nome", usuarioInput.value);
+    // formData.append("telefone", telefoneInput.value);
+    // formData.append("email", emailInput.value);
+    // formData.append("data", nascimentoInput.value);
+    // formData.append("senha", senhaInput.value);
+    // if (fotoInput.files[0]) {
+    //     formData.append("foto", fotoInput.files[0]); // Adiciona a foto ao FormData
+    // }
 
-    // Enviar os dados para o backend
-    fetch("http://127.0.0.1:8000/register", {
-        method: "POST",
-        body: formData,
-    })
-    .then(response => { 
-        console.log(response); // Log da resposta do servidor
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error("Erro ao registrar o usuário.");
-        }
-    })
-    .then(data => {
-        Swal.fire({
-            icon: 'success',
-            title: 'Cadastro realizado com sucesso!',
-            text: `Usuário registrado com ID: ${data.user_id}`,
-        });
-    })
-    .catch(error => {
-        Swal.fire({
-            icon: 'error',
-            title: 'Erro no cadastro!',
-            text: error.message,
-        });
-    });
+    // // Enviar os dados para o backend
+    // fetch("http://127.0.0.1:8000/register", {
+    //     method: "POST",
+    //     body: formData,
+    // })
+    // .then(response => { 
+    //     console.log(response); // Log da resposta do servidor
+    //     if (response.ok) {
+    //         return response.json();
+    //     } else {
+    //         throw new Error("Erro ao registrar o usuário.");
+    //     }
+    // })
+    // .then(data => {
+    //     Swal.fire({
+    //         icon: 'success',
+    //         title: 'Cadastro realizado com sucesso!',
+    //         text: `Usuário registrado com ID: ${data.user_id}`,
+    //     });
+    // })
+    // .catch(error => {
+    //     Swal.fire({
+    //         icon: 'error',
+    //         title: 'Erro no cadastro!',
+    //         text: error.message,
+    //     });
+    // });
 });
 
 // CheckBox de Visualização de senha
