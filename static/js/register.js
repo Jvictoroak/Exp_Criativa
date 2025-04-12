@@ -51,7 +51,7 @@ window.onload = definirMaxData;
 
 // Verificação dos inputs
 botaoRegistra.addEventListener('click', function(event) {
-    event.preventDefault(); // Impede o envio do formulário caso haja erro
+    // event.preventDefault(); // Impede o envio do formulário caso haja erro
 
     // Verificar se os campos obrigatórios estão preenchidos
     if (!usuarioInput.value || !telefoneInput.value || !emailInput.value || !nascimentoInput.value || !senhaInput.value || !confirmarSenhaInput.value) {

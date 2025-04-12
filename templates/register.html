@@ -14,8 +14,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
     <div class="conteudo-principal" id="register">
-        <img src="/theme/assets/img/logo2.webp" class="logo" alt="Logo POSTLY">
-        <form id="registroForm">
+        <img src="/static/imagens/logo2.webp" class="logo" alt="Logo POSTLY">
+        <form id="registroForm" action="/register" method="post" enctype="multipart/form-data">
             <div class="campo-container">
                 <div class="campo">
                     <div class="campo-texto">
@@ -23,14 +23,14 @@
                         <p class="campo-obrigatorio">*</p>
                     </div>
                     
-                    <input id="usuario" type="text" placeholder="Username" required>
+                    <input id="usuario" name="usuario" type="text" placeholder="Username" required>
                 </div>
                 <div class="campo">
                     <div class="campo-texto">
                         <label for="telefone">Telefone</label>
                         <p class="campo-obrigatorio">*</p>
                     </div>
-                    <input id="telefone" type="tel" placeholder="(XX) XXXXX-XXXX" required>
+                    <input id="telefone" name="telefone" type="tel" placeholder="(XX) XXXXX-XXXX" required>
                 </div>
             </div>
 
@@ -40,14 +40,14 @@
                         <label for="senha">Senha</label>
                         <p class="campo-obrigatorio">*</p>
                     </div>
-                    <input id="senha" type="password" placeholder="Senha" required>
+                    <input id="senha" name="senha" type="password" placeholder="Senha" required>
                 </div>
                 <div class="campo">
                     <div class="campo-texto">
                         <label for="confirmarSenha">Confirmar Senha</label>
                         <p class="campo-obrigatorio">*</p>
                     </div>
-                    <input id="confirmarSenha" type="password" placeholder="Confirmar Senha" required>
+                    <input id="confirmarSenha" name="confirmar_senha" type="password" placeholder="Confirmar Senha" required>
                 </div>
                 <div class="visualizar-senha">
                     <input type="checkbox" id="toggleSenha">
@@ -62,20 +62,20 @@
                         <label for="email">E-mail</label>
                         <p class="campo-obrigatorio">*</p>
                     </div>
-                    <input id="email" type="email" placeholder="e-mail@dominio.com" required>
+                    <input id="email" name="email" type="email" placeholder="e-mail@dominio.com" required>
                 </div>
                 <div class="campo">
                     <div class="campo-texto">
                         <label for="nascimento">Data de Nascimento</label>
                         <p class="campo-obrigatorio">*</p>
                     </div>
-                    <input id="nascimento" type="date" required>
+                    <input id="nascimento" name="nascimento" type="date" required>
                 </div>
             </div>
 
             <div class="campo">
                 <label for="foto">Foto de usuário</label>
-                <input id="foto" type="file">
+                <input id="foto" name="foto" type="file">
             </div>
 
             <div class="conta">
