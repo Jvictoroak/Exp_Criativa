@@ -1,8 +1,4 @@
 # Ignorar ambientes virtuais
-db_postly/.venv/
+.venv/
 venv/
 
-# Ignorar arquivos de cache do Python
-db_postly/__pycache__/
-__pycache__/
-*.py[cod]
