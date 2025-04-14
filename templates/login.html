@@ -18,36 +18,37 @@
     <div class="conteudo-principal" id="login">
         <img src="/static/imagens/logo2.webp" class="logo" alt="Logo POSTLY">
         
-        <form id="loginForm">
+        <form id="loginForm" action="/login" method="post">
             <!-- Campo Username -->
             <div class="campo-container">
                 <div class="campo">
                     <label for="usuario" class="campo-texto">
                         Username <span class="campo-obrigatorio">*</span>
                     </label>
-                    <input id="usuario" type="text" placeholder="Digite seu username" required autocomplete="off">
+                    <input id="usuario" name="usuario" type="text" placeholder="Digite seu username" required autocomplete="off">
                 </div>
             </div>
-
+        
             <!-- Campo Senha -->
             <div class="campo-container">
                 <div class="campo">
                     <label for="senha" class="campo-texto">
                         Senha <span class="campo-obrigatorio">*</span>
                     </label>
-                    <input id="senha" type="password" placeholder="Digite sua senha" required autocomplete="off">
+                    <input id="senha" name="senha" type="password" placeholder="Digite sua senha" required autocomplete="off">
                 </div>
                 <div class="visualizar-senha">
                     <input type="checkbox" id="toggleSenha">
                     <label for="toggleSenha">Visualizar Senha</label>
                 </div>
             </div>
-
+        
             <div class="conta">
                 <button id="button-login" type="submit">Entrar</button>
                 <a href="register.html">Não possui conta? Cadastre-se</a>
             </div>
         </form>
+        
     </div>
     <script src="../static/js/login.js"></script>
 </body>

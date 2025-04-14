@@ -43,6 +43,10 @@ async def get_register_page(request: Request):
 async def get_login_page(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
+@app.get("/index", response_class=HTMLResponse)
+async def get_index_page(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
 @app.post("/register")
 async def register_user(
     usuario: str = Form(...),
@@ -88,3 +92,50 @@ async def register_user(
     finally:
         cursor.close()
         conn.close()
+
+# @app.post("/login")
+# async def login_user(
+#     usuario: str = Form(...),
+#     senha: str = Form(...)
+# ):
+#     print("Requisição recebida no /login")
+
+#     # Criptografar a senha em MD5 para comparação
+#     senha_md5 = hashlib.md5(senha.encode()).hexdigest()
+
+#     # Conexão com o banco de dados
+#     conn = get_db()
+#     cursor = conn.cursor()
+
+#     try:
+#         # Verificar se o usuário e a senha correspondem
+#         query = "SELECT * FROM usuario WHERE nome = %s AND senha = %s"
+#         cursor.execute(query, (usuario, senha_md5))
+#         user = cursor.fetchone()
+
+#         if user:
+#             print("Usuário autenticado com sucesso!")
+#             # Redirecionar para a página index.html
+#             return RedirectResponse(url="/index", status_code=303)
+#         else:
+#             # Retornar a página de login com mensagem de erro
+#             return templates.TemplateResponse(
+#                 "login.html",
+#                 {
+#                     "request": {"usuario": usuario},
+#                     "erro": "Usuário ou senha inválidos."
+#                 }
+#             )
+
+#     except Exception as e:
+#         # Retornar a página de login com mensagem de erro genérico
+#         return templates.TemplateResponse(
+#             "login.html",
+#             {
+#                 "request": {"usuario": usuario},
+#                 "erro": "Erro ao autenticar usuário."
+#             }
+#         )
+#     finally:
+#         cursor.close()
+#         conn.close()

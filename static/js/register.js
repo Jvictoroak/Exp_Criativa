@@ -17,7 +17,7 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // Valida o formato de email básico: texto antes e depois do @, seguido de um domínio válido
 
 const usuarioRegex = /^[A-Za-záàâãéèêíóôõúç\s\d]{3,20}$/; 
-// Valida o nome de usuário: 3 a 20 caracteres, apenas letras e espaços
+// Valida o nome de usuário: 3 a 20 caracteres, apenas letras, números e espaços
 
 const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/; 
 // Valida a senha: 8 a 20 caracteres, pelo menos 1 número, 1 letra maiúscula, 1 letra minúscula, 1 caractere especial, sem espaços
