@@ -10,16 +10,16 @@ const botaoRegistra = document.getElementById("button-registro");
 const fotoInput = document.getElementById("foto"); // Seleciona o campo de upload de foto
 
 // Declaração dos Regex no início do script
-const telefoneRegex = /^\(\d{2}\) \d{4,5}-\d{4}$/; 
+const telefoneRegex = /^\(\d{2}\) \d{4,5}-\d{4}$/;
 // Valida o formato de telefone: (XX) XXXXX-XXXX ou (XX) XXXX-XXXX
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // Valida o formato de email básico: texto antes e depois do @, seguido de um domínio válido
 
-const usuarioRegex = /^[A-Za-záàâãéèêíóôõúç\s\d]{3,20}$/; 
+const usuarioRegex = /^[A-Za-záàâãéèêíóôõúç\s\d]{3,20}$/;
 // Valida o nome de usuário: 3 a 20 caracteres, apenas letras, números e espaços
 
-const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/; 
+const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/;
 // Valida a senha: 8 a 20 caracteres, pelo menos 1 número, 1 letra maiúscula, 1 letra minúscula, 1 caractere especial, sem espaços
 
 // Formatação de telefone
@@ -50,8 +50,8 @@ function definirMaxData() {
 window.onload = definirMaxData;
 
 // Verificação dos inputs
-botaoRegistra.addEventListener('click', function(event) {
-    // event.preventDefault(); // Impede o envio do formulário caso haja erro
+botaoRegistra.addEventListener('click', function (event) {
+    event.preventDefault(); // Impede o envio do formulário até que as validações sejam concluídas
 
     // Verificar se os campos obrigatórios estão preenchidos
     if (!usuarioInput.value || !telefoneInput.value || !emailInput.value || !nascimentoInput.value || !senhaInput.value || !confirmarSenhaInput.value) {
@@ -113,44 +113,15 @@ botaoRegistra.addEventListener('click', function(event) {
         return;
     }
 
-    // // Criar um objeto FormData para enviar os dados
-    // const formData = new FormData();
-    // formData.append("nome", usuarioInput.value);
-    // formData.append("telefone", telefoneInput.value);
-    // formData.append("email", emailInput.value);
-    // formData.append("data", nascimentoInput.value);
-    // formData.append("senha", senhaInput.value);
-    // if (fotoInput.files[0]) {
-    //     formData.append("foto", fotoInput.files[0]); // Adiciona a foto ao FormData
-    // }
-
-    // // Enviar os dados para o backend
-    // fetch("http://127.0.0.1:8000/register", {
-    //     method: "POST",
-    //     body: formData,
-    // })
-    // .then(response => { 
-    //     console.log(response); // Log da resposta do servidor
-    //     if (response.ok) {
-    //         return response.json();
-    //     } else {
-    //         throw new Error("Erro ao registrar o usuário.");
-    //     }
-    // })
-    // .then(data => {
-    //     Swal.fire({
-    //         icon: 'success',
-    //         title: 'Cadastro realizado com sucesso!',
-    //         text: `Usuário registrado com ID: ${data.user_id}`,
-    //     });
-    // })
-    // .catch(error => {
-    //     Swal.fire({
-    //         icon: 'error',
-    //         title: 'Erro no cadastro!',
-    //         text: error.message,
-    //     });
-    // });
+    // Exibir mensagem de sucesso e redirecionar após o clique no botão "OK"
+    Swal.fire({
+        icon: 'success',
+        title: 'Cadastro realizado com sucesso!',
+        text: 'Clique em "OK" para ir para a tela de login.',
+    }).then(() => {
+        // Submeter o formulário
+        document.getElementById("registroForm").submit();
+    });
 });
 
 // CheckBox de Visualização de senha

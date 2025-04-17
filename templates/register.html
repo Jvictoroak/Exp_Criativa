@@ -86,5 +86,32 @@
     </div>
 
     <script src="../static/js/register.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Exibir mensagem de erro, se houver
+            const erro = "{{ erro | default('') }}";
+            if (erro) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro!',
+                    text: erro,
+                });
+            }
+
+            // Exibir mensagem de sucesso, se houver
+            const sucesso = "{{ sucesso | default('') }}";
+            if (sucesso) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sucesso!',
+                    text: sucesso,
+                }).then(() => {
+                    // Redirecionar para a página de login após o clique no botão "OK"
+                    window.location.href = "/login";
+                });
+            }
+
+        });
+    </script>
 </body>
 </html>

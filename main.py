@@ -43,12 +43,9 @@ async def get_register_page(request: Request):
 async def get_login_page(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
-@app.get("/index", response_class=HTMLResponse)
-async def get_index_page(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
-
-@app.post("/register")
+@app.post("/register", response_class=HTMLResponse)
 async def register_user(
+    request: Request,
     usuario: str = Form(...),
     telefone: str = Form(...),
     senha: str = Form(...),
@@ -57,19 +54,32 @@ async def register_user(
     nascimento: str = Form(...),
     foto: UploadFile = File(None)
 ):
-    print("Requisição recebida no /register")
+    # Validação no backend
+    if len(usuario) < 3 or len(usuario) > 20:
+        return templates.TemplateResponse("register.html", {"request": request, "erro": "O nome de usuário deve ter entre 3 e 20 caracteres."})
+    if not re.match(r"^\(\d{2}\) \d{4,5}-\d{4}$", telefone):
+        return templates.TemplateResponse("register.html", {"request": request, "erro": "O telefone deve estar no formato (XX) XXXXX-XXXX."})
+    if not re.match(r"^[^\s@]+@[^\s@]+\.[^\s@]+$", email):
+        return templates.TemplateResponse("register.html", {"request": request, "erro": "O e-mail fornecido é inválido."})
     if senha != confirmar_senha:
-        raise HTTPException(status_code=400, detail="As senhas não coincidem.")
-    
-       # Remover máscara do telefone
-    telefone = re.sub(r'\D', '', telefone)  # Remove todos os caracteres não numéricos
+        return templates.TemplateResponse("register.html", {"request": request, "erro": "As senhas não coincidem."})
+    if not re.match(r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$", senha):
+        return templates.TemplateResponse("register.html", {"request": request, "erro": "A senha deve conter entre 8 e 20 caracteres, incluindo pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial."})
+    try:
+        nascimento_date = datetime.strptime(nascimento, "%Y-%m-%d").date()
+        if nascimento_date > date.today():
+            return templates.TemplateResponse("register.html", {"request": request, "erro": "A data de nascimento não pode ser no futuro."})
+    except ValueError:
+        return templates.TemplateResponse("register.html", {"request": request, "erro": "A data de nascimento é inválida."})
+
+    # Remover máscara do telefone
+    telefone = re.sub(r'\D', '', telefone)
 
     # Criptografar a senha em MD5
     senha_md5 = hashlib.md5(senha.encode()).hexdigest()
 
     # Conexão com o banco de dados
     conn = get_db()
-    print("Conexão com o banco de dados bem-sucedida!")
     cursor = conn.cursor()
 
     try:
@@ -82,60 +92,13 @@ async def register_user(
         cursor.execute(query, (usuario, email, senha_md5, telefone, nascimento, foto_data))
         conn.commit()
 
-        print("Usuário registrado com sucesso!")
-        # Redirecionar para a página de login
-        return RedirectResponse(url="/login", status_code=303)
+        # Retornar a página de registro com mensagem de sucesso
+        return templates.TemplateResponse("register.html", {"request": request, "sucesso": "Cadastro realizado com sucesso! Faça login para continuar."})
 
     except Exception as e:
         conn.rollback()
-        raise HTTPException(status_code=500, detail="Erro ao registrar usuário.")
+        return templates.TemplateResponse("register.html", {"request": request, "erro": "Erro ao registrar usuário."})
     finally:
         cursor.close()
         conn.close()
 
-# @app.post("/login")
-# async def login_user(
-#     usuario: str = Form(...),
-#     senha: str = Form(...)
-# ):
-#     print("Requisição recebida no /login")
-
-#     # Criptografar a senha em MD5 para comparação
-#     senha_md5 = hashlib.md5(senha.encode()).hexdigest()
-
-#     # Conexão com o banco de dados
-#     conn = get_db()
-#     cursor = conn.cursor()
-
-#     try:
-#         # Verificar se o usuário e a senha correspondem
-#         query = "SELECT * FROM usuario WHERE nome = %s AND senha = %s"
-#         cursor.execute(query, (usuario, senha_md5))
-#         user = cursor.fetchone()
-
-#         if user:
-#             print("Usuário autenticado com sucesso!")
-#             # Redirecionar para a página index.html
-#             return RedirectResponse(url="/index", status_code=303)
-#         else:
-#             # Retornar a página de login com mensagem de erro
-#             return templates.TemplateResponse(
-#                 "login.html",
-#                 {
-#                     "request": {"usuario": usuario},
-#                     "erro": "Usuário ou senha inválidos."
-#                 }
-#             )
-
-#     except Exception as e:
-#         # Retornar a página de login com mensagem de erro genérico
-#         return templates.TemplateResponse(
-#             "login.html",
-#             {
-#                 "request": {"usuario": usuario},
-#                 "erro": "Erro ao autenticar usuário."
-#             }
-#         )
-#     finally:
-#         cursor.close()
-#         conn.close()
