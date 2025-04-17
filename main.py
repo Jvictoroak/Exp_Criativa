@@ -43,6 +43,11 @@ async def get_register_page(request: Request):
 async def get_login_page(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
+@app.get("/index", response_class=HTMLResponse)
+async def get_index_page(request: Request):
+    login_required(request)
+    return templates.TemplateResponse("index.html", {"request": request})
+
 @app.post("/register", response_class=HTMLResponse)
 async def register_user(
     request: Request,
@@ -102,3 +107,40 @@ async def register_user(
         cursor.close()
         conn.close()
 
+@app.post("/login", response_class=HTMLResponse)
+async def authenticate_user(
+    request: Request,
+    usuario: str = Form(...),
+    senha: str = Form(...)
+):
+    # Conexão com o banco de dados
+    conn = get_db()
+    cursor = conn.cursor()
+
+    try:
+        # Criptografar a senha fornecida pelo usuário
+        senha_md5 = hashlib.md5(senha.encode()).hexdigest()
+
+        # Consultar o banco de dados para verificar as credenciais
+        query = "SELECT id, nome FROM usuario WHERE nome = %s AND senha = %s"
+        cursor.execute(query, (usuario, senha_md5))
+        user = cursor.fetchone()
+
+        if user:
+            # Autenticação bem-sucedida
+            request.session['user_id'] = user[0]
+            request.session['user_name'] = user[1]
+            return RedirectResponse(url="/index", status_code=303)
+        else:
+            # Credenciais inválidas
+            return templates.TemplateResponse("login.html", {"request": request, "erro": "Nome de usuário ou senha incorretos."})
+
+    except Exception as e:
+        return templates.TemplateResponse("login.html", {"request": request, "erro": "Erro ao autenticar usuário."})
+    finally:
+        cursor.close()
+        conn.close()
+
+def login_required(request: Request):
+    if not request.session.get('user_id'):
+        return RedirectResponse(url="/login", status_code=303)

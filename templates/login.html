@@ -1,55 +1,88 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    
+
     <!-- CSS -->
     <link rel="stylesheet" href="../static/styles.css">
     <link rel="stylesheet" href="../static/css/login.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui/material-ui.css" rel="stylesheet">
 </head>
+
 <body>
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
     <div class="conteudo-principal" id="login">
         <img src="/static/imagens/logo2.webp" class="logo" alt="Logo POSTLY">
-        
+
         <form id="loginForm" action="/login" method="post">
-            <!-- Campo Username -->
+            <!-- Campo Nome de Usuário -->
             <div class="campo-container">
                 <div class="campo">
                     <label for="usuario" class="campo-texto">
-                        Username <span class="campo-obrigatorio">*</span>
+                        Nome de Usuário <span class="campo-obrigatorio">*</span>
                     </label>
-                    <input id="usuario" name="usuario" type="text" placeholder="Digite seu username" required autocomplete="off">
+                    <input id="usuario" name="usuario" type="text" placeholder="Digite seu nome de usuário" required
+                        autocomplete="off">
                 </div>
             </div>
-        
+
             <!-- Campo Senha -->
             <div class="campo-container">
                 <div class="campo">
                     <label for="senha" class="campo-texto">
                         Senha <span class="campo-obrigatorio">*</span>
                     </label>
-                    <input id="senha" name="senha" type="password" placeholder="Digite sua senha" required autocomplete="off">
+                    <input id="senha" name="senha" type="password" placeholder="Digite sua senha" required
+                        autocomplete="off">
                 </div>
                 <div class="visualizar-senha">
                     <input type="checkbox" id="toggleSenha">
                     <label for="toggleSenha">Visualizar Senha</label>
                 </div>
             </div>
-        
+
             <div class="conta">
                 <button id="button-login" type="submit">Entrar</button>
-                <a href="register.html">Não possui conta? Cadastre-se</a>
+                <a href="http://127.0.0.1:8000/register">Não possui conta? Cadastre-se</a>
             </div>
         </form>
-        
+
+
     </div>
     <script src="../static/js/login.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Exibir mensagem de erro, se houver
+            const erro = "{{ erro | default('') }}";
+            if (erro) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro!',
+                    text: erro,
+                });
+            }
+
+            // Exibir mensagem de sucesso, se houver
+            const sucesso = "{{ sucesso | default('') }}";
+            if (sucesso) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sucesso!',
+                    text: sucesso,
+                }).then(() => {
+                    // Redirecionar para a página de index após o clique no botão "OK"
+                    window.location.href = "/index";
+                });
+            }
+
+        });
+    </script>
 </body>
+
 </html>
