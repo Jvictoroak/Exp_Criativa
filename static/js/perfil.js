@@ -21,6 +21,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const datanascimentoRegex = /^\d{4}-\d{2}-\d{2}$/; // Data no formato AAAA-MM-DD
     const nomeUsuarioRegex = /^[a-zA-Z0-9._-]{3,20}$/;
 
+    // Removendo formatações de data e telefone
+    const dataNascimentoSpan = document.getElementById("data-nascimento-valor");
+    const telefoneSpan = document.getElementById("telefone-valor");
+
+    if (dataNascimentoSpan) {
+        dataNascimentoSpan.textContent = dataNascimentoSpan.textContent; // Exibe o valor como está
+    }
+
+    if (telefoneSpan) {
+        telefoneSpan.textContent = telefoneSpan.textContent; // Exibe o valor como está
+    }
+
     // Define a data máxima no input de nascimento
     function definirMaxData() {
         const dataAtual = new Date();

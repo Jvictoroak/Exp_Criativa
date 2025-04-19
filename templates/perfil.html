@@ -106,7 +106,7 @@
                     <div class="perfil-cabecalho">
                         <img src="../static/imagens/user.webp" alt="Foto de perfil" class="foto-perfil">
                         <div class="detalhe-item nome-usuario">
-                            <span class="detalhe-valor" id="nome-usuario-valor">User_Name</span>
+                            <span class="detalhe-valor" id="nome-usuario-valor">{{ nome }}</span>
                             <input type="text" class="detalhe-input" id="nome-usuario-input" style="display: none;">
                         </div>
                         <div class="botoes-acao">
@@ -119,7 +119,7 @@
                         <div class="perfil-detalhes">
                             <div class="detalhe-item">
                                 <span class="detalhe-label">E-mail:</span>
-                                <span class="detalhe-valor" id="email-valor">User_Name@example.com</span>
+                                <span class="detalhe-valor" id="email-valor">{{ email }}</span>
                                 <input type="email" class="detalhe-input" id="email-input" style="display: none;">
                             </div>
                             <!-- <div class="detalhe-item">
@@ -129,12 +129,12 @@
                             </div> -->
                             <div class="detalhe-item">
                                 <span class="detalhe-label">Data de Nascimento:</span>
-                                <span class="detalhe-valor" id="data-nascimento-valor">01/01/1990</span>
+                                <span class="detalhe-valor" id="data-nascimento-valor">{{ data_nascimento }}</span>
                                 <input type="date" class="detalhe-input" id="data-nascimento-input" style="display: none;">
                             </div>
                             <div class="detalhe-item">
                                 <span class="detalhe-label">Telefone:</span>
-                                <span class="detalhe-valor" id="telefone-valor">(11) 98765-4321</span>
+                                <span class="detalhe-valor" id="telefone-valor">{{ telefone }}</span>
                                 <input type="text" class="detalhe-input" id="telefone-input" placeholder="(XX) XXXXX-XXXX" style="display: none;">
                             </div>
                         </div>

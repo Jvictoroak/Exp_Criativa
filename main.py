@@ -48,10 +48,10 @@ async def get_index_page(request: Request):
     login_required(request)
     return templates.TemplateResponse("index.html", {"request": request})
 
-@app.get("/perfil", response_class=HTMLResponse)
-async def get_perfil_page(request: Request):
-    login_required(request)
-    return templates.TemplateResponse("perfil.html", {"request": request})
+@app.get("/logout")
+async def logout(request: Request):
+    request.session.clear()  # Limpa a sessão do usuário
+    return RedirectResponse(url="/login", status_code=303)
 
 @app.post("/register", response_class=HTMLResponse)
 async def register_user(
@@ -159,8 +159,64 @@ def login_required(request: Request):
     if not request.session.get('user_id'):
         return RedirectResponse(url="/login", status_code=303)
 
-@app.get("/logout")
-async def logout(request: Request):
-    request.session.clear()  # Limpa a sessão do usuário
-    return RedirectResponse(url="/login", status_code=303)
+@app.post("/login", response_class=HTMLResponse)
+async def authenticate_user(
+    request: Request,
+    usuario: str = Form(...),
+    senha: str = Form(...)
+):
+    conn = get_db()
+    cursor = conn.cursor()
+
+    try:
+        senha_md5 = hashlib.md5(senha.encode()).hexdigest()
+        query = "SELECT id, nome FROM usuario WHERE nome = %s AND senha = %s"
+        cursor.execute(query, (usuario, senha_md5))
+        user = cursor.fetchone()
+
+        if user:
+            # Armazenar dados do usuário na sessão
+            request.session['user_id'] = user[0]
+            request.session['user_name'] = user[1]
+            return RedirectResponse(url="/perfil", status_code=303)
+        else:
+            return templates.TemplateResponse(
+                "login.html",
+                {"request": request, "erro": "Nome de usuário ou senha incorretos."}
+            )
+    finally:
+        cursor.close()
+        conn.close()
+
+@app.get("/perfil", response_class=HTMLResponse)
+async def get_perfil_page(request: Request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=303)
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    try:
+        query = "SELECT nome, email, telefone, data FROM usuario WHERE id = %s"
+        cursor.execute(query, (int(user_id),))  # Converte user_id para inteiro
+        user_data = cursor.fetchone()
+
+        if user_data:
+            return templates.TemplateResponse(
+                "perfil.html",
+                {
+                    "request": request,
+                    "nome": user_data[0],
+                    "email": user_data[1],
+                    "telefone": user_data[2],
+                    "data_nascimento": user_data[3],
+                }
+            )
+        else:
+            return RedirectResponse(url="/login", status_code=303)
+
+    finally:
+        cursor.close()
+        conn.close()
 
