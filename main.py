@@ -48,6 +48,11 @@ async def get_index_page(request: Request):
     login_required(request)
     return templates.TemplateResponse("index.html", {"request": request})
 
+@app.get("/perfil", response_class=HTMLResponse)
+async def get_perfil_page(request: Request):
+    login_required(request)
+    return templates.TemplateResponse("perfil.html", {"request": request})
+
 @app.post("/register", response_class=HTMLResponse)
 async def register_user(
     request: Request,
@@ -153,3 +158,9 @@ async def authenticate_user(
 def login_required(request: Request):
     if not request.session.get('user_id'):
         return RedirectResponse(url="/login", status_code=303)
+
+@app.get("/logout")
+async def logout(request: Request):
+    request.session.clear()  # Limpa a sessão do usuário
+    return RedirectResponse(url="/login", status_code=303)
+
