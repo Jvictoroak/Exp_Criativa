@@ -130,13 +130,22 @@ async def authenticate_user(
             # Autenticação bem-sucedida
             request.session['user_id'] = user[0]
             request.session['user_name'] = user[1]
-            return RedirectResponse(url="/index", status_code=303)
+            return templates.TemplateResponse(
+                "login.html",
+                {"request": request, "sucesso": "Login realizado com sucesso!"}
+            )
         else:
             # Credenciais inválidas
-            return templates.TemplateResponse("login.html", {"request": request, "erro": "Nome de usuário ou senha incorretos."})
+            return templates.TemplateResponse(
+                "login.html",
+                {"request": request, "erro": "Nome de usuário ou senha incorretos."}
+            )
 
     except Exception as e:
-        return templates.TemplateResponse("login.html", {"request": request, "erro": "Erro ao autenticar usuário."})
+        return templates.TemplateResponse(
+            "login.html",
+            {"request": request, "erro": "Erro ao autenticar usuário."}
+        )
     finally:
         cursor.close()
         conn.close()

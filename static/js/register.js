@@ -113,15 +113,18 @@ botaoRegistra.addEventListener('click', function (event) {
         return;
     }
 
-    // Exibir mensagem de sucesso e redirecionar após o clique no botão "OK"
-    Swal.fire({
-        icon: 'success',
-        title: 'Cadastro realizado com sucesso!',
-        text: 'Clique em "OK" para ir para a tela de login.',
-    }).then(() => {
-        // Submeter o formulário
-        document.getElementById("registroForm").submit();
-    });
+    // Verificar se a senha atende ao padrão
+    if (!senhaRegex.test(senhaInput.value)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Senha inválida!',
+            text: 'A senha deve conter entre 8 e 20 caracteres, incluindo pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial, sem espaços.',
+        });
+        return;
+    }
+
+    // Submeter o formulário diretamente após validações bem-sucedidas
+    document.getElementById("registroForm").submit();
 });
 
 // CheckBox de Visualização de senha
