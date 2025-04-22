@@ -10,7 +10,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
 from datetime import date, datetime
-
+import base64
+import imghdr
 
 app = FastAPI()
 
@@ -198,11 +199,24 @@ async def get_perfil_page(request: Request):
     cursor = conn.cursor()
 
     try:
-        query = "SELECT nome, email, telefone, data FROM usuario WHERE id = %s"
-        cursor.execute(query, (int(user_id),))  # Converte user_id para inteiro
+        query = "SELECT nome, email, telefone, data, foto FROM usuario WHERE id = %s"
+        cursor.execute(query, (int(user_id),))
         user_data = cursor.fetchone()
 
         if user_data:
+            foto_base64 = None
+            foto_tipo = None
+
+            if user_data[4]:  # Se a foto existir
+                foto_blob = user_data[4]
+                tipo = imghdr.what(None, h=foto_blob)
+                if tipo:
+                    foto_tipo = f"image/{tipo}"
+                else:
+                    foto_tipo = "image/jpeg"  # padrão se não detectar
+
+                foto_base64 = base64.b64encode(foto_blob).decode('utf-8')
+
             return templates.TemplateResponse(
                 "perfil.html",
                 {
@@ -211,6 +225,8 @@ async def get_perfil_page(request: Request):
                     "email": user_data[1],
                     "telefone": user_data[2],
                     "data_nascimento": user_data[3],
+                    "foto_base64": foto_base64,
+                    "foto_tipo": foto_tipo,
                 }
             )
         else:
@@ -219,4 +235,5 @@ async def get_perfil_page(request: Request):
     finally:
         cursor.close()
         conn.close()
+ 
 
