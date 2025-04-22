@@ -145,7 +145,11 @@
                         <div class="botoes-acao">
                             <button class="btn" id="editar-btn">Editar informações</button>
                             <button class="btn" id="salvar-btn" disabled>Salvar informações</button>
-                            <button class="btn" id="excluir-btn">Excluir Perfil</button>
+                            <!-- <button class="btn" id="excluir-btn">Excluir Perfil</button> -->
+                            <button class="btn" id="excluir-btn" type="button" onclick="confirmarExclusao()">Excluir Perfil</button>
+                            <form id="excluir-form" action="/perfil" method="post" style="display: none;">
+                                <input type="hidden" name="id" value="{{ user_id }}"> <!-- Certifique-se de que user_id está sendo passado -->
+                            </form>
                         </div>
                     </div>
                     <div class="perfil-conteudo">
@@ -322,7 +326,24 @@
     <script src="../static/js/geral/tagbar.js"></script>
     <script src="../static/js/geral/criar.js"></script>
     <script src="../static/js/perfil.js"></script>
-
+    <script>
+        function confirmarExclusao() {
+            Swal.fire({
+                title: 'Tem certeza?',
+                text: "Essa ação não pode ser desfeita!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, excluir!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('excluir-form').submit();
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

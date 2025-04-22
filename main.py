@@ -235,5 +235,29 @@ async def get_perfil_page(request: Request):
     finally:
         cursor.close()
         conn.close()
- 
 
+@app.post("/perfil", response_class=HTMLResponse)
+async def delete_user(request: Request):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=303)
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    try:
+        query = "DELETE FROM usuario WHERE id = %s"
+        cursor.execute(query, (user_id,))
+        conn.commit()
+
+        request.session.clear()  # Limpa a sessão após exclusão do usuário
+        return RedirectResponse(url="/login", status_code=303)
+
+    except Exception as e:
+        return templates.TemplateResponse(
+            "perfil.html",
+            {"request": request, "erro": f"Erro ao excluir usuário: {str(e)}"}
+        )
+    finally:
+        cursor.close()
+        conn.close()

@@ -178,8 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
             cancelButtonText: "Cancelar"
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "../templates/register.html"; // Ou uma lógica de exclusão real
-                successAlert("Perfil excluído com sucesso!");
+                document.getElementById("excluir-form").submit(); // Submete o formulário de exclusão
             }
         });
     });
