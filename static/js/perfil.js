@@ -81,7 +81,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Botão de salvar
-    salvarBtn.addEventListener("click", () => {
+    salvarBtn.addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent default form submission
+
         let isValid = true;
         let errorMessage = "";
 
@@ -97,63 +99,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // Validação do nome de usuário
-            if (input.id === "nome-usuario-input" && !nomeUsuarioRegex.test(inputValue)) {
-                isValid = false;
-                errorMessage = "O nome de usuário deve ter entre 3 e 20 caracteres, sem conter espaços.";
-                return;
+            // Atualiza os valores nos campos ocultos do formulário
+            if (input.id === "nome-usuario-input") {
+                document.getElementById("nome-usuario-hidden").value = inputValue;
+            } else if (input.id === "email-input") {
+                document.getElementById("email-hidden").value = inputValue;
+            } else if (input.id === "telefone-input") {
+                document.getElementById("telefone-hidden").value = inputValue;
+            } else if (input.id === "data-nascimento-input") {
+                document.getElementById("data-nascimento-hidden").value = inputValue;
             }
 
-            // Validação de email
-            if (input.type === "email" && !emailRegex.test(inputValue)) {
-                isValid = false;
-                errorMessage = "Email inválido! Insira um email válido.";
-                return;
-            }
-
-            // Validação de senha
-            if (input.id === "senha-input" && !senhaRegex.test(inputValue)) {
-                isValid = false;
-                errorMessage = "A senha deve ter entre 8 e 20 caracteres, contendo pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial.";
-                return;
-            }
-
-            // Validação de telefone
-            if (input.id === "telefone-input" && !telefoneRegex.test(inputValue)) {
-                isValid = false;
-                errorMessage = "O telefone deve estar no formato (XX) XXXXX-XXXX.";
-                return;
-            }
-
-            // Validação de data de nascimento
-            if (input.id === "data-nascimento-input" && !datanascimentoRegex.test(inputValue)) {
-                isValid = false;
-                errorMessage = "Data de nascimento inválida! Insira uma data válida.";
-                return;
-            }
-
-            // Validar se a data de nascimento é anterior à data atual
-            if (input.id === "data-nascimento-input") {
-                const hoje = new Date();
-                const dataNascimento = new Date(inputValue);
-                if (hoje < dataNascimento) {
-                    isValid = false;
-                    errorMessage = "Data de nascimento precisa ser anterior à data atual!";
-                    return;
-                }
-            }
-        });
-
-        if (!isValid) {
-            errorAlert(errorMessage);
-            return;
-        }
-
-        detalhes.forEach(item => {
-            const span = item.querySelector(".detalhe-valor");
-            const input = item.querySelector(".detalhe-input");
-
-            span.textContent = input.value;
+            span.textContent = inputValue;
 
             if (input.type === "text" && input.id === "senha-input") {
                 input.type = "password"; // Volta a esconder a senha
@@ -163,8 +120,13 @@ document.addEventListener("DOMContentLoaded", () => {
             input.style.display = "none";
         });
 
-        salvarBtn.disabled = true;
-        successAlert();
+        if (!isValid) {
+            errorAlert(errorMessage);
+            return;
+        }
+
+        successAlert("Informações atualizadas com sucesso!");
+        document.getElementById("editar-form").submit(); // Submete o formulário
     });
 
     // Botão de excluir

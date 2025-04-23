@@ -236,7 +236,7 @@ async def get_perfil_page(request: Request):
         cursor.close()
         conn.close()
 
-@app.post("/perfil", response_class=HTMLResponse)
+@app.post("/perfilExcluir", response_class=HTMLResponse)
 async def delete_user(request: Request):
     user_id = request.session.get("user_id")
     if not user_id:
@@ -261,3 +261,116 @@ async def delete_user(request: Request):
     finally:
         cursor.close()
         conn.close()
+
+@app.get("/perfil", response_class=HTMLResponse)
+async def perfil_atualizar(request: Request, db=Depends(get_db)):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=303)
+
+    with db.cursor(pymysql.cursors.DictCursor) as cursor:
+        cursor.execute("SELECT * FROM usuario WHERE id = %s", (user_id,))
+        usuario = cursor.fetchone()
+    db.close()
+
+    hoje = datetime.now().strftime("%d/%m/%Y %H:%M")
+
+    return templates.TemplateResponse("perfilAtualizar.html", {
+        "request": request,
+        "usuario": usuario,
+        "hoje": hoje
+    })
+
+@app.post("/perfilAtualizar", response_class=HTMLResponse)
+async def perfil_atualizar_exe(
+    request: Request,
+    Nome: str = Form(...),
+    Email: str = Form(...),
+    Telefone: str = Form(...),
+    DataNasc: str = Form(None),
+    Imagem: UploadFile = File(None),
+    db=Depends(get_db)
+):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=303)
+
+    foto_bytes = None
+    if Imagem and Imagem.filename:
+        foto_bytes = await Imagem.read()
+
+    try:
+        with db.cursor() as cursor:
+            if foto_bytes:
+                sql = """UPDATE usuario 
+                         SET nome=%s, email=%s, telefone=%s, data=%s, foto=%s
+                         WHERE id=%s"""
+                cursor.execute(sql, (Nome, Email, Telefone, DataNasc, foto_bytes, user_id))
+            else:
+                sql = """UPDATE usuario 
+                         SET nome=%s, email=%s, telefone=%s, data=%s
+                         WHERE id=%s"""
+                cursor.execute(sql, (Nome, Email, Telefone, DataNasc, user_id))
+            db.commit()
+
+        request.session["mensagem_header"] = "Atualização de Perfil"
+        request.session["mensagem"] = "Perfil atualizado com sucesso!"
+
+    except Exception as e:
+        request.session["mensagem_header"] = "Erro ao atualizar"
+        request.session["mensagem"] = str(e)
+    finally:
+        db.close()
+
+    return RedirectResponse(url="/perfil", status_code=303)
+
+@app.post("/perfil")
+async def perfil_atualizar_exe(
+    request: Request,
+    Nome: str = Form(...),
+    Email: str = Form(...),
+    Telefone: str = Form(...),
+    DataNasc: str = Form(None),
+    Imagem: UploadFile = File(None),
+    db=Depends(get_db)
+):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=303)
+
+    foto_bytes = None
+    if Imagem and Imagem.filename:
+        foto_bytes = await Imagem.read()
+
+    try:
+        with db.cursor() as cursor:
+            if foto_bytes:
+                sql = """UPDATE usuario 
+                         SET nome=%s, email=%s, telefone=%s, data=%s, foto=%s
+                         WHERE id=%s"""
+                cursor.execute(sql, (Nome, Email, Telefone, DataNasc, foto_bytes, user_id))
+            else:
+                sql = """UPDATE usuario 
+                         SET nome=%s, email=%s, telefone=%s, data=%s
+                         WHERE id=%s"""
+                cursor.execute(sql, (Nome, Email, Telefone, DataNasc, user_id))
+            db.commit()
+
+        request.session["mensagem_header"] = "Atualização de Perfil"
+        request.session["mensagem"] = "Perfil atualizado com sucesso!"
+
+    except Exception as e:
+        request.session["mensagem_header"] = "Erro ao atualizar"
+        request.session["mensagem"] = str(e)
+    finally:
+        db.close()
+
+    return templates.TemplateResponse("perfilAtualizar_exe.html", {
+        "request": request,
+        "mensagem_header": request.session.get("mensagem_header", ""),
+        "mensagem": request.session.get("mensagem", ""),
+        "hoje": datetime.now().strftime("%d/%m/%Y %H:%M"),
+        "nome_usuario": request.session.get("user_name", None)
+    })
+
+

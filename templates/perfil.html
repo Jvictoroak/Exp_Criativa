@@ -143,12 +143,17 @@
                             <input type="text" class="detalhe-input" id="nome-usuario-input" style="display: none;">
                         </div>
                         <div class="botoes-acao">
-                            <button class="btn" id="editar-btn">Editar informações</button>
-                            <button class="btn" id="salvar-btn" disabled>Salvar informações</button>
-                            <!-- <button class="btn" id="excluir-btn">Excluir Perfil</button> -->
-                            <button class="btn" id="excluir-btn" type="button" onclick="confirmarExclusao()">Excluir Perfil</button>
-                            <form id="excluir-form" action="/perfil" method="post" style="display: none;">
-                                <input type="hidden" name="id" value="{{ user_id }}"> <!-- Certifique-se de que user_id está sendo passado -->
+                            <form id="editar-form" action="/perfilAtualizar" method="post" enctype="multipart/form-data">
+                                <button class="btn" id="editar-btn" type="button">Editar informações</button>
+                                <button class="btn" id="salvar-btn" type="submit" disabled>Salvar informações</button>
+                                <input type="hidden" name="Nome" id="nome-usuario-hidden">
+                                <input type="hidden" name="Email" id="email-hidden">
+                                <input type="hidden" name="Telefone" id="telefone-hidden">
+                                <input type="hidden" name="DataNasc" id="data-nascimento-hidden">
+                                <input type="file" name="Imagem" id="foto-hidden" style="display: none;">
+                            </form>
+                            <form id="excluir-form" action="/perfilExcluir" method="post" style="display: inline;">
+                                <button class="btn" id="excluir-btn" type="button" onclick="confirmarExclusao()">Excluir Perfil</button>
                             </form>
                         </div>
                     </div>
