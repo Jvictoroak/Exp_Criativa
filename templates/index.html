@@ -18,6 +18,11 @@
                 <div class="imagem-container"><img src="../static/imagens/logo.webp" alt="" class="imagem"></div>
                 <div class="texto">Postly</div>
             </div>
+            <div class="user-info">
+                <span class="texto">Usuário:</span>
+                <p></p>
+                <span class="texto">{{ request.session.user_name }}</span>
+            </div>
             <a href="/index" class="menu-item">
                 <i class="bi bi-house"></i>
                 <span class="texto">Home</span>
