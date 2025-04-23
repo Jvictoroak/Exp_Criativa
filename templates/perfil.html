@@ -150,7 +150,8 @@
                                 <input type="hidden" name="Email" id="email-hidden">
                                 <input type="hidden" name="Telefone" id="telefone-hidden">
                                 <input type="hidden" name="DataNasc" id="data-nascimento-hidden">
-                                <input type="file" name="Imagem" id="foto-hidden" style="display: none;">
+                                <label for="foto-hidden" class="btn">Alterar Foto</label>
+                                <input type="file" name="Imagem" id="foto-hidden" accept="image/*" style="display: none;">
                             </form>
                             <form id="excluir-form" action="/perfilExcluir" method="post" style="display: inline;">
                                 <button class="btn" id="excluir-btn" type="button" onclick="confirmarExclusao()">Excluir Perfil</button>

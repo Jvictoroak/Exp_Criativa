@@ -372,5 +372,3 @@ async def perfil_atualizar_exe(
         "hoje": datetime.now().strftime("%d/%m/%Y %H:%M"),
         "nome_usuario": request.session.get("user_name", None)
     })
-
-
