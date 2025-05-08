@@ -376,3 +376,21 @@ async def perfil_atualizar_exe(
         "hoje": datetime.now().strftime("%d/%m/%Y %H:%M"),
         "nome_usuario": request.session.get("user_name", None)
     })
+
+@app.get("/lista_usuarios", response_class=HTMLResponse)
+async def lista_usuarios(request: Request):
+    conn = get_db()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+    try:
+        query = "SELECT id, nome, email, telefone, data FROM usuario"
+        cursor.execute(query)
+        usuarios = cursor.fetchall()
+
+        return templates.TemplateResponse("lista_usuarios.html", {
+            "request": request,
+            "usuarios": usuarios
+        })
+    finally:
+        cursor.close()
+        conn.close()
