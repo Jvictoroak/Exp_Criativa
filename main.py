@@ -123,39 +123,28 @@ async def authenticate_user(
     usuario: str = Form(...),
     senha: str = Form(...)
 ):
-    # Conexão com o banco de dados
     conn = get_db()
-    cursor = conn.cursor()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
 
     try:
-        # Criptografar a senha fornecida pelo usuário
         senha_md5 = hashlib.md5(senha.encode()).hexdigest()
-
-        # Consultar o banco de dados para verificar as credenciais
-        query = "SELECT id, nome FROM usuario WHERE nome = %s AND senha = %s"
+        query = "SELECT id, nome, admin FROM usuario WHERE nome = %s AND senha = %s"
         cursor.execute(query, (usuario, senha_md5))
         user = cursor.fetchone()
 
         if user:
-            # Autenticação bem-sucedida
-            request.session['user_id'] = user[0]
-            request.session['user_name'] = user[1]
-            return templates.TemplateResponse(
-                "login.html",
-                {"request": request, "sucesso": "Login realizado com sucesso!"}
-            )
+            request.session['user_id'] = user['id']
+            request.session['user_name'] = user['nome']
+
+            if user['admin']:
+                return RedirectResponse(url="/lista_usuarios", status_code=303)
+            else:
+                return RedirectResponse(url="/index", status_code=303)
         else:
-            # Credenciais inválidas
             return templates.TemplateResponse(
                 "login.html",
                 {"request": request, "erro": "Nome de usuário ou senha incorretos."}
             )
-
-    except Exception as e:
-        return templates.TemplateResponse(
-            "login.html",
-            {"request": request, "erro": "Erro ao autenticar usuário."}
-        )
     finally:
         cursor.close()
         conn.close()
@@ -163,35 +152,6 @@ async def authenticate_user(
 def login_required(request: Request):
     if not request.session.get('user_id'):
         return RedirectResponse(url="/login", status_code=303)
-
-@app.post("/login", response_class=HTMLResponse)
-async def authenticate_user(
-    request: Request,
-    usuario: str = Form(...),
-    senha: str = Form(...)
-):
-    conn = get_db()
-    cursor = conn.cursor()
-
-    try:
-        senha_md5 = hashlib.md5(senha.encode()).hexdigest()
-        query = "SELECT id, nome FROM usuario WHERE nome = %s AND senha = %s"
-        cursor.execute(query, (usuario, senha_md5))
-        user = cursor.fetchone()
-
-        if user:
-            # Armazenar dados do usuário na sessão
-            request.session['user_id'] = user[0]
-            request.session['user_name'] = user[1]
-            return RedirectResponse(url="/perfil", status_code=303)
-        else:
-            return templates.TemplateResponse(
-                "login.html",
-                {"request": request, "erro": "Nome de usuário ou senha incorretos."}
-            )
-    finally:
-        cursor.close()
-        conn.close()
 
 @app.get("/perfil", response_class=HTMLResponse)
 async def get_perfil_page(request: Request):
