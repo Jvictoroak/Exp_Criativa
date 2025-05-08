@@ -11,7 +11,8 @@ CREATE TABLE usuario (
     senha varchar(255),
     telefone varchar(20),
     data date,
-    foto longblob
+    foto longblob,
+    admin BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE publicacao (
@@ -47,3 +48,5 @@ ALTER TABLE tem ADD CONSTRAINT FK_tem_3
     FOREIGN KEY (fk_tags_id)
     REFERENCES tags (id)
     ON DELETE SET NULL;
+
+INSERT INTO usuario (nome, email, senha, telefone, data, admin) VALUES ('AdminPostly', 'adminpostly@email.com', MD5('P@ssw0rd_postly'), '0000000000', '1900-01-01', TRUE);
