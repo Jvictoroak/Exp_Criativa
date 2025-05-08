@@ -36,6 +36,10 @@ DB_CONFIG = {
 def get_db():
     return pymysql.connect(**DB_CONFIG)
 
+@app.get("/", response_class=RedirectResponse)
+async def root():
+    return RedirectResponse(url="/login")
+
 @app.get("/register", response_class=HTMLResponse)
 async def get_register_page(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
