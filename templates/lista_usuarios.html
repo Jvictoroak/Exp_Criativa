@@ -17,20 +17,97 @@
                     <th>Email</th>
                     <th>Telefone</th>
                     <th>Data de Nascimento</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 {% for usuario in usuarios %}
                 <tr>
                     <td>{{ usuario.id }}</td>
-                    <td>{{ usuario.nome }}</td>
-                    <td>{{ usuario.email }}</td>
-                    <td>{{ usuario.telefone }}</td>
-                    <td>{{ usuario.data }}</td>
+                    <td><input type="text" value="{{ usuario.nome }}" id="nome-{{ usuario.id }}" disabled></td>
+                    <td><input type="email" value="{{ usuario.email }}" id="email-{{ usuario.id }}" disabled></td>
+                    <td><input type="text" value="{{ usuario.telefone }}" id="telefone-{{ usuario.id }}" disabled></td>
+                    <td><input type="date" value="{{ usuario.data }}" id="data-{{ usuario.id }}" disabled></td>
+                    <td>
+                        <form method="POST" action="/salvar_usuario" id="form-salvar-{{ usuario.id }}">
+                            <input type="hidden" name="id" value="{{ usuario.id }}">
+                            <input type="hidden" name="nome" id="input-nome-{{ usuario.id }}">
+                            <input type="hidden" name="email" id="input-email-{{ usuario.id }}">
+                            <input type="hidden" name="telefone" id="input-telefone-{{ usuario.id }}">
+                            <input type="hidden" name="data" id="input-data-{{ usuario.id }}">
+                            <button type="button" onclick="habilitarEdicao('{{ usuario.id }}')">Editar</button>
+                            <button type="button" onclick="prepararSalvar('{{ usuario.id }}')">Salvar</button>
+                        </form>
+                        <form method="POST" action="/excluir_usuario" id="form-excluir-{{ usuario.id }}" style="display:inline;">
+                            <input type="hidden" name="id" value="{{ usuario.id }}">
+                            <button type="button" onclick="confirmarExclusao('{{ usuario.id }}')">Excluir</button>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const telefoneRegex = /^\(\d{2}\) \d{4,5}-\d{4}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        function habilitarEdicao(id) {
+            document.getElementById(`nome-${id}`).disabled = false;
+            document.getElementById(`email-${id}`).disabled = false;
+            document.getElementById(`telefone-${id}`).disabled = false;
+            document.getElementById(`data-${id}`).disabled = false;
+        }
+
+        function prepararSalvar(id) {
+            const nome = document.getElementById(`nome-${id}`).value;
+            const email = document.getElementById(`email-${id}`).value;
+            const telefone = document.getElementById(`telefone-${id}`).value;
+            const data = document.getElementById(`data-${id}`).value;
+
+            if (!telefoneRegex.test(telefone)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Telefone inválido!',
+                    text: 'O formato deve ser (XX) XXXXX-XXXX.',
+                });
+                return;
+            }
+
+            if (!emailRegex.test(email)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Email inválido!',
+                    text: 'Por favor, insira um email válido.',
+                });
+                return;
+            }
+
+            document.getElementById(`input-nome-${id}`).value = nome;
+            document.getElementById(`input-email-${id}`).value = email;
+            document.getElementById(`input-telefone-${id}`).value = telefone;
+            document.getElementById(`input-data-${id}`).value = data;
+
+            Swal.fire('Sucesso', 'Informações salvas com sucesso!', 'success').then(() => {
+                document.getElementById(`form-salvar-${id}`).submit();
+            });
+        }
+
+        function confirmarExclusao(id) {
+            Swal.fire({
+                title: "Tem certeza?",
+                text: "Você está prestes a excluir este usuário!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Sim, excluir",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(`form-excluir-${id}`).submit();
+                }
+            });
+        }
+    </script>
 </body>
 </html>

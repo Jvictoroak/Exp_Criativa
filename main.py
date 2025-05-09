@@ -354,3 +354,42 @@ async def lista_usuarios(request: Request):
     finally:
         cursor.close()
         conn.close()
+
+@app.post("/salvar_usuario")
+async def salvar_usuario(
+    request: Request,
+    id: int = Form(...),
+    nome: str = Form(...),
+    email: str = Form(...),
+    telefone: str = Form(...),
+    data: str = Form(...)
+):
+    conn = get_db()
+    cursor = conn.cursor()
+
+    try:
+        query = """
+        UPDATE usuario
+        SET nome = %s, email = %s, telefone = %s, data = %s
+        WHERE id = %s
+        """
+        cursor.execute(query, (nome, email, telefone, data, id))
+        conn.commit()
+        return RedirectResponse(url="/lista_usuarios", status_code=303)
+    finally:
+        cursor.close()
+        conn.close()
+
+@app.post("/excluir_usuario")
+async def excluir_usuario(request: Request, id: int = Form(...)):
+    conn = get_db()
+    cursor = conn.cursor()
+
+    try:
+        query = "DELETE FROM usuario WHERE id = %s"
+        cursor.execute(query, (id,))
+        conn.commit()
+        return RedirectResponse(url="/lista_usuarios", status_code=303)
+    finally:
+        cursor.close()
+        conn.close()
