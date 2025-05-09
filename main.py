@@ -108,10 +108,6 @@ async def register_user(
     # Criptografar a senha em MD5
     senha_md5 = hashlib.md5(senha.encode()).hexdigest()
 
-    # Conexão com o banco de dados
-    conn = get_db()
-    cursor = conn.cursor()
-
     try:
         # Inserir os dados no banco
         query = """
