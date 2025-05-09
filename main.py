@@ -100,13 +100,19 @@ async def register_user(
             return templates.TemplateResponse("register.html", {"request": request, "erro": "A data de nascimento não pode ser no futuro."})
     except ValueError:
         return templates.TemplateResponse("register.html", {"request": request, "erro": "A data de nascimento é inválida."})
-    
+    finally:
+        cursor.close()
+        conn.close()
 
     # Remover máscara do telefone
     telefone = re.sub(r'\D', '', telefone)
 
     # Criptografar a senha em MD5
     senha_md5 = hashlib.md5(senha.encode()).hexdigest()
+
+    # Conexão com o banco de dados
+    conn = get_db()
+    cursor = conn.cursor()
 
     try:
         # Inserir os dados no banco
@@ -134,7 +140,9 @@ async def authenticate_user(
     usuario: str = Form(...),
     senha: str = Form(...)
 ):
-
+    # Conexão com o banco de dados
+    conn = get_db()
+    cursor = conn.cursor()
     try:
         # Criptografar a senha fornecida pelo usuário
         senha_md5 = hashlib.md5(senha.encode()).hexdigest()
@@ -178,6 +186,7 @@ async def authenticate_user(
     usuario: str = Form(...),
     senha: str = Form(...)
 ):
+    # Conexão com o banco de dados
     conn = get_db()
     cursor = conn.cursor()
 
@@ -206,7 +215,8 @@ async def get_perfil_page(request: Request):
     user_id = request.session.get('user_id')
     if not user_id:
         return RedirectResponse(url="/login", status_code=303)
-
+    
+    # Conexão com o banco de dados
     conn = get_db()
     cursor = conn.cursor()
 
