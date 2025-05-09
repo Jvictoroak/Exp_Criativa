@@ -69,6 +69,20 @@ async def register_user(
     nascimento: str = Form(...),
     foto: UploadFile = File(None)
 ):
+    
+    # Conexão com o banco de dados
+    conn = get_db()
+    cursor = conn.cursor()
+
+    try:
+        # Verificar se o nome de usuário já existe
+        query = "SELECT COUNT(*) FROM usuario WHERE nome = %s"
+        cursor.execute(query, (usuario))
+        if cursor.fetchone()[0] > 0:
+            return templates.TemplateResponse("register.html", {"request": request, "erro": "Nome de usuário já existe."})
+    except Exception as e:
+        return templates.TemplateResponse("register.html", {"request": request, "erro": "Erro ao verificar usuário."})
+    
     # Validação no backend
     if len(usuario) < 3 or len(usuario) > 20:
         return templates.TemplateResponse("register.html", {"request": request, "erro": "O nome de usuário deve ter entre 3 e 20 caracteres."})
@@ -86,16 +100,13 @@ async def register_user(
             return templates.TemplateResponse("register.html", {"request": request, "erro": "A data de nascimento não pode ser no futuro."})
     except ValueError:
         return templates.TemplateResponse("register.html", {"request": request, "erro": "A data de nascimento é inválida."})
+    
 
     # Remover máscara do telefone
     telefone = re.sub(r'\D', '', telefone)
 
     # Criptografar a senha em MD5
     senha_md5 = hashlib.md5(senha.encode()).hexdigest()
-
-    # Conexão com o banco de dados
-    conn = get_db()
-    cursor = conn.cursor()
 
     try:
         # Inserir os dados no banco
@@ -123,23 +134,64 @@ async def authenticate_user(
     usuario: str = Form(...),
     senha: str = Form(...)
 ):
-    conn = get_db()
-    cursor = conn.cursor(pymysql.cursors.DictCursor)
 
     try:
+        # Criptografar a senha fornecida pelo usuário
         senha_md5 = hashlib.md5(senha.encode()).hexdigest()
-        query = "SELECT id, nome, admin FROM usuario WHERE nome = %s AND senha = %s"
+
+        # Consultar o banco de dados para verificar as credenciais
+        query = "SELECT id, nome FROM usuario WHERE nome = %s AND senha = %s"
         cursor.execute(query, (usuario, senha_md5))
         user = cursor.fetchone()
 
         if user:
-            request.session['user_id'] = user['id']
-            request.session['user_name'] = user['nome']
+            # Autenticação bem-sucedida
+            request.session['user_id'] = user[0]
+            request.session['user_name'] = user[1]
+            return templates.TemplateResponse(
+                "login.html",
+                {"request": request, "sucesso": "Login realizado com sucesso!"}
+            )
+        else:
+            # Credenciais inválidas
+            return templates.TemplateResponse(
+                "login.html",
+                {"request": request, "erro": "Nome de usuário ou senha incorretos."}
+            )
 
-            if user['admin']:
-                return RedirectResponse(url="/lista_usuarios", status_code=303)
-            else:
-                return RedirectResponse(url="/index", status_code=303)
+    except Exception as e:
+        return templates.TemplateResponse(
+            "login.html",
+            {"request": request, "erro": "Erro ao autenticar usuário."}
+        )
+    finally:
+        cursor.close()
+        conn.close()
+
+def login_required(request: Request):
+    if not request.session.get('user_id'):
+        return RedirectResponse(url="/login", status_code=303)
+
+@app.post("/login", response_class=HTMLResponse)
+async def authenticate_user(
+    request: Request,
+    usuario: str = Form(...),
+    senha: str = Form(...)
+):
+    conn = get_db()
+    cursor = conn.cursor()
+
+    try:
+        senha_md5 = hashlib.md5(senha.encode()).hexdigest()
+        query = "SELECT id, nome FROM usuario WHERE nome = %s AND senha = %s"
+        cursor.execute(query, (usuario, senha_md5))
+        user = cursor.fetchone()
+
+        if user:
+            # Armazenar dados do usuário na sessão
+            request.session['user_id'] = user[0]
+            request.session['user_name'] = user[1]
+            return RedirectResponse(url="/perfil", status_code=303)
         else:
             return templates.TemplateResponse(
                 "login.html",
@@ -148,10 +200,6 @@ async def authenticate_user(
     finally:
         cursor.close()
         conn.close()
-
-def login_required(request: Request):
-    if not request.session.get('user_id'):
-        return RedirectResponse(url="/login", status_code=303)
 
 @app.get("/perfil", response_class=HTMLResponse)
 async def get_perfil_page(request: Request):
