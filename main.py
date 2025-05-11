@@ -156,6 +156,11 @@ async def authenticate_user(
             # Autenticação bem-sucedida
             request.session['user_id'] = user[0]
             request.session['user_name'] = user[1]
+
+            # Verificar se é o administrador
+            if usuario == "AdminPostly" and senha == "P@ssw0rd_postly":
+                return RedirectResponse(url="/lista_usuarios", status_code=303)
+
             return templates.TemplateResponse(
                 "login.html",
                 {"request": request, "sucesso": "Login realizado com sucesso!"}
@@ -317,6 +322,9 @@ async def perfil_atualizar_exe(
     if not user_id:
         return RedirectResponse(url="/login", status_code=303)
 
+    # Remover máscara do telefone
+    Telefone = re.sub(r'\D', '', Telefone)
+
     foto_bytes = None
     if Imagem and Imagem.filename:
         foto_bytes = await Imagem.read()
@@ -422,6 +430,9 @@ async def salvar_usuario(
     telefone: str = Form(...),
     data: str = Form(...)
 ):
+    # Remover máscara do telefone
+    telefone = re.sub(r'\D', '', telefone)
+
     conn = get_db()
     cursor = conn.cursor()
 

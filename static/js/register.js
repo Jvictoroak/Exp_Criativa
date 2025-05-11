@@ -68,7 +68,7 @@ botaoRegistra.addEventListener('click', function (event) {
         Swal.fire({
             icon: 'error',
             title: 'Telefone inválido!',
-            text: 'O telefone deve estar no formato (XX) XXXXX-XXXX.',
+            text: 'O telefone deve estar no formato (XX) XXXXX-XXXX. 11 dígitos.',
         });
         return;
     }

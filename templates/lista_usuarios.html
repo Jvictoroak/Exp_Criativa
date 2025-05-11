@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Usuários</title>
     <link rel="stylesheet" href="/static/css/lista_usuarios.css">
+    <script src="/static/js/lista_usuarios.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="container">
@@ -48,66 +50,5 @@
             </tbody>
         </table>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        const telefoneRegex = /^\(\d{2}\) \d{4,5}-\d{4}$/;
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        function habilitarEdicao(id) {
-            document.getElementById(`nome-${id}`).disabled = false;
-            document.getElementById(`email-${id}`).disabled = false;
-            document.getElementById(`telefone-${id}`).disabled = false;
-            document.getElementById(`data-${id}`).disabled = false;
-        }
-
-        function prepararSalvar(id) {
-            const nome = document.getElementById(`nome-${id}`).value;
-            const email = document.getElementById(`email-${id}`).value;
-            const telefone = document.getElementById(`telefone-${id}`).value;
-            const data = document.getElementById(`data-${id}`).value;
-
-            if (!telefoneRegex.test(telefone)) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Telefone inválido!',
-                    text: 'O formato deve ser (XX) XXXXX-XXXX.',
-                });
-                return;
-            }
-
-            if (!emailRegex.test(email)) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Email inválido!',
-                    text: 'Por favor, insira um email válido.',
-                });
-                return;
-            }
-
-            document.getElementById(`input-nome-${id}`).value = nome;
-            document.getElementById(`input-email-${id}`).value = email;
-            document.getElementById(`input-telefone-${id}`).value = telefone;
-            document.getElementById(`input-data-${id}`).value = data;
-
-            Swal.fire('Sucesso', 'Informações salvas com sucesso!', 'success').then(() => {
-                document.getElementById(`form-salvar-${id}`).submit();
-            });
-        }
-
-        function confirmarExclusao(id) {
-            Swal.fire({
-                title: "Tem certeza?",
-                text: "Você está prestes a excluir este usuário!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Sim, excluir",
-                cancelButtonText: "Cancelar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById(`form-excluir-${id}`).submit();
-                }
-            });
-        }
-    </script>
 </body>
 </html>
