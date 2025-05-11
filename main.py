@@ -24,6 +24,14 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # Configuração de templates Jinja2
 templates = Jinja2Templates(directory="templates")
 
+# Registrar o filtro b64encode no Jinja2
+def b64encode_filter(data):
+    if data:
+        return base64.b64encode(data).decode('utf-8')
+    return None
+
+templates.env.filters['b64encode'] = b64encode_filter
+
 # Configuração do banco de dados
 DB_CONFIG = {
     "host": "localhost",
@@ -409,7 +417,7 @@ async def lista_usuarios(request: Request):
     cursor = conn.cursor(pymysql.cursors.DictCursor)
 
     try:
-        query = "SELECT id, nome, email, telefone, data FROM usuario"
+        query = "SELECT id, nome, email, telefone, data, foto FROM usuario"
         cursor.execute(query)
         usuarios = cursor.fetchall()
 
