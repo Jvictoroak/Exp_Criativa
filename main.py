@@ -24,14 +24,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # Configuração de templates Jinja2
 templates = Jinja2Templates(directory="templates")
 
-# Registrar o filtro b64encode no Jinja2
-def b64encode_filter(data):
-    if data:
-        return base64.b64encode(data).decode('utf-8')
-    return None
-
-templates.env.filters['b64encode'] = b64encode_filter
-
 # Configuração do banco de dados
 DB_CONFIG = {
     "host": "localhost",
@@ -164,11 +156,6 @@ async def authenticate_user(
             # Autenticação bem-sucedida
             request.session['user_id'] = user[0]
             request.session['user_name'] = user[1]
-
-            # Verificar se é o administrador
-            if usuario == "AdminPostly" and senha == "P@ssw0rd_postly":
-                return RedirectResponse(url="/lista_usuarios", status_code=303)
-
             return templates.TemplateResponse(
                 "login.html",
                 {"request": request, "sucesso": "Login realizado com sucesso!"}
@@ -192,6 +179,21 @@ async def authenticate_user(
 def login_required(request: Request):
     if not request.session.get('user_id'):
         return RedirectResponse(url="/login", status_code=303)
+
+#   Verificando se o ID do usuário é 1
+def verificacao_admin(request: Request):
+    id_usuario = request.session.get("user_id")
+    return id_usuario == 1
+
+
+@app.get("/lista_usuarios", response_class=HTMLResponse)
+async def pagina_admin(request: Request):
+    if not verificacao_admin(request):
+        return templates.TemplateResponse(
+            "login.html",
+            {"request": request, "erro": "Acesso negado. Você não tem permissão para acessar esta página."}
+        )
+    return templates.TemplateResponse("lista_usuarios.html", {"request": request})
 
 @app.post("/login", response_class=HTMLResponse)
 async def authenticate_user(
@@ -330,9 +332,6 @@ async def perfil_atualizar_exe(
     if not user_id:
         return RedirectResponse(url="/login", status_code=303)
 
-    # Remover máscara do telefone
-    Telefone = re.sub(r'\D', '', Telefone)
-
     foto_bytes = None
     if Imagem and Imagem.filename:
         foto_bytes = await Imagem.read()
@@ -417,7 +416,7 @@ async def lista_usuarios(request: Request):
     cursor = conn.cursor(pymysql.cursors.DictCursor)
 
     try:
-        query = "SELECT id, nome, email, telefone, data, foto FROM usuario"
+        query = "SELECT id, nome, email, telefone, data FROM usuario"
         cursor.execute(query)
         usuarios = cursor.fetchall()
 
@@ -438,9 +437,6 @@ async def salvar_usuario(
     telefone: str = Form(...),
     data: str = Form(...)
 ):
-    # Remover máscara do telefone
-    telefone = re.sub(r'\D', '', telefone)
-
     conn = get_db()
     cursor = conn.cursor()
 
