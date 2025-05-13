@@ -19,7 +19,6 @@
                     <th>Email</th>
                     <th>Telefone</th>
                     <th>Data de Nascimento</th>
-                    <th>Foto de Perfil</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -31,13 +30,6 @@
                     <td><input type="email" value="{{ usuario.email }}" id="email-{{ usuario.id }}" disabled></td>
                     <td><input type="text" value="{{ usuario.telefone }}" id="telefone-{{ usuario.id }}" disabled></td>
                     <td><input type="date" value="{{ usuario.data }}" id="data-{{ usuario.id }}" disabled></td>
-                    <td>
-                        {% if usuario.foto %}
-                        <img src="data:image/jpeg;base64,{{ usuario.foto|b64encode }}" alt="Foto de Perfil" class="profile-img">
-                        {% else %}
-                        <span>Sem foto</span>
-                        {% endif %}
-                    </td>
                     <td>
                         <form method="POST" action="/salvar_usuario" id="form-salvar-{{ usuario.id }}">
                             <input type="hidden" name="id" value="{{ usuario.id }}">

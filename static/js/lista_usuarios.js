@@ -80,23 +80,3 @@ function confirmarExclusao(id) {
         }
     });
 }
-
-// Função para abrir a pop-up com a imagem
-function abrirPopupImagem(src) {
-    const popup = document.getElementById('popup-imagem');
-    const imagemPopup = document.getElementById('imagem-popup');
-    imagemPopup.src = src;
-    popup.style.display = 'flex';
-}
-
-// Função para fechar a pop-up
-function fecharPopupImagem() {
-    const popup = document.getElementById('popup-imagem');
-    popup.style.display = 'none';
-}
-
-// Adicionar evento de clique às imagens de perfil
-const imagensPerfil = document.querySelectorAll('.profile-img');
-imagensPerfil.forEach(imagem => {
-    imagem.addEventListener('click', () => abrirPopupImagem(imagem.src));
-});
