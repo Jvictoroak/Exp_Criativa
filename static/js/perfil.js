@@ -8,6 +8,24 @@ const errorAlert = (mensagem) => {
     Swal.fire('Erro', mensagem, 'error');
 };
 
+// Função para confirmar exclusão do perfil
+const confirmarExclusao = () => {
+    Swal.fire({
+        title: 'Tem certeza?',
+        text: "Essa ação não pode ser desfeita!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sim, excluir!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('excluir-form').submit();
+        }
+    });
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     const editarBtn = document.getElementById("editar-btn");
     const salvarBtn = document.getElementById("salvar-btn");
