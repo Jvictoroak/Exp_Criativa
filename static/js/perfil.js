@@ -197,4 +197,26 @@ document.addEventListener("DOMContentLoaded", () => {
     popup_fechar.addEventListener('click', () => {
         popup.classList.toggle('block');
     });
+
+    // Popup de alteração de senha
+    const alterarSenhaBtn = document.getElementById("alterar-senha-btn");
+    const popupSenha = document.getElementById("popup-alterar-senha");
+    const fecharPopupSenha = document.getElementById("fechar-popup-senha");
+
+    if (alterarSenhaBtn && popupSenha) {
+        alterarSenhaBtn.addEventListener("click", () => {
+            popupSenha.classList.add("block"); // Usa a classe block para exibir o popup-senha
+        });
+    }
+    if (fecharPopupSenha && popupSenha) {
+        fecharPopupSenha.addEventListener("click", () => {
+            popupSenha.classList.remove("block"); // Remove a classe block para esconder o popup-senha
+        });
+    }
+
+    if (alterarSenhaBtn) {
+        alterarSenhaBtn.addEventListener("click", () => {
+            console.log("Botão Alterar Senha clicado");
+        });
+    }
 });

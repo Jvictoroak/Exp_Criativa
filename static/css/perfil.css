@@ -36,7 +36,7 @@ main {  }
 
 /* Novos estilos para os detalhes do perfil */
 .perfil-detalhes { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 20px; margin-top: 10px; color: var(--branco); }
-.detalhe-item { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; min-width: 150px; }
+.detalhe-item { display: flex; flex-direction: column; align-items: flex-start; gap: 5px;  }
 .detalhe-label { font-weight: bold; font-size: 14px; }
 .detalhe-valor { font-size: 14px; color: var(--branco); word-wrap: break-word;}
 
@@ -62,6 +62,110 @@ main {  }
 .popup-publicacao.block .conteudo .tags {display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0;}
 .popup-publicacao.block .conteudo .tags .tag{border-radius: 8px; border: 1px solid var(--verde-2); padding: 5px 10px; color: var(--azul); background: var(--verde-2); font-weight: bold;}
 
+
+/* Popup de alteração de senha */
+.popup-senha {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.popup-senha.block {
+    display: flex;
+}
+.senha-conteudo {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 400px;
+    background: var(--azul, #1a237e);
+    border: 1px solid var(--branco, #fff);
+    color: var(--branco, #fff);
+    border-radius: 12px;
+    position: relative;
+    padding: 32px 24px 24px 24px;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.3);
+    align-items: center;
+}
+.senha-fechar {
+    width: 32px;
+    height: 32px;
+    background: var(--azul, #1a237e);
+    color: var(--branco, #fff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--branco, #fff);
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s;
+}
+.senha-fechar:hover {
+    background: #9e1c29;
+}
+.senha-descricao {
+    width: 100%;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.senha-descricao h2 {
+    margin-bottom: 20px;
+    color: var(--branco, #fff);
+    font-size: 22px;
+    font-weight: bold;
+}
+#form-alterar-senha {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.senha-form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+.senha-form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: var(--branco, #fff);
+}
+.senha-form-group input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid var(--branco, #fff);
+    background: #262626;
+    color: var(--branco, #fff);
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+@media (max-width: 600px) {
+    .senha-conteudo {
+        max-width: 98vw;
+        padding: 16px 4vw 16px 4vw;
+    }
+    .senha-descricao h2 {
+        font-size: 18px;
+    }
+}
 
 @media(max-width: 1100px){ 
     .popup-publicacao.block .conteudo > .imagem-container{ display: none;}

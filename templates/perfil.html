@@ -152,6 +152,7 @@
                                 <input type="hidden" name="DataNasc" id="data-nascimento-hidden">
                                 <label for="foto-hidden" class="btn">Alterar Foto</label>
                                 <input type="file" name="Imagem" id="foto-hidden" accept="image/*" style="display: none;">
+                                <button class="btn" id="alterar-senha-btn" type="button">Alterar Senha</button>
                             </form>
                             <form id="excluir-form" action="/perfilExcluir" method="post" style="display: inline;">
                                 <button class="btn" id="excluir-btn" type="button" onclick="confirmarExclusao()">Excluir Perfil</button>
@@ -322,6 +323,31 @@
                         </div>
 
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popup de alteração de senha -->
+        <section id="popup-alterar-senha" class="popup-senha">
+            <div class="senha-conteudo">
+                <div class="senha-fechar" id="fechar-popup-senha">X</div>
+                <div class="senha-descricao">
+                    <h2>Alterar Senha</h2>
+                    <form id="form-alterar-senha">
+                        <div class="senha-form-group">
+                            <label for="senha-atual">Senha atual:</label>
+                            <input type="password" id="senha-atual" name="senha-atual" required>
+                        </div>
+                        <div class="senha-form-group">
+                            <label for="nova-senha">Nova senha:</label>
+                            <input type="password" id="nova-senha" name="nova-senha" required>
+                        </div>
+                        <div class="senha-form-group">
+                            <label for="confirmar-senha">Confirmar nova senha:</label>
+                            <input type="password" id="confirmar-senha" name="confirmar-senha" required>
+                        </div>
+                        <button type="submit" class="btn">Salvar Nova Senha</button>
+                    </form>
                 </div>
             </div>
         </section>
