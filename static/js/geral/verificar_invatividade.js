@@ -1,5 +1,5 @@
 // Defina o tempo limite de inatividade em milissegundos (por exemplo, 5 minutos)
-let inactivityTime = 0.5 * 60 * 1000; // 5 minutos em milissegundos
+let inactivityTime = 0.2 * 60 * 1000; // 5 minutos em milissegundos
 let timer;
 
 function resetTimer() {
@@ -11,11 +11,6 @@ function resetTimer() {
 }
 
 function logoutUser() {
-    Swal.fire({
-            icon: 'error',
-            title: 'Usuário Inativo.',
-            text: 'Deslogando da sessão. Retornando ao Login',
-        });;
     window.location.href = '/login'; // Redireciona para a página de logout
 }
 
