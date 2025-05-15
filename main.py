@@ -13,6 +13,8 @@ from datetime import date, datetime
 import base64
 import imghdr
 
+from typing import List
+
 app = FastAPI()
 
 # Configuração de sessão (chave secreta para cookies de sessão)
@@ -58,10 +60,26 @@ async def get_register_page(request: Request):
 async def get_login_page(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
+# @app.get("/index", response_class=HTMLResponse)
+# async def get_index_page(request: Request):
+#     login_required(request)
+#     return templates.TemplateResponse("index.html", {"request": request})
 @app.get("/index", response_class=HTMLResponse)
-async def get_index_page(request: Request):
-    login_required(request)
-    return templates.TemplateResponse("index.html", {"request": request})
+async def index(request: Request):
+    # Verifica se o usuário está logado
+    if not request.session.get('user_id'):
+        return RedirectResponse(url="/login", status_code=303)
+    
+    # Busca as tags no banco
+    conn = get_db()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+    cursor.execute("SELECT id, nome FROM tags")
+    tags = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    
+    # Passa as tags para o template
+    return templates.TemplateResponse("index.html", {"request": request, "tags": tags})
 
 @app.get("/logout")
 async def logout(request: Request):
@@ -488,3 +506,53 @@ async def excluir_usuario(request: Request, id: int = Form(...)):
     finally:
         cursor.close()
         conn.close()
+
+@app.post("/publicar", response_class=HTMLResponse)
+async def publicar(
+    request: Request,
+    titulo: str = Form(...),
+    descricao: str = Form(...),
+    foto: UploadFile = File(...),
+    tags: List[str] = Form(None)
+):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=303)
+
+    conn = get_db()
+    cursor = conn.cursor()
+    print(titulo, descricao, foto, tags)
+    try:
+        # 1. Insere a publicação
+        query = """
+        INSERT INTO publicacao (fk_usuario_id, titulo, descricao, foto)
+        VALUES (%s, %s, %s, %s)
+        """
+        cursor.execute(query, (user_id, titulo, descricao, foto))
+        publicacao_id = cursor.lastrowid
+
+        # 2. Relaciona as tags (se houver)
+        if tags:
+            if isinstance(tags, str):
+                tags = [tags]
+            for tag_id in tags:
+                cursor.execute(
+                    "INSERT INTO tem (fk_publicacao_id, fk_tags_id) VALUES (%s, %s)",
+                    (publicacao_id, tag_id)
+                )
+        conn.commit()
+        return RedirectResponse(url="/perfil", status_code=303)
+    finally:
+        cursor.close()
+        conn.close()
+
+
+@app.get("/index", response_class=HTMLResponse)
+async def index(request: Request):
+    conn = get_db()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+    cursor.execute("SELECT id, nome FROM tags")
+    tags = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return templates.TemplateResponse("index.html", {"request": request, "tags": tags})

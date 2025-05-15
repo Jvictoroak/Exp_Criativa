@@ -50,3 +50,7 @@ ALTER TABLE tem ADD CONSTRAINT FK_tem_3
     ON DELETE SET NULL;
 
 INSERT INTO usuario (nome, email, senha, telefone, data, admin) VALUES ('AdminPostly', 'adminpostly@email.com', MD5('P@ssw0rd_postly'), '00000000000', '1900-01-01', TRUE);
+INSERT INTO tags ('nome') VALUES ('Tag1');
+INSERT INTO tags ('nome') VALUES ('Tag2');
+INSERT INTO tags ('nome') VALUES ('Tag3');
+INSERT INTO tags ('nome') VALUES ('Tag4');

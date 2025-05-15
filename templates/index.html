@@ -67,47 +67,32 @@
                 <p></p>
                 <span class="texto">{{ request.session.user_name }}</span>
             </div>
-            <section id="criar">
-                <div class="criar">
-                    <div class="conteudo">
-                      <form action="" class="formulario">
-                        <input type="file" id="criar-imagem" class="item criar-imagem" accept="image/png, image/jpeg, image/jpg, image/gif" required>
-                        
-                        <label for="texto-input">Titulo da Publicação:</label>
-                        <input type="text" id="texto-input" class="item" required> 
-                        
-                        <div class="tags">
-                          <div class="texto"><p>Tags da Publicação:</p></div>
-                          <div class="seletor">
-                            <label class="tag texto t1">
-                              <input type="checkbox" name="tags" value="lorem ipsum"> <p>Tag 1</p>
-                            </label>
-                            <label class="tag texto t1">
-                              <input type="checkbox" name="tags" value="lorem"> <p>Tag 1</p>
-                            </label>
-                            <label class="tag texto t1">
-                              <input type="checkbox" name="tags" value="lorem ipsum">  <p>Tag 3</p>
-                            </label>
-                            <label class="tag texto t1">
-                              <input type="checkbox" name="tags" value="lorem"> <p>Tag 4</p>
-                            </label>
-                            <label class="tag texto t1">
-                              <input type="checkbox" name="tags" value="lorem ipsum">  <p>Tag 5</p>
-                            </label>
-                            <label class="tag texto t1">
-                              <input type="checkbox" name="tags" value="lorem"> <p>Tag 6</p>
-                            </label>
-                            <label class="tag texto t1">
-                              <input type="checkbox" name="tags" value="lorem ipsum">  <p>Tag 7</p>
-                            </label>
-                          </div>
-                        </div>
-                        <input type="submit" value="PUBLICAR" class="item publicar">
-                      </form>
-                      <div id="fechar-criar" class="fechar">X</div>
-                    </div>
-                </div>
-            </section>
+<div class="criar">
+  <div class="conteudo">
+    <form action="/publicar" method="post" enctype="multipart/form-data" class="formulario">
+        <input type="file" id="criar-imagem" name='foto' class="item criar-imagem" accept="image/png, image/jpeg, image/jpg, image/gif" required>
+      
+      <label for="titulo-input">Titulo da Publicação:</label>
+      <input name='titulo' type="text" id="titulo-input" class="item" required> 
+      
+      <label for="descricao-input">Descrição da Publicação:</label>
+      <input name='descricao' type="text" id="descricao-input" class="item" required> 
+      
+        <div class="tags">
+        <div class="texto"><p>Tags da Publicação:</p></div>
+        <div class="seletor">
+            {% for tag in tags %}
+            <label class="tag texto t1">
+                <input type="checkbox" name="tags" value="{{ tag.id }}"> <p>{{ tag.nome }}</p>
+            </label>
+            {% endfor %}
+        </div>
+        </div>
+      <input type="submit" value="PUBLICAR" class="item publicar">
+    </form>
+    <div id="fechar-criar" class="fechar">X</div>
+  </div>
+</div>
         </section>
     </section>
     <main> 
