@@ -434,6 +434,57 @@ async def perfil_atualizar_exe(
         "nome_usuario": request.session.get("user_name", None)
     })
 
+@app.post("/alterarSenha", response_class=HTMLResponse)
+async def alterar_senha(
+    request: Request,
+    senha_atual: str = Form(...),
+    nova_senha: str = Form(...),
+    confirmar_senha: str = Form(...)
+):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=303)
+
+    # Validação de senha
+    if nova_senha != confirmar_senha:
+        request.session["mensagem_header"] = "Erro ao alterar senha"
+        request.session["mensagem"] = "As senhas não coincidem."
+        return RedirectResponse(url="/perfil", status_code=303)
+    if not re.match(r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$", nova_senha):
+        request.session["mensagem_header"] = "Erro ao alterar senha"
+        request.session["mensagem"] = "A senha deve conter entre 8 e 20 caracteres, incluindo pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial."
+        return RedirectResponse(url="/perfil", status_code=303)
+
+    conn = get_db()
+    cursor = conn.cursor()
+    try:
+        # Verifica a senha atual
+        cursor.execute("SELECT senha FROM usuario WHERE id = %s", (user_id,))
+        row = cursor.fetchone()
+        if not row:
+            request.session["mensagem_header"] = "Erro ao alterar senha"
+            request.session["mensagem"] = "Usuário não encontrado."
+            return RedirectResponse(url="/perfil", status_code=303)
+        senha_atual_md5 = hashlib.md5(senha_atual.encode()).hexdigest()
+        if row[0] != senha_atual_md5:
+            request.session["mensagem_header"] = "Erro ao alterar senha"
+            request.session["mensagem"] = "Senha atual incorreta."
+            return RedirectResponse(url="/perfil", status_code=303)
+        # Atualiza a senha
+        nova_senha_md5 = hashlib.md5(nova_senha.encode()).hexdigest()
+        cursor.execute("UPDATE usuario SET senha = %s WHERE id = %s", (nova_senha_md5, user_id))
+        conn.commit()
+        request.session["mensagem_header"] = "Senha alterada"
+        request.session["mensagem"] = "Senha alterada com sucesso!"
+        return RedirectResponse(url="/perfil", status_code=303)
+    except Exception as e:
+        request.session["mensagem_header"] = "Erro ao alterar senha"
+        request.session["mensagem"] = str(e)
+        return RedirectResponse(url="/perfil", status_code=303)
+    finally:
+        cursor.close()
+        conn.close()
+
 #-------------------------------------------------------------------------------------------------------------
 #LISTA DE USUÁRIOS
 #   Verificando se o ID do usuário é 1 (administrador)
@@ -556,3 +607,6 @@ async def index(request: Request):
     cursor.close()
     conn.close()
     return templates.TemplateResponse("index.html", {"request": request, "tags": tags})
+
+
+
