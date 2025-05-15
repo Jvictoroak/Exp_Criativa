@@ -147,7 +147,8 @@ main {  }
     margin-bottom: 4px;
     color: var(--branco, #fff);
 }
-.senha-form-group input[type="password"] {
+.senha-form-group input[type="password"],
+.senha-form-group input[type="text"].senha-visivel {
     width: 100%;
     padding: 8px;
     border-radius: 6px;
@@ -156,6 +157,12 @@ main {  }
     color: var(--branco, #fff);
     font-size: 15px;
     margin-bottom: 2px;
+    transition: border 0.2s, background 0.2s;
+}
+.senha-form-group input[type="text"].senha-visivel {
+    border: 1.5px solid #369e1c;
+    background: #232b3b;
+    color: #fff;
 }
 @media (max-width: 600px) {
     .senha-conteudo {

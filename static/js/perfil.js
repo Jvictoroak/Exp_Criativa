@@ -219,4 +219,84 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Botão Alterar Senha clicado");
         });
     }
+
+    // Visualizar senhas no popup de alteração de senha
+    const toggleSenhasBtn = document.getElementById("toggle-visualizar-senhas");
+    if (toggleSenhasBtn) {
+        toggleSenhasBtn.addEventListener("click", function () {
+            const camposSenha = [
+                document.getElementById("senha-atual"),
+                document.getElementById("nova-senha"),
+                document.getElementById("confirmar-senha")
+            ];
+            const mostrando = camposSenha[0].type === "text";
+            camposSenha.forEach(input => {
+                if (input) {
+                    input.type = mostrando ? "password" : "text";
+                    if (!mostrando) {
+                        input.classList.add("senha-visivel");
+                    } else {
+                        input.classList.remove("senha-visivel");
+                    }
+                }
+            });
+            this.textContent = mostrando ? "Mostrar Senhas" : "Ocultar Senhas";
+        });
+    }
+
+    // Validação do popup de alteração de senha
+    const formAlterarSenha = document.getElementById("form-alterar-senha");
+    if (formAlterarSenha) {
+        const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/;
+        formAlterarSenha.addEventListener("submit", function (event) {
+            const senhaAtual = document.getElementById("senha-atual").value.trim();
+            const novaSenha = document.getElementById("nova-senha").value.trim();
+            const confirmarSenha = document.getElementById("confirmar-senha").value.trim();
+
+            if (!senhaAtual || !novaSenha || !confirmarSenha) {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Preencha todos os campos!',
+                    text: 'Todos os campos são obrigatórios.',
+                });
+                return;
+            }
+            if (novaSenha !== confirmarSenha) {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro na confirmação de senha!',
+                    text: 'As senhas não coincidem. Tente novamente.'
+                });
+                return;
+            }
+            if (!senhaRegex.test(novaSenha)) {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Nova senha inválida!',
+                    text: 'A senha deve conter entre 8 e 20 caracteres, incluindo pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial, sem espaços.'
+                });
+                return;
+            }
+            // Mensagem de sucesso ao trocar a senha
+            event.preventDefault();
+            Swal.fire({
+                icon: 'success',
+                title: 'Senha alterada com sucesso!',
+                text: 'Sua senha foi atualizada.'
+            }).then(() => {
+                formAlterarSenha.submit();
+            });
+        });
+    }
+
+    // Remove o required dos campos do popup de senha para evitar balão nativo
+    const senhaAtualInput = document.getElementById("senha-atual");
+    const novaSenhaInput = document.getElementById("nova-senha");
+    const confirmarSenhaInput = document.getElementById("confirmar-senha");
+    if (senhaAtualInput) senhaAtualInput.removeAttribute("required");
+    if (novaSenhaInput) novaSenhaInput.removeAttribute("required");
+    if (confirmarSenhaInput) confirmarSenhaInput.removeAttribute("required");
 });
