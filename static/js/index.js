@@ -19,7 +19,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     tagElements.forEach(tagEl => {
         tagEl.addEventListener('click', (e) => {
-            console.log('Tag clicada:', tagEl, 'Evento:', e);
+            // Remove 'ativo' de todas as tags
+            tagElements.forEach(t => t.classList.remove('ativo'));
+            // Adiciona 'ativo' apenas na tag clicada
+            tagEl.classList.add('ativo');
 
             const tagId = tagEl.getAttribute('tag');
             posts.forEach(post => {
