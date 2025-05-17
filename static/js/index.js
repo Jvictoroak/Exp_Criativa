@@ -19,20 +19,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     tagElements.forEach(tagEl => {
         tagEl.addEventListener('click', (e) => {
-            // Remove 'ativo' de todas as tags
-            tagElements.forEach(t => t.classList.remove('ativo'));
-            // Adiciona 'ativo' apenas na tag clicada
-            tagEl.classList.add('ativo');
-
-            const tagId = tagEl.getAttribute('tag');
-            posts.forEach(post => {
-                const postTags = JSON.parse(post.getAttribute('data-tags'));
-                if (postTags.includes(Number(tagId))) {
-                    post.classList.add('ativo');
-                } else {
-                    post.classList.remove('ativo');
-                }
-            });
+            const isActive = tagEl.classList.contains('ativo');
+            // Se já está ativa, desseleciona tudo
+            if (isActive) {
+                tagElements.forEach(t => t.classList.remove('ativo'));
+                posts.forEach(post => post.classList.add('ativo')); // Exibe todos
+            } else {
+                // Remove 'ativo' de todas as tags
+                tagElements.forEach(t => t.classList.remove('ativo'));
+                // Adiciona 'ativo' apenas na tag clicada
+                tagEl.classList.add('ativo');
+                const tagId = tagEl.getAttribute('tag');
+                posts.forEach(post => {
+                    const postTags = JSON.parse(post.getAttribute('data-tags'));
+                    if (postTags.includes(Number(tagId))) {
+                        post.classList.add('ativo');
+                    } else {
+                        post.classList.remove('ativo');
+                    }
+                });
+            }
         });
     });
 });
