@@ -4,7 +4,7 @@ import hashlib
 import re
 
 from mangum import Mangum
-from fastapi import FastAPI, Request, Form, Depends, UploadFile, File, HTTPException, Body
+from fastapi import FastAPI, Request, Form, Depends, UploadFile, File, HTTPException, Body, Path
 from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -615,9 +615,139 @@ async def publicar(
         cursor.close()
         conn.close()
 
+@app.get("/editar_publicacao/{pub_id}", response_class=HTMLResponse)
+async def editar_publicacao_form(
+    request: Request,
+    pub_id: int = Path(...),
+):
+    # Se for requisição AJAX (fetch), retorna JSON com dados do post
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        user_id = request.session.get("user_id")
+        if not user_id:
+            return JSONResponse({"error": "Não autenticado"}, status_code=401)
+        conn = get_db()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        try:
+            cursor.execute(
+                "SELECT id, titulo, descricao FROM publicacao WHERE id = %s AND fk_usuario_id = %s",
+                (pub_id, user_id)
+            )
+            publicacao = cursor.fetchone()
+            if not publicacao:
+                return JSONResponse({"error": "Não encontrado"}, status_code=404)
+            cursor.execute(
+                "SELECT fk_tags_id FROM tem WHERE fk_publicacao_id = %s",
+                (pub_id,)
+            )
+            tags_pub = [row["fk_tags_id"] for row in cursor.fetchall()]
+            return JSONResponse({
+                "id": publicacao["id"],
+                "titulo": publicacao["titulo"],
+                "descricao": publicacao["descricao"],
+                "tags_pub": tags_pub
+            })
+        finally:
+            cursor.close()
+            conn.close()
+    # ...existing code for HTMLResponse...
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=303)
 
+    conn = get_db()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+    try:
+        # Busca a publicação do usuário
+        cursor.execute(
+            "SELECT id, titulo, descricao, foto FROM publicacao WHERE id = %s AND fk_usuario_id = %s",
+            (pub_id, user_id)
+        )
+        publicacao = cursor.fetchone()
+        if not publicacao:
+            return RedirectResponse(url="/perfil", status_code=303)
 
+        # Busca as tags disponíveis
+        cursor.execute("SELECT id, nome FROM tags")
+        tags = cursor.fetchall()
 
+        # Busca as tags já associadas à publicação
+        cursor.execute(
+            "SELECT fk_tags_id FROM tem WHERE fk_publicacao_id = %s",
+            (pub_id,)
+        )
+        tags_pub = [row["fk_tags_id"] for row in cursor.fetchall()]
+
+        foto_base64 = None
+        if publicacao["foto"]:
+            foto_base64 = base64.b64encode(publicacao["foto"]).decode("utf-8")
+
+        return templates.TemplateResponse(
+            "publicar.html",
+            {
+                "request": request,
+                "editar": True,
+                "publicacao": publicacao,
+                "tags": tags,
+                "tags_pub": tags_pub,
+                "foto_base64": foto_base64
+            }
+        )
+    finally:
+        cursor.close()
+        conn.close()
+
+@app.post("/editar_publicacao/{pub_id}", response_class=HTMLResponse)
+async def editar_publicacao_exe(
+    request: Request,
+    pub_id: int = Path(...),
+    titulo: str = Form(...),
+    descricao: str = Form(...),
+    foto: UploadFile = File(None),
+    tags: List[str] = Form(None)
+):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=303)
+
+    conn = get_db()
+    cursor = conn.cursor()
+    try:
+        # Verifica se a publicação pertence ao usuário
+        cursor.execute(
+            "SELECT id FROM publicacao WHERE id = %s AND fk_usuario_id = %s",
+            (pub_id, user_id)
+        )
+        if not cursor.fetchone():
+            return RedirectResponse(url="/perfil", status_code=303)
+
+        # Atualiza a publicação
+        foto_bytes = await foto.read() if foto and foto.filename else None
+        if foto_bytes:
+            cursor.execute(
+                "UPDATE publicacao SET titulo=%s, descricao=%s, foto=%s WHERE id=%s",
+                (titulo, descricao, foto_bytes, pub_id)
+            )
+        else:
+            cursor.execute(
+                "UPDATE publicacao SET titulo=%s, descricao=%s WHERE id=%s",
+                (titulo, descricao, pub_id)
+            )
+
+        # Atualiza as tags
+        cursor.execute("DELETE FROM tem WHERE fk_publicacao_id = %s", (pub_id,))
+        if tags:
+            if isinstance(tags, str):
+                tags = [tags]
+            for tag_id in tags:
+                cursor.execute(
+                    "INSERT INTO tem (fk_publicacao_id, fk_tags_id) VALUES (%s, %s)",
+                    (pub_id, tag_id)
+                )
+        conn.commit()
+        return RedirectResponse(url="/perfil", status_code=303)
+    finally:
+        cursor.close()
+        conn.close()
 
 @app.post("/alterarSenha", response_class=HTMLResponse)
 async def alterar_senha(
