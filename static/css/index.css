@@ -1,5 +1,6 @@
 .conteudo-cen .posts .texto{color: var(--branco);} 
-.conteudo-cen .post{width: 550px; margin: 0 auto 40px; max-width: 80%;}
+.conteudo-cen .post{ display: none;width: 550px; margin: 0 auto 40px; max-width: 80%;}
+.conteudo-cen .post.ativo{display: block;}
 .conteudo-cen .post .perfil{display: flex; align-items: center; gap: 10px; padding: 10px;}
 .conteudo-cen .post .perfil .imagem-container{height: 40px; width: 40px; background: var(--branco); border-radius: 100%;}
 .conteudo-cen .post > .imagem-container{width: 100%; aspect-ratio: 1 / 1; border: 1px solid var(--branco); overflow: hidden;}

@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
             posts.forEach(post => {
                 const postTags = JSON.parse(post.getAttribute('data-tags'));
                 if (postTags.includes(Number(tagId))) {
-                    post.style.display = '';
+                    post.classList.add('ativo');
                 } else {
-                    post.style.display = 'none';
+                    post.classList.remove('ativo');
                 }
             });
         });

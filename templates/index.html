@@ -57,7 +57,7 @@
             <div class="conteudo-1000">
                 <ul class="posts">
                     {% for pub in publicacoes %}
-                    <li class="post" data-tags='{{ tags_in_pub[pub.id]|map(attribute="id")|list|tojson }}'>
+                    <li class="post ativo" data-tags='{{ tags_in_pub[pub.id]|map(attribute="id")|list|tojson }}'>
                         <div class="perfil">
                             <div class="imagem-container">
                                 <img loading="lazy" src="/static/imagens/user.webp" alt="" class="imagem">
