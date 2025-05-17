@@ -29,12 +29,13 @@
             </a>
             <a href="/perfil" class="menu-item">
                 <i class="bi bi-person"></i>
-                <span class="texto">Perfil</span>
+                <!-- <span class="texto">Perfil</span> -->
+                <span class="texto">{{ request.session.user_name }}</span>
             </a>
-            <div class="menu-item" id="menu-criar">
+            <!-- <div class="menu-item" id="menu-criar">
                 <i class="bi bi-film"></i>
                 <span class="texto">Criar</span>
-            </div>
+            </div> -->
             <div class="menu-item menu-tag" id="menu-tag">
                 <i class="bi bi-tag"></i>
                 <span class="texto">Tags</span>
@@ -61,12 +62,12 @@
                 <i class="bi bi-box-arrow-in-left"></i>
                 <span class="texto">Sair</span>
             </a>
-            <div class="user-info">
+            <!-- <div class="user-info">
                 <p></p>
                 <span class="texto">Usuário ativo:</span>
                 <p></p>
                 <span class="texto">{{ request.session.user_name }}</span>
-            </div>
+            </div> -->
 <div class="criar" id="criar">
   <div class="conteudo">
     <form action="/publicar" method="post" enctype="multipart/form-data" class="formulario">

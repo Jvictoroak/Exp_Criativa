@@ -14,117 +14,88 @@
 </head>
 
 <body>
-    <section id="navbar" class="navbar">
+      <section id="navbar" class="navbar">
         <section class="sidebar conteudo-esq">
             <div class="logo">
                 <div class="imagem-container"><img src="../static/imagens/logo.webp" alt="" class="imagem"></div>
                 <div class="texto">Postly</div>
             </div>
+            <!-- <div class="user-info">
+                <span class="texto">Usuário:</span>
+                <p></p>
+                <span class="texto">{{ request.session.user_name }}</span>
+            </div> -->
             <a href="/index" class="menu-item">
                 <i class="bi bi-house"></i>
                 <span class="texto">Home</span>
             </a>
             <a href="/perfil" class="menu-item">
                 <i class="bi bi-person"></i>
-                <span class="texto">Perfil</span>
+                <!-- <span class="texto">Perfil</span> -->
+                <span class="texto">{{ request.session.user_name }}</span>
             </a>
             <div class="menu-item" id="menu-criar">
                 <i class="bi bi-film"></i>
                 <span class="texto">Criar</span>
             </div>
-            <div class="menu-item menu-tag" id="menu-tag">
+            <!-- <div class="menu-item menu-tag" id="menu-tag">
                 <i class="bi bi-tag"></i>
                 <span class="texto">Tags</span>
                 <section id="tagbar">
                     <section class="tagbar" id="tagbar-conteudo">
                         <div class="conteudo">
                             <div class="tags-foto">
-                                <div class="texto">
-                                    <p>Tags:</p>
-                                </div>
+                                <div class="texto"><p>Tags:</p></div>
                                 <div class="tags">
-                                    <div class="texto ativo">
-                                        <p>Tag 1</p>
-                                    </div>
-                                    <div class="texto ativo">
-                                        <p>Tag 2</p>
-                                    </div>
-                                    <div class="texto">
-                                        <p>Tag 3</p>
-                                    </div>
-                                    <div class="texto">
-                                        <p>Tag 4</p>
-                                    </div>
-                                    <div class="texto">
-                                        <p>Tag 5</p>
-                                    </div>
-                                    <div class="texto">
-                                        <p>Tag 6</p>
-                                    </div>
-                                    <div class="texto">
-                                        <p>Tag 7</p>
-                                    </div>
+                                    <div class="texto ativo"><p>Tag 1</p></div>
+                                    <div class="texto ativo"><p>Tag 2</p></div>
+                                    <div class="texto"><p>Tag 3</p></div>
+                                    <div class="texto"><p>Tag 4</p></div>
+                                    <div class="texto"><p>Tag 5</p></div>
+                                    <div class="texto"><p>Tag 6</p></div>
+                                    <div class="texto"><p>Tag 7</p></div>
                                 </div>
                             </div>
                         </div>
                     </section>
                 </section>
-            </div>
+            </div> -->
             <a href="/login" class="menu-item">
                 <i class="bi bi-box-arrow-in-left"></i>
                 <span class="texto">Sair</span>
             </a>
-            <section id="criar">
-                <div class="criar">
-                    <div class="conteudo">
-                        <form action="" class="formulario">
-                            <input type="file" id="criar-imagem" class="item criar-imagem"
-                                accept="image/png, image/jpeg, image/jpg, image/gif" required>
-
-                            <label for="texto-input">Titulo da Publicação:</label>
-                            <input type="text" id="texto-input" class="item" required>
-
-                            <div class="tags">
-                                <div class="texto">
-                                    <p>Tags da Publicação:</p>
-                                </div>
-                                <div class="seletor">
-                                    <label class="tag texto t1">
-                                        <input type="checkbox" name="tags" value="lorem ipsum">
-                                        <p>Tag 1</p>
-                                    </label>
-                                    <label class="tag texto t1">
-                                        <input type="checkbox" name="tags" value="lorem">
-                                        <p>Tag 1</p>
-                                    </label>
-                                    <label class="tag texto t1">
-                                        <input type="checkbox" name="tags" value="lorem ipsum">
-                                        <p>Tag 3</p>
-                                    </label>
-                                    <label class="tag texto t1">
-                                        <input type="checkbox" name="tags" value="lorem">
-                                        <p>Tag 4</p>
-                                    </label>
-                                    <label class="tag texto t1">
-                                        <input type="checkbox" name="tags" value="lorem ipsum">
-                                        <p>Tag 5</p>
-                                    </label>
-                                    <label class="tag texto t1">
-                                        <input type="checkbox" name="tags" value="lorem">
-                                        <p>Tag 6</p>
-                                    </label>
-                                    <label class="tag texto t1">
-                                        <input type="checkbox" name="tags" value="lorem ipsum">
-                                        <p>Tag 7</p>
-                                    </label>
-                                </div>
-                            </div>
-                            <input type="submit" value="PUBLICAR" class="item publicar">
-                        </form>
-                        <div id="fechar-criar" class="fechar">X</div>
-                    </div>
-                </div>
-            </section>
+            <!-- <div class="user-info">
+                <p></p>
+                <span class="texto">Usuário ativo:</span>
+                <p></p>
+                <span class="texto">{{ request.session.user_name }}</span>
+            </div> -->
+<div class="criar" id="criar">
+  <div class="conteudo">
+    <form action="/publicar" method="post" enctype="multipart/form-data" class="formulario">
+        <input type="file" id="criar-imagem" name='foto' class="item criar-imagem" accept="image/png, image/jpeg, image/jpg, image/gif" required>
+      
+      <label for="titulo-input">Titulo da Publicação:</label>
+      <input name='titulo' type="text" id="titulo-input" class="item" required> 
+      
+      <label for="descricao-input">Descrição da Publicação:</label>
+      <input name='descricao' type="text" id="descricao-input" class="item" required> 
+      
+        <div class="tags">
+        <div class="texto"><p>Tags da Publicação:</p></div>
+        <div class="seletor">
+            {% for tag in tags %}
+            <label class="tag texto t1">
+                <input type="checkbox" name="tags" value="{{ tag.id }}"> <p>{{ tag.nome }}</p>
+            </label>
+            {% endfor %}
+        </div>
+        </div>
+      <input type="submit" value="PUBLICAR" class="item publicar">
+    </form>
+    <div id="fechar-criar" class="fechar">X</div>
+  </div>
+</div>
         </section>
     </section>
     <main>

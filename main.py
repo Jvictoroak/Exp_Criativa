@@ -73,8 +73,9 @@ async def index(request: Request):
     # Busca as tags no banco
     conn = get_db()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
-    cursor.execute("SELECT id, nome FROM tags")
-    tags = cursor.fetchall()
+    # Remover busca de tags daqui
+    # cursor.execute("SELECT id, nome FROM tags")
+    # tags = cursor.fetchall()
     # Buscar todas as publicações com foto e foto do autor
     cursor.execute("""
         SELECT publicacao.id, publicacao.titulo, publicacao.descricao, publicacao.foto,
@@ -96,8 +97,8 @@ async def index(request: Request):
             pub["foto_autor_base64"] = None
     cursor.close()
     conn.close()
-    # Passa as tags e publicações para o template
-    return templates.TemplateResponse("index.html", {"request": request, "tags": tags, "publicacoes": publicacoes})
+    # Remover tags do contexto
+    return templates.TemplateResponse("index.html", {"request": request, "publicacoes": publicacoes})
 
 @app.get("/logout")
 async def logout(request: Request):
@@ -272,6 +273,9 @@ async def get_perfil_page(request: Request):
     
     conn = get_db()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
+    # Buscar tags para exibir no perfil
+    cursor.execute("SELECT id, nome FROM tags")
+    tags = cursor.fetchall()
     try:
         # Dados do usuário
         cursor.execute("SELECT nome, email, telefone, data, foto FROM usuario WHERE id = %s", (user_id,))
@@ -304,7 +308,8 @@ async def get_perfil_page(request: Request):
                 "data_nascimento": user_data["data"] if user_data else "",
                 "foto_base64": foto_base64,
                 "foto_tipo": foto_tipo,
-                "publicacoes": publicacoes
+                "publicacoes": publicacoes,
+                "tags": tags  # Adicione as tags ao contexto do perfil
             }
         )
 
