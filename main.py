@@ -252,43 +252,43 @@ async def get_perfil_page(request: Request):
     if not user_id:
         return RedirectResponse(url="/login", status_code=303)
     
-    # Conexão com o banco de dados
     conn = get_db()
-    cursor = conn.cursor()
-
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
     try:
-        query = "SELECT nome, email, telefone, data, foto FROM usuario WHERE id = %s"
-        cursor.execute(query, (int(user_id),))
+        # Dados do usuário
+        cursor.execute("SELECT nome, email, telefone, data, foto FROM usuario WHERE id = %s", (user_id,))
         user_data = cursor.fetchone()
 
-        if user_data:
-            foto_base64 = None
-            foto_tipo = None
+        # Publicações do usuário (corrigido: só do usuário logado)
+        cursor.execute("SELECT id, titulo, descricao, foto FROM publicacao WHERE fk_usuario_id = %s ORDER BY id DESC", (user_id,))
+        publicacoes = cursor.fetchall()
+        for pub in publicacoes:
+            if pub["foto"]:
+                pub["foto_base64"] = base64.b64encode(pub["foto"]).decode("utf-8")
+            else:
+                pub["foto_base64"] = None
 
-            if user_data[4]:  # Se a foto existir
-                foto_blob = user_data[4]
-                tipo = imghdr.what(None, h=foto_blob)
-                if tipo:
-                    foto_tipo = f"image/{tipo}"
-                else:
-                    foto_tipo = "image/jpeg"  # padrão se não detectar
+        # Foto do perfil
+        foto_base64 = None
+        foto_tipo = None
+        if user_data and user_data["foto"]:
+            tipo = imghdr.what(None, h=user_data["foto"])
+            foto_tipo = f"image/{tipo}" if tipo else "image/jpeg"
+            foto_base64 = base64.b64encode(user_data["foto"]).decode('utf-8')
 
-                foto_base64 = base64.b64encode(foto_blob).decode('utf-8')
-
-            return templates.TemplateResponse(
-                "perfil.html",
-                {
-                    "request": request,
-                    "nome": user_data[0],
-                    "email": user_data[1],
-                    "telefone": user_data[2],
-                    "data_nascimento": user_data[3],
-                    "foto_base64": foto_base64,
-                    "foto_tipo": foto_tipo,
-                }
-            )
-        else:
-            return RedirectResponse(url="/login", status_code=303)
+        return templates.TemplateResponse(
+            "perfil.html",
+            {
+                "request": request,
+                "nome": user_data["nome"] if user_data else "",
+                "email": user_data["email"] if user_data else "",
+                "telefone": user_data["telefone"] if user_data else "",
+                "data_nascimento": user_data["data"] if user_data else "",
+                "foto_base64": foto_base64,
+                "foto_tipo": foto_tipo,
+                "publicacoes": publicacoes
+            }
+        )
 
     finally:
         cursor.close()
@@ -320,24 +320,24 @@ async def delete_user(request: Request):
         cursor.close()
         conn.close()
 
-@app.get("/perfil", response_class=HTMLResponse)
-async def perfil_atualizar(request: Request, db=Depends(get_db)):
-    user_id = request.session.get("user_id")
-    if not user_id:
-        return RedirectResponse(url="/login", status_code=303)
+# @app.get("/perfil", response_class=HTMLResponse)
+# async def perfil_atualizar(request: Request, db=Depends(get_db)):
+#     user_id = request.session.get("user_id")
+#     if not user_id:
+#         return RedirectResponse(url="/login", status_code=303)
 
-    with db.cursor(pymysql.cursors.DictCursor) as cursor:
-        cursor.execute("SELECT * FROM usuario WHERE id = %s", (user_id,))
-        usuario = cursor.fetchone()
-    db.close()
+#     with db.cursor(pymysql.cursors.DictCursor) as cursor:
+#         cursor.execute("SELECT * FROM usuario WHERE id = %s", (user_id,))
+#         usuario = cursor.fetchone()
+#     db.close()
 
-    hoje = datetime.now().strftime("%d/%m/%Y %H:%M")
+#     hoje = datetime.now().strftime("%d/%m/%Y %H:%M")
 
-    return templates.TemplateResponse("perfilAtualizar.html", {
-        "request": request,
-        "usuario": usuario,
-        "hoje": hoje
-    })
+#     return templates.TemplateResponse("perfilAtualizar.html", {
+#         "request": request,
+#         "usuario": usuario,
+#         "hoje": hoje
+#     })
 
 @app.post("/perfilAtualizar", response_class=HTMLResponse)
 async def perfil_atualizar_exe(
@@ -433,7 +433,54 @@ async def perfil_atualizar_exe(
         "hoje": datetime.now().strftime("%d/%m/%Y %H:%M"),
         "nome_usuario": request.session.get("user_name", None)
     })
+    # Substitua a rota GET /perfil por esta versão:
+@app.get("/perfil", response_class=HTMLResponse)
+async def get_perfil_page(request: Request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=303)
+    
+    conn = get_db()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+    try:
+        # Dados do usuário
+        cursor.execute("SELECT nome, email, telefone, data, foto FROM usuario WHERE id = %s", (user_id,))
+        user_data = cursor.fetchone()
 
+        # Publicações do usuário
+        cursor.execute("SELECT id, titulo, descricao, foto FROM publicacao ORDER BY id DESC")
+        publicacoes = cursor.fetchall()
+        for pub in publicacoes:
+            if pub["foto"]:
+                pub["foto_base64"] = base64.b64encode(pub["foto"]).decode("utf-8")
+            else:
+                pub["foto_base64"] = None
+
+        # Foto do perfil
+        foto_base64 = None
+        foto_tipo = None
+        if user_data and user_data["foto"]:
+            tipo = imghdr.what(None, h=user_data["foto"])
+            foto_tipo = f"image/{tipo}" if tipo else "image/jpeg"
+            foto_base64 = base64.b64encode(user_data["foto"]).decode('utf-8')
+
+        return templates.TemplateResponse(
+            "perfil.html",
+            {
+                "request": request,
+                "nome": user_data["nome"] if user_data else "",
+                "email": user_data["email"] if user_data else "",
+                "telefone": user_data["telefone"] if user_data else "",
+                "data_nascimento": user_data["data"] if user_data else "",
+                "foto_base64": foto_base64,
+                "foto_tipo": foto_tipo,
+                "publicacoes": publicacoes
+            }
+        )
+
+    finally:
+        cursor.close()
+        conn.close()
 #-------------------------------------------------------------------------------------------------------------
 #LISTA DE USUÁRIOS
 #   Verificando se o ID do usuário é 1 (administrador)
@@ -521,14 +568,16 @@ async def publicar(
 
     conn = get_db()
     cursor = conn.cursor()
-    print(titulo, descricao, foto, tags)
     try:
+        # Corrigir: ler os bytes da foto
+        foto_bytes = await foto.read() if foto else None
+
         # 1. Insere a publicação
         query = """
         INSERT INTO publicacao (fk_usuario_id, titulo, descricao, foto)
         VALUES (%s, %s, %s, %s)
         """
-        cursor.execute(query, (user_id, titulo, descricao, foto))
+        cursor.execute(query, (user_id, titulo, descricao, foto_bytes))
         publicacao_id = cursor.lastrowid
 
         # 2. Relaciona as tags (se houver)
@@ -545,14 +594,3 @@ async def publicar(
     finally:
         cursor.close()
         conn.close()
-
-
-# @app.get("/index", response_class=HTMLResponse)
-# async def index(request: Request):
-#     conn = get_db()
-#     cursor = conn.cursor(pymysql.cursors.DictCursor)
-#     cursor.execute("SELECT id, nome FROM tags")
-#     tags = cursor.fetchall()
-#     cursor.close()
-#     conn.close()
-#     return templates.TemplateResponse("index.html", {"request": request, "tags": tags})

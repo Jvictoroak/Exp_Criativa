@@ -133,7 +133,8 @@
                 <div class="info-perfil">
                     <div class="perfil-cabecalho">
                         {% if foto_base64 %}
-                        <img src="data:{{ foto_tipo }};base64,{{ foto_base64 }}" alt="Foto de perfil" class="foto-perfil" />
+                        <img src="data:{{ foto_tipo }};base64,{{ foto_base64 }}" alt="Foto de perfil"
+                            class="foto-perfil" />
                         {% else %}
                         <img src="../static/imagens/user.webp" alt="Foto de perfil" class="foto-perfil">
                         {% endif %}
@@ -143,7 +144,8 @@
                             <input type="text" class="detalhe-input" id="nome-usuario-input" style="display: none;">
                         </div>
                         <div class="botoes-acao">
-                            <form id="editar-form" action="/perfilAtualizar" method="post" enctype="multipart/form-data">
+                            <form id="editar-form" action="/perfilAtualizar" method="post"
+                                enctype="multipart/form-data">
                                 <button class="btn" id="editar-btn" type="button">Editar informações</button>
                                 <button class="btn" id="salvar-btn" type="submit" disabled>Salvar informações</button>
                                 <input type="hidden" name="Nome" id="nome-usuario-hidden">
@@ -151,11 +153,13 @@
                                 <input type="hidden" name="Telefone" id="telefone-hidden">
                                 <input type="hidden" name="DataNasc" id="data-nascimento-hidden">
                                 <label for="foto-hidden" class="btn">Alterar Foto</label>
-                                <input type="file" name="Imagem" id="foto-hidden" accept="image/*" style="display: none;">
+                                <input type="file" name="Imagem" id="foto-hidden" accept="image/*"
+                                    style="display: none;">
                                 <button class="btn" id="alterar-senha-btn" type="button">Alterar Senha</button>
                             </form>
                             <form id="excluir-form" action="/perfilExcluir" method="post" style="display: inline;">
-                                <button class="btn" id="excluir-btn" type="button" onclick="confirmarExclusao()">Excluir Perfil</button>
+                                <button class="btn" id="excluir-btn" type="button" onclick="confirmarExclusao()">Excluir
+                                    Perfil</button>
                             </form>
                         </div>
                     </div>
@@ -187,8 +191,8 @@
                     </div>
                 </div>
 
-                <div class="posts">
-                    <div class="post">
+                <!-- <div class="posts"> -->
+                <!-- <div class="post">
                         <div class="imagem-container">
                             <img loading="lazy" src="../static/imagens/post_1.webp" alt="" class="imagem">
                         </div>
@@ -198,8 +202,8 @@
                             <div class="imagem-container"><i class="bi bi-plus-circle imagem vermais"></i></div>
                             <div class="imagem-container"><i class="bi bi-trash2"></i></div>
                         </div>
-                    </div>
-                    <div class="post">
+                    </div> -->
+                <!-- <div class="post">
                         <div class="imagem-container">
                             <img loading="lazy" src="../static/imagens/post_2.webp" alt="" class="imagem">
                         </div>
@@ -242,7 +246,31 @@
                             <div class="imagem-container"><i class="bi bi-plus-circle imagem vermais"></i></div>
                             <div class="imagem-container"><i class="bi bi-trash2"></i></div>
                         </div>
+                    </div> -->
+                <!-- </div> -->
+                <div class="posts">
+                    {% for pub in publicacoes %}
+                    <div class="post">
+                        <div class="imagem-container">
+                            {% if pub.foto_base64 %}
+                            <img loading="lazy" src="data:image/jpeg;base64,{{ pub.foto_base64 }}" alt=""
+                                class="imagem">
+                            {% else %}
+                            <img loading="lazy" src="../static/imagens/post_1.webp" alt="" class="imagem">
+                            {% endif %}
+                        </div>
+                        <div class="interacao">
+                            <div class="imagem-container"><i class="bi bi-heart imagem"></i></div>
+                            <div class="imagem-container"><i class="bi bi-chat imagem"></i></div>
+                            <div class="imagem-container"><i class="bi bi-plus-circle imagem vermais"></i></div>
+                            <div class="imagem-container"><i class="bi bi-trash2"></i></div>
+                        </div>
+                        <div class="titulo"><b>{{ pub.titulo }}</b></div>
+                        <div class="descricao">{{ pub.descricao }}</div>
                     </div>
+                    {% else %}
+                    <p>Você ainda não publicou nada.</p>
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -346,7 +374,8 @@
                             <label for="confirmar-senha">Confirmar nova senha:</label>
                             <input type="password" id="confirmar-senha" name="confirmar_senha" required>
                         </div>
-                        <button type="button" class="btn" id="toggle-visualizar-senhas" style="margin-bottom: 8px;">Mostrar Senhas</button>
+                        <button type="button" class="btn" id="toggle-visualizar-senhas"
+                            style="margin-bottom: 8px;">Mostrar Senhas</button>
                         <button type="submit" class="btn">Salvar Nova Senha</button>
                     </form>
                 </div>
