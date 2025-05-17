@@ -99,82 +99,34 @@
         <section class="scroll conteudo-cen"> 
             <div class="conteudo-1000">
                 <ul class="posts">
+                    {% for pub in publicacoes %}
                     <li class="post">
                         <div class="perfil">
                             <div class="imagem-container">
                                 <img loading="lazy" src="/static/imagens/user.webp" alt="" class="imagem">
                             </div>
                             <div class="textos">
-                                <div class="texto "><p>User_Name</p></div>
-                                <div class="texto "><p>Titulo da Publicação</p></div>
+                                <div class="texto "><p>{{ pub.autor }}</p></div>
+                                <div class="texto "><p>{{ pub.titulo }}</p></div>
                             </div>
                         </div>
+                        <div class="texto">{{ pub.descricao }}</div>
                         <div class="imagem-container">
-                            <img loading="lazy" src="/static/imagens/post_4.webp"  alt="" class="imagem">
-                        </div>
+                            {% if pub.foto_base64 %}
+                            <img loading="lazy" src="data:image/jpeg;base64,{{ pub.foto_base64 }}" alt="" class="imagem">
+                            {% else %}
+                            <img loading="lazy" src="../static/imagens/post_1.webp" alt="" class="imagem">
+                            {% endif %}                        </div>
                         <div class="interacao">
                             <div class="imagem-container"><i class="bi bi-heart imagem"></i></div> <!-- Ícone de curtida -->
                             <div class="imagem-container"><i class="bi bi-chat imagem"></i></div> <!-- Ícone de comentário -->
                             <div class="imagem-container" id="vermais"><i class="bi bi-plus-circle imagem vermais"></i></div> <!-- Ícone de adição (+) -->
+                            
                         </div>
                     </li>
-                    <li class="post">
-                        <div class="perfil">
-                            <div class="imagem-container">
-                                <img loading="lazy" src="/static/imagens/user.webp" alt="" class="imagem">
-                            </div>
-                            <div class="textos">
-                                <div class="texto "><p>User_Name</p></div>
-                                <div class="texto "><p>Titulo da Publicação</p></div>
-                            </div>
-                        </div>
-                        <div class="imagem-container">
-                            <img loading="lazy" src="/static/imagens/post_3.webp" alt="" class="imagem">
-                        </div>
-                        <div class="interacao">
-                            <div class="imagem-container"><i class="bi bi-heart imagem"></i></div> <!-- Ícone de curtida -->
-                            <div class="imagem-container"><i class="bi bi-chat imagem"></i></div> <!-- Ícone de comentário -->
-                            <div class="imagem-container" id="vermais"><i class="bi bi-plus-circle imagem vermais"></i></div> <!-- Ícone de adição (+) -->
-                        </div>
-                    </li>
-                    <li class="post">
-                        <div class="perfil">
-                            <div class="imagem-container">
-                                <img loading="lazy" src="/static/imagens/user.webp" alt="" class="imagem">
-                            </div>
-                            <div class="textos">
-                                <div class="texto "><p>User_Name</p></div>
-                                <div class="texto "><p>Titulo da Publicação</p></div>
-                            </div>
-                        </div>
-                        <div class="imagem-container">
-                            <img loading="lazy" src="/static/imagens/post_2.webp" alt="" class="imagem">
-                        </div>
-                        <div class="interacao">
-                            <div class="imagem-container"><i class="bi bi-heart imagem"></i></div> <!-- Ícone de curtida -->
-                            <div class="imagem-container"><i class="bi bi-chat imagem"></i></div> <!-- Ícone de comentário -->
-                            <div class="imagem-container" id="vermais"><i class="bi bi-plus-circle imagem vermais"></i></div> <!-- Ícone de adição (+) -->
-                        </div>
-                    </li>
-                    <li class="post">
-                        <div class="perfil">
-                            <div class="imagem-container">
-                                <img loading="lazy" src="/static/imagens/user.webp" alt="" class="imagem">
-                            </div>
-                            <div class="textos">
-                                <div class="texto "><p>User_Name</p></div>
-                                <div class="texto "><p>Titulo da Publicação</p></div>
-                            </div>
-                        </div>
-                        <div class="imagem-container">
-                            <img loading="lazy" src="/static/imagens/post_1.webp" alt="" class="imagem">
-                        </div>
-                        <div class="interacao">
-                            <div class="imagem-container"><i class="bi bi-heart imagem"></i></div> <!-- Ícone de curtida -->
-                            <div class="imagem-container"><i class="bi bi-chat imagem"></i></div> <!-- Ícone de comentário -->
-                            <div class="imagem-container" id="vermais"><i class="bi bi-plus-circle imagem vermais"></i></div> <!-- Ícone de adição (+) -->
-                        </div>
-                    </li>
+                    {% else %}
+                    <p>Não há publicações ainda.</p>
+                    {% endfor %}
                 </ul>
             </div>
         </section>

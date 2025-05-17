@@ -75,11 +75,18 @@ async def index(request: Request):
     cursor = conn.cursor(pymysql.cursors.DictCursor)
     cursor.execute("SELECT id, nome FROM tags")
     tags = cursor.fetchall()
+    # Buscar todas as publicações com foto
+    cursor.execute("SELECT publicacao.id, publicacao.titulo, publicacao.descricao, publicacao.foto, usuario.nome as autor FROM publicacao JOIN usuario ON usuario.id = publicacao.fk_usuario_id ORDER BY publicacao.id DESC")
+    publicacoes = cursor.fetchall()
+    for pub in publicacoes:
+        if pub["foto"]:
+            pub["foto_base64"] = base64.b64encode(pub["foto"]).decode("utf-8")
+        else:
+            pub["foto_base64"] = None
     cursor.close()
     conn.close()
-    
-    # Passa as tags para o template
-    return templates.TemplateResponse("index.html", {"request": request, "tags": tags})
+    # Passa as tags e publicações para o template
+    return templates.TemplateResponse("index.html", {"request": request, "tags": tags, "publicacoes": publicacoes})
 
 @app.get("/logout")
 async def logout(request: Request):
