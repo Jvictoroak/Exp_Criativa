@@ -18,11 +18,6 @@
                 <div class="imagem-container"><img src="../static/imagens/logo.webp" alt="" class="imagem"></div>
                 <div class="texto">Postly</div>
             </div>
-            <!-- <div class="user-info">
-                <span class="texto">Usuário:</span>
-                <p></p>
-                <span class="texto">{{ request.session.user_name }}</span>
-            </div> -->
             <a href="/index" class="menu-item">
                 <i class="bi bi-house"></i>
                 <span class="texto">Home</span>
@@ -31,10 +26,6 @@
                 <i class="bi bi-person"></i>
                 <span class="texto">{{ request.session.user_name }}</span>
             </a>
-            <!-- <div class="menu-item" id="menu-criar">
-                <i class="bi bi-film"></i>
-                <span class="texto">Criar</span>
-            </div> -->
             <div class="menu-item menu-tag" id="menu-tag">
                 <i class="bi bi-tag"></i>
                 <span class="texto">Tags</span>
@@ -45,7 +36,7 @@
                                 <div class="texto"><p>Tags:</p></div>
                                 <div class="tags">
                                     {% for tag in tags %}
-                                    <div class="texto{% if loop.index <= 2 %} ativo{% endif %}">
+                                    <div class="texto tag-item" tag="{{ tag.id }}">
                                         <p>{{ tag.nome }}</p>
                                     </div>
                                     {% endfor %}
@@ -59,32 +50,6 @@
                 <i class="bi bi-box-arrow-in-left"></i>
                 <span class="texto">Sair</span>
             </a>
-<!-- <div class="criar" id="criar">
-  <div class="conteudo">
-    <form action="/publicar" method="post" enctype="multipart/form-data" class="formulario">
-        <input type="file" id="criar-imagem" name='foto' class="item criar-imagem" accept="image/png, image/jpeg, image/jpg, image/gif" required>
-      
-      <label for="titulo-input">Titulo da Publicação:</label>
-      <input name='titulo' type="text" id="titulo-input" class="item" required> 
-      
-      <label for="descricao-input">Descrição da Publicação:</label>
-      <input name='descricao' type="text" id="descricao-input" class="item" required> 
-      
-        <div class="tags">
-        <div class="texto"><p>Tags da Publicação:</p></div>
-        <div class="seletor">
-            {% for tag in tags %}
-            <label class="tag texto t1">
-                <input type="checkbox" name="tags" value="{{ tag.id }}"> <p>{{ tag.nome }}</p>
-            </label>
-            {% endfor %}
-        </div>
-        </div>
-      <input type="submit" value="PUBLICAR" class="item publicar">
-    </form>
-    <div id="fechar-criar" class="fechar">X</div>
-  </div>
-</div> -->
         </section>
     </section>
     <main> 
@@ -92,7 +57,7 @@
             <div class="conteudo-1000">
                 <ul class="posts">
                     {% for pub in publicacoes %}
-                    <li class="post">
+                    <li class="post" data-tags='{{ tags_in_pub[pub.id]|map(attribute="id")|list|tojson }}'>
                         <div class="perfil">
                             <div class="imagem-container">
                                 <img loading="lazy" src="/static/imagens/user.webp" alt="" class="imagem">
@@ -178,9 +143,9 @@
         </section>
     </main>
     <!-- <section id="tagbar"></section> -->
-    <script src="../static/js/geral/navbar.js"></script>
+    <!-- <script src="../static/js/geral/navbar.js"></script> -->
     <script src="../static/js/geral/tagbar.js"></script>
-    <script src="../static/js/geral/criar.js"></script>
+    <!-- <script src="../static/js/geral/criar.js"></script> -->
     <script src="../static/js/index.js"></script>
     <script src="../static/js/geral/verificar_invatividade.js"></script>
 </body>

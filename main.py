@@ -78,6 +78,14 @@ async def index(request: Request):
     # Buscar todas as publicações com foto
     cursor.execute("SELECT publicacao.id, publicacao.titulo, publicacao.descricao, publicacao.foto, usuario.nome as autor FROM publicacao JOIN usuario ON usuario.id = publicacao.fk_usuario_id ORDER BY publicacao.id DESC")
     publicacoes = cursor.fetchall()
+
+    tags_in_pub = {}
+    for pub in publicacoes:
+        cursor.execute(
+            "SELECT tags.id, tags.nome FROM tags INNER JOIN tem ON tem.fk_tags_id = tags.id INNER JOIN publicacao AS p ON p.id = tem.fk_publicacao_id WHERE p.id = %s",
+            (pub["id"],)
+        )
+        tags_in_pub[pub["id"]] = cursor.fetchall()  # <-- esta linha deve estar dentro do for
     for pub in publicacoes:
         if pub["foto"]:
             pub["foto_base64"] = base64.b64encode(pub["foto"]).decode("utf-8")
@@ -86,7 +94,7 @@ async def index(request: Request):
     cursor.close()
     conn.close()
     # Passa as tags e publicações para o template
-    return templates.TemplateResponse("index.html", {"request": request, "tags": tags, "publicacoes": publicacoes})
+    return templates.TemplateResponse("index.html", {"request": request, "tags": tags, "publicacoes": publicacoes, "tags_in_pub": tags_in_pub})
 
 @app.get("/logout")
 async def logout(request: Request):
