@@ -300,3 +300,50 @@ document.addEventListener("DOMContentLoaded", () => {
     if (novaSenhaInput) novaSenhaInput.removeAttribute("required");
     if (confirmarSenhaInput) confirmarSenhaInput.removeAttribute("required");
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.bi-trash2').forEach(trashIcon => {
+        trashIcon.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const postEl = trashIcon.closest('.post');
+            if (!postEl) return;
+            const postId = postEl.getAttribute('data-id');
+            if (!postId) {
+                Swal.fire('Erro', 'ID da publicação não encontrado.', 'error');
+                return;
+            }
+            Swal.fire({
+                title: 'Tem certeza?',
+                text: "Deseja realmente excluir esta publicação?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, excluir!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('/publicacaoExcluir', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id: postId })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            postEl.remove();
+                            Swal.fire('Excluído!', 'A publicação foi excluída.', 'success');
+                        } else {
+                            Swal.fire('Erro', data.error || 'Não foi possível excluir a publicação.', 'error');
+                        }
+                    })
+                    .catch(() => {
+                        Swal.fire('Erro', 'Não foi possível excluir a publicação.', 'error');
+                    });
+                }
+            });
+        });
+    });
+});

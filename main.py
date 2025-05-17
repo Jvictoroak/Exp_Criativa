@@ -4,8 +4,8 @@ import hashlib
 import re
 
 from mangum import Mangum
-from fastapi import FastAPI, Request, Form, Depends, UploadFile, File, HTTPException
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi import FastAPI, Request, Form, Depends, UploadFile, File, HTTPException, Body
+from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
@@ -666,6 +666,33 @@ async def alterar_senha(
         request.session["mensagem_header"] = "Erro ao alterar senha"
         request.session["mensagem"] = str(e)
         return RedirectResponse(url="/perfil", status_code=303)
+    finally:
+        cursor.close()
+        conn.close()
+
+
+
+@app.post("/publicacaoExcluir")
+async def delete_publicacao(request: Request, data: dict = Body(...)):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return JSONResponse({"error": "Não autenticado"}, status_code=401)
+
+    pub_id = data.get("id")
+    if not pub_id:
+        return JSONResponse({"error": "ID não fornecido"}, status_code=400)
+
+    conn = get_db()
+    cursor = conn.cursor()
+    try:
+        query = "DELETE FROM publicacao WHERE id = %s AND fk_usuario_id = %s"
+        cursor.execute(query, (pub_id, user_id))
+        conn.commit()
+        if cursor.rowcount == 0:
+            return JSONResponse({"error": "Publicação não encontrada ou permissão negada"}, status_code=403)
+        return JSONResponse({"success": True})
+    except Exception as e:
+        return JSONResponse({"error": str(e)}, status_code=500)
     finally:
         cursor.close()
         conn.close()

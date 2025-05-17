@@ -162,66 +162,9 @@
                     </div>
                 </div>
 
-                <!-- <div class="posts"> -->
-                <!-- <div class="post">
-                        <div class="imagem-container">
-                            <img loading="lazy" src="../static/imagens/post_1.webp" alt="" class="imagem">
-                        </div>
-                        <div class="interacao">
-                            <div class="imagem-container"><i class="bi bi-heart imagem"></i></div>
-                            <div class="imagem-container"><i class="bi bi-chat imagem"></i></div>
-                            <div class="imagem-container"><i class="bi bi-plus-circle imagem vermais"></i></div>
-                            <div class="imagem-container"><i class="bi bi-trash2"></i></div>
-                        </div>
-                    </div> -->
-                <!-- <div class="post">
-                        <div class="imagem-container">
-                            <img loading="lazy" src="../static/imagens/post_2.webp" alt="" class="imagem">
-                        </div>
-                        <div class="interacao">
-                            <div class="imagem-container"><i class="bi bi-heart imagem"></i></div>
-                            <div class="imagem-container"><i class="bi bi-chat imagem"></i></div>
-                            <div class="imagem-container"><i class="bi bi-plus-circle imagem vermais"></i></div>
-                            <div class="imagem-container"><i class="bi bi-trash2"></i></div>
-                        </div>
-                    </div>
-                    <div class="post">
-                        <div class="imagem-container">
-                            <img loading="lazy" src="../static/imagens/post_3.webp" alt="" class="imagem">
-                        </div>
-                        <div class="interacao">
-                            <div class="imagem-container"><i class="bi bi-heart imagem"></i></div>
-                            <div class="imagem-container"><i class="bi bi-chat imagem"></i></div>
-                            <div class="imagem-container"><i class="bi bi-plus-circle imagem vermais"></i></div>
-                            <div class="imagem-container"><i class="bi bi-trash2"></i></div>
-                        </div>
-                    </div>
-                    <div class="post">
-                        <div class="imagem-container">
-                            <img loading="lazy" src="../static/imagens/post_4.webp" alt="" class="imagem">
-                        </div>
-                        <div class="interacao">
-                            <div class="imagem-container"><i class="bi bi-heart imagem"></i></div>
-                            <div class="imagem-container"><i class="bi bi-chat imagem"></i></div>
-                            <div class="imagem-container"><i class="bi bi-plus-circle imagem vermais"></i></div>
-                            <div class="imagem-container"><i class="bi bi-trash2"></i></div>
-                        </div>
-                    </div>
-                    <div class="post">
-                        <div class="imagem-container">
-                            <img loading="lazy" src="../static/imagens/post_5.webp" alt="" class="imagem">
-                        </div>
-                        <div class="interacao">
-                            <div class="imagem-container"><i class="bi bi-heart imagem"></i></div>
-                            <div class="imagem-container"><i class="bi bi-chat imagem"></i></div>
-                            <div class="imagem-container"><i class="bi bi-plus-circle imagem vermais"></i></div>
-                            <div class="imagem-container"><i class="bi bi-trash2"></i></div>
-                        </div>
-                    </div> -->
-                <!-- </div> -->
                 <div class="posts">
                     {% for pub in publicacoes %}
-                    <div class="post">
+                    <div class="post" data-id="{{ pub.id }}">
                         <div class="imagem-container">
                             {% if pub.foto_base64 %}
                             <img loading="lazy" src="data:image/jpeg;base64,{{ pub.foto_base64 }}" alt=""
