@@ -1,5 +1,5 @@
 // Defina o tempo limite de inatividade em milissegundos (por exemplo, 5 minutos)
-let inactivityTime = 0.2 * 60 * 1000; // 5 minutos em milissegundos
+let inactivityTime = 5 * 60 * 1000; // 5 minutos em milissegundos
 let timer;
 
 function resetTimer() {

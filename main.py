@@ -547,12 +547,12 @@ async def publicar(
         conn.close()
 
 
-@app.get("/index", response_class=HTMLResponse)
-async def index(request: Request):
-    conn = get_db()
-    cursor = conn.cursor(pymysql.cursors.DictCursor)
-    cursor.execute("SELECT id, nome FROM tags")
-    tags = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return templates.TemplateResponse("index.html", {"request": request, "tags": tags})
+# @app.get("/index", response_class=HTMLResponse)
+# async def index(request: Request):
+#     conn = get_db()
+#     cursor = conn.cursor(pymysql.cursors.DictCursor)
+#     cursor.execute("SELECT id, nome FROM tags")
+#     tags = cursor.fetchall()
+#     cursor.close()
+#     conn.close()
+#     return templates.TemplateResponse("index.html", {"request": request, "tags": tags})
