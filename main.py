@@ -320,24 +320,24 @@ async def delete_user(request: Request):
         cursor.close()
         conn.close()
 
-# @app.get("/perfil", response_class=HTMLResponse)
-# async def perfil_atualizar(request: Request, db=Depends(get_db)):
-#     user_id = request.session.get("user_id")
-#     if not user_id:
-#         return RedirectResponse(url="/login", status_code=303)
+@app.get("/perfil", response_class=HTMLResponse)
+async def perfil_atualizar(request: Request, db=Depends(get_db)):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=303)
 
-#     with db.cursor(pymysql.cursors.DictCursor) as cursor:
-#         cursor.execute("SELECT * FROM usuario WHERE id = %s", (user_id,))
-#         usuario = cursor.fetchone()
-#     db.close()
+    with db.cursor(pymysql.cursors.DictCursor) as cursor:
+        cursor.execute("SELECT * FROM usuario WHERE id = %s", (user_id,))
+        usuario = cursor.fetchone()
+    db.close()
 
-#     hoje = datetime.now().strftime("%d/%m/%Y %H:%M")
+    hoje = datetime.now().strftime("%d/%m/%Y %H:%M")
 
-#     return templates.TemplateResponse("perfilAtualizar.html", {
-#         "request": request,
-#         "usuario": usuario,
-#         "hoje": hoje
-#     })
+    return templates.TemplateResponse("perfilAtualizar.html", {
+        "request": request,
+        "usuario": usuario,
+        "hoje": hoje
+    })
 
 @app.post("/perfilAtualizar", response_class=HTMLResponse)
 async def perfil_atualizar_exe(
