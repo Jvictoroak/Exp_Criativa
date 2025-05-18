@@ -30,7 +30,7 @@ function prepararSalvar(id) {
     const telefone = telefoneInput.value.replace(/\D/g, ''); // Remove caracteres não numéricos para validação
     const data = document.getElementById(`data-${id}`).value;
     const fotoInput = document.getElementById(`foto-${id}`); // Novo campo para a imagem
-    const foto = fotoInput.files[0]; // Obtém o arquivo selecionado
+    const foto = fotoInput ? fotoInput.files[0] : null; // Obtém o arquivo selecionado apenas se existir
 
     const hoje = new Date().toISOString().split('T')[0]; // Data atual no formato YYYY-MM-DD
 
