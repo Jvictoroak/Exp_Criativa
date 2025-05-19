@@ -55,7 +55,6 @@ INSERT INTO usuario (nome, email, senha, telefone, data, admin) VALUES
 ('UsuarioPostly', 'usuariopostly@email.com', MD5('P@ssw0rd_postly'), '00000000000', '1900-01-01', FALSE);
 
 INSERT INTO tags (nome) VALUES
-('paisagens'),
 ('selfies'),
 ('comida'),
 ('animais'),
@@ -64,16 +63,11 @@ INSERT INTO tags (nome) VALUES
 ('moda'),
 ('fitness'),
 ('tecnologia'),
-('pretoEBranco'),
 ('colorido'),
 ('minimalista'),
 ('vintage'),
-('estiloUrbano'),
 ('natureza'),
-('amizade'),
-('família'),
 ('festas'),
-('trabalho'),
 ('hobby');
 
 
