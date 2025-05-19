@@ -4,11 +4,15 @@ const usuarioRegex = /^[A-Za-záàâãéèêíóôõúç\s\d]{3,20}$/;
 
 function habilitarEdicao(id) {
     document.getElementById(`nome-${id}`).disabled = false;
+    document.getElementById(`nome-${id}`).classList.add('editavel');
     document.getElementById(`email-${id}`).disabled = false;
+    document.getElementById(`email-${id}`).classList.add('editavel');
     const telefoneInput = document.getElementById(`telefone-${id}`);
     telefoneInput.disabled = false;
+    telefoneInput.classList.add('editavel');
     telefoneInput.maxLength = 11; // Limitar o campo a 11 caracteres
     document.getElementById(`data-${id}`).disabled = false;
+    document.getElementById(`data-${id}`).classList.add('editavel');
 }
 
 function formatarTelefone(input) {
