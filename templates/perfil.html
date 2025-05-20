@@ -165,6 +165,7 @@
                 <div class="posts">
                     {% for pub in publicacoes %}
                     <div class="post" data-id="{{ pub.id }}">
+                        <div class="titulo"><b>{{ pub.titulo }}</b></div>
                         <div class="imagem-container">
                             {% if pub.foto_base64 %}
                             <img loading="lazy" src="data:image/jpeg;base64,{{ pub.foto_base64 }}" alt=""
@@ -184,7 +185,6 @@
                             </div>
                             <div class="imagem-container"><i class="bi bi-trash2"></i></div>
                         </div>
-                        <div class="titulo"><b>{{ pub.titulo }}</b></div>
                         <div class="descricao">{{ pub.descricao }}</div>
                     </div>
                     {% else %}

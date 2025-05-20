@@ -3,7 +3,7 @@ main {  }
 /* .conteudo-cen { width: 100vw; }
 .conteudo-cen > .conteudo-1000 { width: 1000px; margin: 0 auto; } */
 
-.publicacoes .posts { display: flex; justify-content: space-between; width: 90%; flex-wrap: wrap; align-items: center; margin: 0 auto; gap: 10px 0; }
+.publicacoes .posts { display: flex; justify-content: flex-start; width: 90%; flex-wrap: wrap; align-items: center; margin: 0 auto; gap: 10px 14.8px;  align-items: start;}
 .publicacoes .posts .post { width: 24%; min-width: 150px;}
 .publicacoes .posts .post .interacao { display: flex; gap: 5px; margin: 5px 0 0; }
 .publicacoes .posts .post .interacao .imagem-container .bi-trash2 {color: #9e1c29; cursor: pointer;}
