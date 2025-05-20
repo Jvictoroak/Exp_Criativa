@@ -80,7 +80,7 @@
                             <img loading="lazy" src="../static/imagens/post_1.webp" alt="" class="imagem">
                             {% endif %}                        </div>
                         <div class="interacao">
-                            <div class="imagem-container"><i class="bi bi-heart imagem"></i></div> <!-- Ícone de curtida -->
+                            <div class="imagem-container" id="curtida{{ pub.id }}"><i class="bi bi-heart imagem"></i></div> <!-- Ícone de curtida -->
                             <div class="imagem-container"><i class="bi bi-chat imagem"></i></div> <!-- Ícone de comentário -->
                             <div class="imagem-container" id="vermais"><i class="bi bi-plus-circle imagem vermais"></i></div> <!-- Ícone de adição (+) -->
                             
@@ -153,5 +153,6 @@
     <!-- <script src="../static/js/geral/criar.js"></script> -->
     <script src="../static/js/index.js"></script>
     <script src="../static/js/geral/verificar_invatividade.js"></script>
+    <script src="../static/js/geral/curtida.js"></script>
 </body>
 </html>

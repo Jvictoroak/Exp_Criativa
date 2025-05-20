@@ -21,7 +21,13 @@ CREATE TABLE publicacao (
     fk_usuario_id int,
     titulo varchar(50),
     descricao varchar(300),
-    foto longblob
+    foto longblob,
+    curtidas int
+);
+
+CREATE TABLE curtidas (
+	fk_usuario_id int,
+    fk_publicacao_id int
 );
 
 CREATE TABLE tags (
@@ -39,11 +45,24 @@ ALTER TABLE publicacao ADD CONSTRAINT FK_publicacao_2
     FOREIGN KEY (fk_usuario_id)
     REFERENCES usuario (id)
     ON DELETE CASCADE;
+    
+
 
 ALTER TABLE tem ADD CONSTRAINT FK_tem_2
     FOREIGN KEY (fk_publicacao_id)
     REFERENCES publicacao (id)
     ON DELETE SET NULL;
+
+
+ALTER TABLE curtidas ADD CONSTRAINT FK_curtidas
+    FOREIGN KEY (fk_publicacao_id)
+    REFERENCES publicacao (id)
+    ON DELETE SET NULL;
+    
+ALTER TABLE curtidas ADD CONSTRAINT FK_curtidas_2
+FOREIGN KEY (fk_usuario_id)
+REFERENCES usuario (id)
+ON DELETE SET NULL;
 
 ALTER TABLE tem ADD CONSTRAINT FK_tem_3
     FOREIGN KEY (fk_tags_id)
