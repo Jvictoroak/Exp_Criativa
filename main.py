@@ -884,3 +884,34 @@ async def set_curtida(request: Request, data: dict = Body(None)):
     finally:
         cursor.close()
         conn.close()
+
+@app.post("/unsetCurtida")
+async def unset_curtida(request: Request, data: dict = Body(None)):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return JSONResponse({"error": "Não autenticado"}, status_code=401)
+
+    pub_id = None
+    if data:
+        pub_id = data.get("pub_id")
+    try:
+        pub_id = int(pub_id)
+    except (TypeError, ValueError):
+        pub_id = None
+    if pub_id is None:
+        return JSONResponse({"error": "ID da publicação não fornecido"}, status_code=400)
+
+    conn = get_db()
+    cursor = conn.cursor()
+    try:
+        cursor.execute(
+            "DELETE FROM curtidas WHERE fk_usuario_id = %s AND fk_publicacao_id = %s",
+            (user_id, pub_id)
+        )
+        conn.commit()
+        return JSONResponse({"success": True})
+    except Exception as e:
+        return JSONResponse({"error": str(e)}, status_code=500)
+    finally:
+        cursor.close()
+        conn.close()
