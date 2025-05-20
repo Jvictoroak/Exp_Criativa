@@ -19,6 +19,14 @@ document.querySelectorAll("[id^='curtida']").forEach(function(btn) {
         .then(response => response.json())
         .then(data => {
             console.log("Resposta da API:", data);
+            if (data.success) {
+                // Adiciona a classe 'curtido' ao ícone do coração
+                const heartIcon = this.querySelector(".bi-heart");
+                if (heartIcon) {
+                    heartIcon.classList.add("curtido", 'bi-heart-fill');
+                    heartIcon.classList.remove("bi-heart");
+                }
+            }
             // Aqui você pode atualizar o ícone, contador, etc.
         });
     });

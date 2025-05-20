@@ -70,6 +70,8 @@ async def index(request: Request):
     if not request.session.get('user_id'):
         return RedirectResponse(url="/login", status_code=303)
     
+    user_id = request.session.get('user_id')
+
     # Busca as tags no banco
     conn = get_db()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -85,7 +87,7 @@ async def index(request: Request):
             "SELECT tags.id, tags.nome FROM tags INNER JOIN tem ON tem.fk_tags_id = tags.id INNER JOIN publicacao AS p ON p.id = tem.fk_publicacao_id WHERE p.id = %s",
             (pub["id"],)
         )
-        tags_in_pub[pub["id"]] = cursor.fetchall()  # <-- esta linha deve estar dentro do for
+        tags_in_pub[pub["id"]] = cursor.fetchall()
     for pub in publicacoes:
         if pub["foto"]:
             pub["foto_base64"] = base64.b64encode(pub["foto"]).decode("utf-8")
@@ -95,10 +97,24 @@ async def index(request: Request):
             pub["foto_autor_base64"] = base64.b64encode(pub["foto_autor"]).decode("utf-8")
         else:
             pub["foto_autor_base64"] = None
+
+    # Buscar IDs das publicações curtidas pelo usuário atual
+    cursor.execute("SELECT fk_publicacao_id FROM curtidas WHERE fk_usuario_id = %s", (user_id,))
+    curtidas_usuario = set(row["fk_publicacao_id"] for row in cursor.fetchall())
+
     cursor.close()
     conn.close()
-    # Passa as tags e publicações para o template
-    return templates.TemplateResponse("index.html", {"request": request, "tags": tags, "publicacoes": publicacoes, "tags_in_pub": tags_in_pub})
+    # Passa as tags, publicações e curtidas para o template
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "tags": tags,
+            "publicacoes": publicacoes,
+            "tags_in_pub": tags_in_pub,
+            "curtidas_usuario": curtidas_usuario
+        }
+    )
 
 @app.get("/logout")
 async def logout(request: Request):
