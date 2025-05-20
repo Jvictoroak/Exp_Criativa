@@ -60,8 +60,13 @@
                     <li class="post ativo" data-tags='{{ tags_in_pub[pub.id]|map(attribute="id")|list|tojson }}'>
                         <div class="perfil">
                             <div class="imagem-container">
-                                <img loading="lazy" src="/static/imagens/user.webp" alt="" class="imagem">
+                             {% if pub.foto_autor_base64 %}
+                                <img src="data:image/jpeg;base64,{{ pub.foto_autor_base64 }}" alt="Foto do autor" class="foto-perfil-mini">
+                                {% else %}
+                                <!-- <img src="../static/imagens/user.webp" alt="Foto do autor" class="foto-perfil-mini"> -->
+                                {% endif %} 
                             </div>
+                            
                             <div class="textos">
                                 <div class="texto "><p>{{ pub.autor }}</p></div>
                                 <div class="texto "><p>{{ pub.titulo }}</p></div>

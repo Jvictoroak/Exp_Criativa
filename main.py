@@ -76,7 +76,7 @@ async def index(request: Request):
     cursor.execute("SELECT id, nome FROM tags")
     tags = cursor.fetchall()
     # Buscar todas as publicações com foto
-    cursor.execute("SELECT publicacao.id, publicacao.titulo, publicacao.descricao, publicacao.foto, usuario.nome as autor FROM publicacao JOIN usuario ON usuario.id = publicacao.fk_usuario_id ORDER BY publicacao.id DESC")
+    cursor.execute("SELECT publicacao.id, publicacao.titulo, publicacao.descricao, publicacao.foto, usuario.nome as autor, usuario.foto as foto_autor FROM publicacao JOIN usuario ON usuario.id = publicacao.fk_usuario_id ORDER BY publicacao.id DESC")
     publicacoes = cursor.fetchall()
 
     tags_in_pub = {}
@@ -91,6 +91,10 @@ async def index(request: Request):
             pub["foto_base64"] = base64.b64encode(pub["foto"]).decode("utf-8")
         else:
             pub["foto_base64"] = None
+        if pub.get("foto_autor"):
+            pub["foto_autor_base64"] = base64.b64encode(pub["foto_autor"]).decode("utf-8")
+        else:
+            pub["foto_autor_base64"] = None
     cursor.close()
     conn.close()
     # Passa as tags e publicações para o template
