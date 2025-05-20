@@ -15,8 +15,8 @@ const confirmarExclusao = () => {
         text: "Essa ação não pode ser desfeita!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
+        confirmButtonColor: '#7066e0',
+        cancelButtonColor: ' #6e7881',
         confirmButtonText: 'Sim, excluir!',
         cancelButtonText: 'Cancelar'
     }).then((result) => {
@@ -301,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (confirmarSenhaInput) confirmarSenhaInput.removeAttribute("required");
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.bi-trash2').forEach(trashIcon => {
         trashIcon.addEventListener('click', function (e) {
             e.stopPropagation();
@@ -317,8 +317,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 text: "Deseja realmente excluir esta publicação?",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
+                confirmButtonColor: '#7066e0',
+                cancelButtonColor: ' #6e7881',
                 confirmButtonText: 'Sim, excluir!',
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
@@ -330,20 +330,45 @@ document.addEventListener('DOMContentLoaded', function() {
                         },
                         body: JSON.stringify({ id: postId })
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            postEl.remove();
-                            Swal.fire('Excluído!', 'A publicação foi excluída.', 'success');
-                        } else {
-                            Swal.fire('Erro', data.error || 'Não foi possível excluir a publicação.', 'error');
-                        }
-                    })
-                    .catch(() => {
-                        Swal.fire('Erro', 'Não foi possível excluir a publicação.', 'error');
-                    });
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                postEl.remove();
+                                Swal.fire('Excluído!', 'A publicação foi excluída.', 'success');
+                            } else {
+                                Swal.fire('Erro', data.error || 'Não foi possível excluir a publicação.', 'error');
+                            }
+                        })
+                        .catch(() => {
+                            Swal.fire('Erro', 'Não foi possível excluir a publicação.', 'error');
+                        });
                 }
             });
         });
     });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const formPublicar = document.getElementById('form-publicar');
+    if (formPublicar) {
+        formPublicar.addEventListener('submit', function (e) {
+            // Validação simples dos campos obrigatórios
+            const titulo = document.getElementById('titulo-input').value.trim();
+            const imagem = document.getElementById('criar-imagem').files[0];
+            if (!titulo || !imagem) {
+                e.preventDefault();
+                errorAlert('Preencha os campos de imagem e título, eles são obrigatórios!');
+                return;
+            }
+            // Mensagem de sucesso (apenas visual, não impede submit real)
+            e.preventDefault();
+            Swal.fire({
+                icon: 'success',
+                title: 'Publicação criada com sucesso!',
+                confirmButtonText: 'OK',
+            }).then(() => {
+                formPublicar.submit();
+            });
+        });
+    }
 });

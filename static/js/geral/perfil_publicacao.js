@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('form-publicar').reset();
         document.getElementById('form-publicar').action = "/publicar";
         document.getElementById('publicar-btn').value = "PUBLICAR";
-        document.getElementById('criar-imagem').required = true;
+        // document.getElementById('criar-imagem').required = true;
     });
     // Corrige o botão de fechar do popup de criar
     document.getElementById('fechar-criar').addEventListener('click', function() {
