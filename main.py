@@ -915,3 +915,8 @@ async def unset_curtida(request: Request, data: dict = Body(None)):
     finally:
         cursor.close()
         conn.close()
+
+# Exemplo de rota para depuração: mostra o conteúdo da sessão atual
+@app.get("/debug_session")
+async def debug_session(request: Request):
+    return JSONResponse({"session": dict(request.session)})
