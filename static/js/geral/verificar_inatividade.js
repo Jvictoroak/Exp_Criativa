@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Defina o tempo limite de inatividade em milissegundos
-    let inactivityTime = 10 * 60 * 1000; // 12 segundos, por exemplo
+    let inactivityTime = 0.2 * 60 * 1000; // 12 segundos, por exemplo
     let timer;
 
     function resetTimer() {
@@ -10,8 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function logoutUser() {
-        console.log('Usuário inativo por 2 minutos, redirecionando para login...');
-        window.location.href = '/login'; // Redireciona para a página de login
+        console.log('Usuário inativo por 2 minutos, encerrando sessão...');
+        fetch('/logout', { credentials: 'include' })
+            .then(() => {
+                window.location.href = '/login';
+            })
+            .catch(() => {
+                window.location.href = '/login';
+            });
     }
 
     // Define o timer ao carregar a página
