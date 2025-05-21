@@ -81,6 +81,15 @@ async def index(request: Request):
     cursor.execute("SELECT publicacao.id, publicacao.titulo, publicacao.descricao, publicacao.foto, usuario.nome as autor, usuario.foto as foto_autor FROM publicacao JOIN usuario ON usuario.id = publicacao.fk_usuario_id ORDER BY publicacao.id DESC")
     publicacoes = cursor.fetchall()
 
+    # Buscar quantidade de curtidas para cada publicação
+    pub_ids = [pub["id"] for pub in publicacoes]
+    if pub_ids:
+        format_strings = ','.join(['%s'] * len(pub_ids))
+        cursor.execute(f"SELECT fk_publicacao_id, COUNT(*) as qtd FROM curtidas WHERE fk_publicacao_id IN ({format_strings}) GROUP BY fk_publicacao_id", tuple(pub_ids))
+        curtidas_por_pub = {row["fk_publicacao_id"]: row["qtd"] for row in cursor.fetchall()}
+    else:
+        curtidas_por_pub = {}
+
     tags_in_pub = {}
     for pub in publicacoes:
         cursor.execute(
@@ -97,6 +106,7 @@ async def index(request: Request):
             pub["foto_autor_base64"] = base64.b64encode(pub["foto_autor"]).decode("utf-8")
         else:
             pub["foto_autor_base64"] = None
+        pub["qtd_curtidas"] = curtidas_por_pub.get(pub["id"], 0)
 
     # Buscar IDs das publicações curtidas pelo usuário atual
     cursor.execute("SELECT fk_publicacao_id FROM curtidas WHERE fk_usuario_id = %s", (user_id,))
@@ -297,11 +307,19 @@ async def get_perfil_page(request: Request):
         # Publicações do usuário (corrigido: só do usuário logado)
         cursor.execute("SELECT id, titulo, descricao, foto FROM publicacao WHERE fk_usuario_id = %s ORDER BY id DESC", (user_id,))
         publicacoes = cursor.fetchall()
+        pub_ids = [pub["id"] for pub in publicacoes]
+        if pub_ids:
+            format_strings = ','.join(['%s'] * len(pub_ids))
+            cursor.execute(f"SELECT fk_publicacao_id, COUNT(*) as qtd FROM curtidas WHERE fk_publicacao_id IN ({format_strings}) GROUP BY fk_publicacao_id", tuple(pub_ids))
+            curtidas_por_pub = {row["fk_publicacao_id"]: row["qtd"] for row in cursor.fetchall()}
+        else:
+            curtidas_por_pub = {}
         for pub in publicacoes:
             if pub["foto"]:
                 pub["foto_base64"] = base64.b64encode(pub["foto"]).decode("utf-8")
             else:
                 pub["foto_base64"] = None
+            pub["qtd_curtidas"] = curtidas_por_pub.get(pub["id"], 0)
 
         # Buscar tags para exibir na publicação/criação
         cursor.execute("SELECT id, nome FROM tags")
@@ -474,8 +492,9 @@ async def perfil_atualizar_exe(
         "nome_usuario": request.session.get("user_name", None)
     })
     # Substitua a rota GET /perfil por esta versão:
+
 @app.get("/perfil", response_class=HTMLResponse)
-async def get_perfil_page(request: Request):
+async def get_perfil_page(request: Request):    
     user_id = request.session.get('user_id')
     if not user_id:
         return RedirectResponse(url="/login", status_code=303)
@@ -495,6 +514,7 @@ async def get_perfil_page(request: Request):
                 pub["foto_base64"] = base64.b64encode(pub["foto"]).decode("utf-8")
             else:
                 pub["foto_base64"] = None
+            pub["qtd_curtidas"] = curtidas_por_pub.get(pub["id"], 0)
 
         # Foto do perfil
         foto_base64 = None

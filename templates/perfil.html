@@ -166,6 +166,9 @@
                     {% for pub in publicacoes %}
                     <div class="post" data-id="{{ pub.id }}">
                         <div class="titulo"><b>{{ pub.titulo }}</b></div>
+                        <div class="curtidas-qtd texto" style="margin-bottom: 2px; color: rgb(212, 74, 125);">
+                            <i class="bi bi-heart-fill"></i> {{ pub.qtd_curtidas }} curtida{{ 's' if pub.qtd_curtidas != 1 else '' }}
+                        </div>
                         <div class="imagem-container">
                             {% if pub.foto_base64 %}
                             <img loading="lazy" src="data:image/jpeg;base64,{{ pub.foto_base64 }}" alt=""

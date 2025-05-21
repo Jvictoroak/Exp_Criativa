@@ -67,19 +67,22 @@
                                 <img src="../static/imagens/user.webp" alt="Foto do autor" class="foto-perfil-mini">
                                 {% endif %} 
                             </div>
-                            
                             <div class="textos">
-                                <div class="texto "><p>{{ pub.autor }}</p></div>
-                                <div class="texto "><p>{{ pub.titulo }}</p></div>
+                                <div class="texto" style="font-size: 20px;"><p>{{ pub.autor }}</p></div>
                             </div>
                         </div>
-                        <div class="texto">{{ pub.descricao }}</div>
+                        <div class="texto "><p>{{ pub.titulo }}</p></div>
+                        <div class="curtidas-qtd texto" style="margin-bottom: 2px; color: rgb(212, 74, 125);">
+                            <i class="bi bi-heart-fill"></i> {{ pub.qtd_curtidas }} curtida{{ 's' if pub.qtd_curtidas != 1 else '' }}
+                        </div>
                         <div class="imagem-container">
                             {% if pub.foto_base64 %}
                             <img loading="lazy" src="data:image/jpeg;base64,{{ pub.foto_base64 }}" alt="" class="imagem">
                             {% else %}
                             <img loading="lazy" src="../static/imagens/post_1.webp" alt="" class="imagem">
-                            {% endif %}                        </div>
+                            {% endif %}
+                        </div>
+                        <div class="texto">{{ pub.descricao }}</div>
                         <div class="interacao">
                             <div class="imagem-container" id="curtida{{ pub.id }}">
                                 <i class="bi imagem{% if pub.id in curtidas_usuario %} curtido bi-heart-fill {% else %} bi-heart {% endif %}"></i>

@@ -26,6 +26,7 @@ CREATE TABLE publicacao (
 );
 
 CREATE TABLE curtidas (
+	id INT PRIMARY KEY AUTO_INCREMENT,
 	fk_usuario_id int,
     fk_publicacao_id int
 );
@@ -45,14 +46,11 @@ ALTER TABLE publicacao ADD CONSTRAINT FK_publicacao_2
     FOREIGN KEY (fk_usuario_id)
     REFERENCES usuario (id)
     ON DELETE CASCADE;
-    
-
 
 ALTER TABLE tem ADD CONSTRAINT FK_tem_2
     FOREIGN KEY (fk_publicacao_id)
     REFERENCES publicacao (id)
     ON DELETE SET NULL;
-
 
 ALTER TABLE curtidas ADD CONSTRAINT FK_curtidas
     FOREIGN KEY (fk_publicacao_id)
@@ -60,9 +58,9 @@ ALTER TABLE curtidas ADD CONSTRAINT FK_curtidas
     ON DELETE SET NULL;
     
 ALTER TABLE curtidas ADD CONSTRAINT FK_curtidas_2
-FOREIGN KEY (fk_usuario_id)
-REFERENCES usuario (id)
-ON DELETE SET NULL;
+	FOREIGN KEY (fk_usuario_id)
+	REFERENCES usuario (id)
+	ON DELETE SET NULL;
 
 ALTER TABLE tem ADD CONSTRAINT FK_tem_3
     FOREIGN KEY (fk_tags_id)
@@ -88,5 +86,3 @@ INSERT INTO tags (nome) VALUES
 ('natureza'),
 ('festas'),
 ('hobby');
-
-
