@@ -156,15 +156,6 @@ async def register_user(
     except Exception as e:
         return templates.TemplateResponse("register.html", {"request": request, "erro": "Erro ao verificar usuário."})
     
-    try:
-        # Verificar se o nome de usuário já existe
-        query = "SELECT COUNT(*) FROM usuario WHERE email = %s"
-        cursor.execute(query, (email))
-        if cursor.fetchone()[0] > 0:
-            return templates.TemplateResponse("register.html", {"request": request, "erro": "Email já cadastrado."})
-    except Exception as e:
-        return templates.TemplateResponse("register.html", {"request": request, "erro": "Erro ao verificar usuário."})
-    
     # Validação no backend
     if len(usuario) < 3 or len(usuario) > 20:
         return templates.TemplateResponse("register.html", {"request": request, "erro": "O nome de usuário deve ter entre 3 e 20 caracteres."})
@@ -175,7 +166,7 @@ async def register_user(
     if senha != confirmar_senha:
         return templates.TemplateResponse("register.html", {"request": request, "erro": "As senhas não coincidem."})
     if not re.match(r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$", senha):
-        return templates.TemplateResponse("register.html", {"request": request, "erro": "A senha deve conter entre 8 e 20 caracteres, incluindo pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial."})    
+        return templates.TemplateResponse("register.html", {"request": request, "erro": "A senha deve conter entre 8 e 20 caracteres, incluindo pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial."})
     try:
         nascimento_date = datetime.strptime(nascimento, "%Y-%m-%d").date()
         if nascimento_date > date.today():

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Defina o tempo limite de inatividade em milissegundos
-    let inactivityTime = 20 * 60 * 1000; // 12 segundos, por exemplo
+    let inactivityTime = 0.2 * 60 * 1000; // 12 segundos, por exemplo
     let timer;
 
     function resetTimer() {
