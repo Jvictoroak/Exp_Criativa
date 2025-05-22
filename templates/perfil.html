@@ -17,7 +17,7 @@
 </head>
 
 <body>
-      <section id="navbar" class="navbar">
+    <section id="navbar" class="navbar">
         <section class="sidebar conteudo-esq">
             <div class="logo">
                 <div class="imagem-container"><img src="../static/imagens/logo.webp" alt="" class="imagem"></div>
@@ -73,32 +73,37 @@
                 <p></p>
                 <span class="texto">{{ request.session.user_name }}</span>
             </div> -->
-<div class="criar" id="criar" style="display: none;">
-  <div class="conteudo">
-    <form id="form-publicar" action="/publicar" method="post" enctype="multipart/form-data" class="formulario">
-        <input type="file" id="criar-imagem" name='foto' class="item criar-imagem" accept="image/png, image/jpeg, image/jpg, image/gif">
-      
-      <label for="titulo-input">Titulo da Publicação:</label>
-      <input name='titulo' type="text" id="titulo-input" class="item"> 
-      
-      <label for="descricao-input">Descrição da Publicação:</label>
-      <input name='descricao' type="text" id="descricao-input" class="item"> 
-      
-        <div class="tags">
-        <div class="texto"><p>Tags da Publicação:</p></div>
-        <div class="seletor">
-            {% for tag in tags %}
-            <label class="tag texto t1">
-                <input type="checkbox" name="tags" value="{{ tag.id }}"> <p>{{ tag.nome }}</p>
-            </label>
-            {% endfor %}
-        </div>
-        </div>
-      <input type="submit" value="PUBLICAR" class="item publicar" id="publicar-btn">
-    </form>
-    <div id="fechar-criar" class="fechar">X</div>
-  </div>
-</div>
+            <div class="criar" id="criar" style="display: none;">
+                <div class="conteudo">
+                    <form id="form-publicar" action="/publicar" method="post" enctype="multipart/form-data"
+                        class="formulario">
+                        <input type="file" id="criar-imagem" name='foto' class="item criar-imagem"
+                            accept="image/png, image/jpeg, image/jpg, image/gif">
+
+                        <label for="titulo-input">Titulo da Publicação:</label>
+                        <input name='titulo' type="text" id="titulo-input" class="item">
+
+                        <label for="descricao-input">Descrição da Publicação:</label>
+                        <input name='descricao' type="text" id="descricao-input" class="item">
+
+                        <div class="tags">
+                            <div class="texto">
+                                <p>Tags da Publicação:</p>
+                            </div>
+                            <div class="seletor">
+                                {% for tag in tags %}
+                                <label class="tag texto t1">
+                                    <input type="checkbox" name="tags" value="{{ tag.id }}">
+                                    <p>{{ tag.nome }}</p>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <input type="submit" value="PUBLICAR" class="item publicar" id="publicar-btn">
+                    </form>
+                    <div id="fechar-criar" class="fechar">X</div>
+                </div>
+            </div>
         </section>
     </section>
     <main>
@@ -163,12 +168,17 @@
                             </div>
                         </div>
                     </div>
+                    <hr class="linha-verde" style="border: none; border-top: 1px solid var(--branco); margin: 10px 0;">
                 </div>
 
                 <div class="posts">
                     {% for pub in publicacoes %}
                     <div class="post" data-id="{{ pub.id }}">
                         <div class="titulo"><b>{{ pub.titulo }}</b></div>
+                        <div class="curtidas-qtd texto" style="margin-bottom: 2px; color: rgb(212, 74, 125);">
+                            <i class="bi bi-heart-fill"></i> {{ pub.qtd_curtidas }} curtida{{ 's' if pub.qtd_curtidas !=
+                            1 else '' }}
+                        </div>
                         <div class="imagem-container">
                             {% if pub.foto_base64 %}
                             <img loading="lazy" src="data:image/jpeg;base64,{{ pub.foto_base64 }}" alt=""
@@ -177,18 +187,20 @@
                             <img loading="lazy" src="../static/imagens/post_1.webp" alt="" class="imagem">
                             {% endif %}
                         </div>
+                        <div class="descricao">{{ pub.descricao }}</div>
                         <div class="interacao">
                             <!-- <div class="imagem-container"><i class="bi bi-heart imagem"></i></div> -->
                             <div class="imagem-container"><i class="bi bi-chat imagem vermais"></i></div>
                             <!-- <div class="imagem-container"><i class="bi bi-plus-circle imagem"></i></div> -->
                             <div class="imagem-container">
-                                <a href="#" title="Editar publicação" class="editar-publicacao-btn" data-pub-id="{{ pub.id }}">
+                                <a href="#" title="Editar publicação" class="editar-publicacao-btn"
+                                    data-pub-id="{{ pub.id }}">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
                             </div>
                             <div class="imagem-container"><i class="bi bi-trash2"></i></div>
                         </div>
-                        <div class="descricao">{{ pub.descricao }}</div>
+
                     </div>
                     {% else %}
                     <p>Você ainda não publicou nada.</p>
@@ -312,4 +324,5 @@
     <script src="../static/js/geral/verificar_inatividade.js"></script>
     <script src="../static/js/geral/perfil_publicacao.js"></script>
 </body>
+
 </html>
