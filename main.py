@@ -378,24 +378,6 @@ async def delete_user(request: Request):
         cursor.close()
         conn.close()
 
-@app.get("/perfil", response_class=HTMLResponse)
-async def perfil_atualizar(request: Request, db=Depends(get_db)):
-    user_id = request.session.get("user_id")
-    if not user_id:
-        return RedirectResponse(url="/login", status_code=303)
-
-    with db.cursor(pymysql.cursors.DictCursor) as cursor:
-        cursor.execute("SELECT * FROM usuario WHERE id = %s", (user_id,))
-        usuario = cursor.fetchone()
-    db.close()
-
-    hoje = datetime.now().strftime("%d/%m/%Y %H:%M")
-
-    return templates.TemplateResponse("perfilAtualizar.html", {
-        "request": request,
-        "usuario": usuario,
-        "hoje": hoje
-    })
 
 @app.post("/perfilAtualizar", response_class=HTMLResponse)
 async def perfil_atualizar_exe(
@@ -493,54 +475,6 @@ async def perfil_atualizar_exe(
     })
     # Substitua a rota GET /perfil por esta versão:
 
-@app.get("/perfil", response_class=HTMLResponse)
-async def get_perfil_page(request: Request):    
-    user_id = request.session.get('user_id')
-    if not user_id:
-        return RedirectResponse(url="/login", status_code=303)
-    
-    conn = get_db()
-    cursor = conn.cursor(pymysql.cursors.DictCursor)
-    try:
-        # Dados do usuário
-        cursor.execute("SELECT nome, email, telefone, data, foto FROM usuario WHERE id = %s", (user_id,))
-        user_data = cursor.fetchone()
-
-        # Publicações do usuário
-        cursor.execute("SELECT id, titulo, descricao, foto FROM publicacao ORDER BY id DESC")
-        publicacoes = cursor.fetchall()
-        for pub in publicacoes:
-            if pub["foto"]:
-                pub["foto_base64"] = base64.b64encode(pub["foto"]).decode("utf-8")
-            else:
-                pub["foto_base64"] = None
-            pub["qtd_curtidas"] = curtidas_por_pub.get(pub["id"], 0)
-
-        # Foto do perfil
-        foto_base64 = None
-        foto_tipo = None
-        if user_data and user_data["foto"]:
-            tipo = imghdr.what(None, h=user_data["foto"])
-            foto_tipo = f"image/{tipo}" if tipo else "image/jpeg"
-            foto_base64 = base64.b64encode(user_data["foto"]).decode('utf-8')
-
-        return templates.TemplateResponse(
-            "perfil.html",
-            {
-                "request": request,
-                "nome": user_data["nome"] if user_data else "",
-                "email": user_data["email"] if user_data else "",
-                "telefone": user_data["telefone"] if user_data else "",
-                "data_nascimento": user_data["data"] if user_data else "",
-                "foto_base64": foto_base64,
-                "foto_tipo": foto_tipo,
-                "publicacoes": publicacoes
-            }
-        )
-
-    finally:
-        cursor.close()
-        conn.close()
 #-------------------------------------------------------------------------------------------------------------
 #LISTA DE USUÁRIOS
 #   Verificando se o ID do usuário é 1 (administrador)
